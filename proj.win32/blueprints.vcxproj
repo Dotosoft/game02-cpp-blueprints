@@ -163,6 +163,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\colorsmasher\GameWorldScene.h" />
     <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h" />
     <ClInclude Include="..\Classes\dragondash\AppDelegate.h" />
+    <ClInclude Include="..\Classes\dragondash\DragonDashDefinition.h" />
     <ClInclude Include="..\Classes\dragondash\DragonManager.h" />
     <ClInclude Include="..\Classes\dragondash\FairyTaleManager.h" />
     <ClInclude Include="..\Classes\dragondash\GameWorldScene.h" />

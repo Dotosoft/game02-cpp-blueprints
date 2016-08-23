@@ -93,6 +93,9 @@
     <ClInclude Include="..\Classes\dragondash\DragonManager.h">
       <Filter>src\dragondash</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\DragonDashDefinition.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\colorsmasher\CloseNormal.png">

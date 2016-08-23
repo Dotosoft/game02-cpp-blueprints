@@ -5,11 +5,15 @@
 #include "SimpleAudioEngine.h"
 
 #include "..\Resources.h"
+#include "DragonDashDefinition.h"
 
 USING_NS_CC;
 
 class MainMenu : public cocos2d::Layer
 {
+	Size screenSize;
+	SpriteBatchNode* spriteBatchNode;
+
 	public:
 		static cocos2d::Scene* createScene();
 
@@ -20,6 +24,10 @@ class MainMenu : public cocos2d::Layer
 
 		// implement the "static create()" method manually
 		CREATE_FUNC(MainMenu);
+
+	private:
+		void addDragonAnimation();
+		void addDragon();
 };
 
 #endif // _DRAGONDASH_HELLOWORLD_SCENE_H_

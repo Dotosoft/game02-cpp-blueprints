@@ -6,4 +6,7 @@
 #define RESOURCES_IMAGE_BUTTON_PAUSE		"colorsmasher/pause_button.png"
 #define RESOURCES_IMAGE_BUTTON_PLAY			"colorsmasher/play_button.png"
 
+#define RESOURCES_IMAGE_SHEET_DRAGON		"dragondash/dhtex.png"
+#define RESOURCES_PLIST_SHEET_DRAGON		"dragondash/dhtex.plist"
+
 #endif // _BLUEPRINT_RESOURCE_H_
