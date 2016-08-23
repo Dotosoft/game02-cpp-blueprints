@@ -1,11 +1,11 @@
-#ifndef _DRAGONDASH_HELLOWORLD_SCENE_H_
-#define _DRAGONDASH_HELLOWORLD_SCENE_H_
+#ifndef _DRAGONDASH_MAINMENU_SCENE_H_
+#define _DRAGONDASH_MAINMENU_SCENE_H_
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
 #include "..\Resources.h"
-#include "DragonDashDefinition.h"
+#include "dragondash\DragonDashDefinition.h"
 
 USING_NS_CC;
 
@@ -30,4 +30,4 @@ class MainMenu : public cocos2d::Layer
 		void addDragon();
 };
 
-#endif // _DRAGONDASH_HELLOWORLD_SCENE_H_
+#endif // _DRAGONDASH_MAINMENU_SCENE_H_

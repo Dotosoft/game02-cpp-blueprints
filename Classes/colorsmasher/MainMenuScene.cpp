@@ -1,4 +1,4 @@
-#include "MainMenuScene.h"
+#include "colorsmasher\MainMenuScene.h"
 
 Scene* MainMenu::createScene()
 {

@@ -1,5 +1,5 @@
-#ifndef _DRAGONDASH_GAMEWORLD_SCENE_H_
-#define _DRAGONDASH_GAMEWORLD_SCENE_H_
+#ifndef _DRAGONDASH_FAIRYTALEMANAGER_SCENE_H_
+#define _DRAGONDASH_FAIRYTALEMANAGER_SCENE_H_
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
@@ -12,4 +12,4 @@ class FairyTaleManager : public cocos2d::Ref
 {
 };
 
-#endif // _DRAGONDASH_GAMEWORLD_SCENE_H_
+#endif // _DRAGONDASH_FAIRYTALEMANAGER_SCENE_H_

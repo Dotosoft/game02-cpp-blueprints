@@ -1,11 +1,11 @@
 #ifndef _COLORSMASH_HELLOWORLD_SCENE_H_
 #define _COLORSMASH_HELLOWORLD_SCENE_H_
 
-#include "SimpleAudioEngine.h"
-#include "cocos2d.h"
 #include <math.h>
-#include "ColourSmashDefinition.h"
-#include "GameWorldScene.h"
+#include "cocos2d.h"
+#include "SimpleAudioEngine.h"
+#include "colorsmasher\ColourSmashDefinition.h"
+#include "colorsmasher\GameWorldScene.h"
 
 USING_NS_CC;
 

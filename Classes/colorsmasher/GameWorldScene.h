@@ -9,9 +9,9 @@
 #include "ui/CocosGUI.h"
 #include "SimpleAudioEngine.h"
 
-#include "ColourSmashDefinition.h"
+#include "colorsmasher\ColourSmashDefinition.h"
 #include "..\Resources.h"
-#include "MainMenuScene.h"
+#include "colorsmasher\MainMenuScene.h"
 
 USING_NS_CC;
 

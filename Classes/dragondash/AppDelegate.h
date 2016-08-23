@@ -2,7 +2,7 @@
 #define  _DRAGONDASH_APP_DELEGATE_H_
 
 #include "cocos2d.h"
-
+#include "dragondash\MainMenuScene.h"
 
 /**
 @brief    The cocos2d Application.

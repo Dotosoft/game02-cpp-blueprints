@@ -1,5 +1,5 @@
-#include "AppDelegate.h"
-#include "MainMenuScene.h"
+#include "colorsmasher\AppDelegate.h"
+#include "colorsmasher\MainMenuScene.h"
 
 USING_NS_CC;
 

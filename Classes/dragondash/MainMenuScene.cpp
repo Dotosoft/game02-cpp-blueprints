@@ -73,6 +73,9 @@ void MainMenu::addDragon()
 	dragonSprite->runAction(RepeatForever::create(Animate::create(animation)));
 
 	// create a hover movement and repeat it on the dragon's sprite
-	auto flySequence = Sequence::create(EaseSineOut::create(MoveBy::create(animation->getDuration() / 2, Vec2(0, 10))), EaseSineOut::create(MoveBy::create(animation->getDuration() / 2, Vec2(0, -10))));
+	auto flySequence = Sequence::create(
+		EaseSineOut::create(MoveBy::create(animation->getDuration() / 2, Vec2(0, 10))), 
+		EaseSineOut::create(MoveBy::create(animation->getDuration() / 2, Vec2(0, -10))),
+		NULL);
 	dragonSprite->runAction(RepeatForever::create(flySequence));
 }

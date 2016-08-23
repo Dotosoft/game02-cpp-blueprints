@@ -1,4 +1,4 @@
-#include "GameWorldScene.h"
+#include "colorsmasher\GameWorldScene.h"
 
 Scene* GameWorld::createScene()
 {
