@@ -25,7 +25,7 @@ bool GameWorld::init()
         return false;
     }
 
-	// auto tileSpriteTmp = Sprite::create("tile.png");
+	// auto tileSpriteTmp = Sprite::create(RESOURCES_IMAGE_TILE);
     // cocos2d::log("total width ::  %f", tileSpriteTmp->getContentSize().height); // 7.5
 
     // this->tilesToRemove = Vector<E_COLOUR_TYPE>();
@@ -127,7 +127,7 @@ void GameWorld::calculateScreensize()
 	// smallResolutionSize: 320.000000, 480.000000 => 0.575
 	// mediumResolutionSize: 768.000000, 1024.000000 => 1.25
 	// largeResolutionSize: 1536.000000, 2048.000000 => 2.5
-	auto tileWidth = Sprite::create("tile.png")->getContentSize().width;
+	auto tileWidth = Sprite::create(RESOURCES_IMAGE_TILE)->getContentSize().width;
 	float borderOffsetCalc = screenSize.width * BORDER_OFFSET;
 	this->TILE_SIZE = (screenSize.width - borderOffsetCalc) / NUM_COLS;
 	this->GAMEPLAY_OFFSET = Vec2(borderOffsetCalc / 2, borderOffsetCalc);
@@ -156,13 +156,13 @@ void GameWorld::createBackground()
 	this->addChild(gamePlayFrame);
 
 	// label to show the title of the game
-	auto titleLabel = Label::createWithTTF("ColourSmash", "fonts/Comic Sans MS.ttf", 32);
+	auto titleLabel = Label::createWithTTF("ColourSmash", RESOURCES_FONT_COMIC_SANS, 32);
 	titleLabel->setPosition( Vec2(this->screenSize.width * 0.5, this->screenSize.height * 0.925) );
 	this->addChild(titleLabel);
 
 	// menu containing a button to pause the game
-	auto pauseButtonNormal = Sprite::create("pause_button.png");
-	auto pauseButtonClicked = Sprite::create("pause_button.png");
+	auto pauseButtonNormal = Sprite::create(RESOURCES_IMAGE_BUTTON_PAUSE);
+	auto pauseButtonClicked = Sprite::create(RESOURCES_IMAGE_BUTTON_PAUSE);
 	this->pauseButton = MenuItemSprite::create(pauseButtonNormal, pauseButtonClicked, this, menu_selector(GameWorld::onPauseClicked));
 	this->pauseButton->setPosition( Vec2(this->screenSize.width * 0.875, this->screenSize.height * 0.925));
 	this->pauseButton->setEnabled(false);
@@ -189,7 +189,7 @@ void GameWorld::createTileSprites()
 	// create the batch node passing in path to the texture & initial capacity
 	// initial capacity is slightly more than maximum number of sprites
 	// this is because new tiles may be added before old tiles are removed
-	this->spriteBatchNode = SpriteBatchNode::create("tile.png", NUM_COLS * NUM_ROWS + NUM_ROWS);
+	this->spriteBatchNode = SpriteBatchNode::create(RESOURCES_IMAGE_TILE, NUM_COLS * NUM_ROWS + NUM_ROWS);
 
 	for (int i = 0; i < (NUM_COLS * NUM_ROWS); i++)
 	{
@@ -202,7 +202,7 @@ void GameWorld::createTileSprite(int tileId)
 {
 	// CCLOG("createTileSprites");
 	// create sprite with the image
-	auto tileTmp = Sprite::create("tile.png");
+	auto tileTmp = Sprite::create(RESOURCES_IMAGE_TILE);
 	tileTmp->setScale(this->tileZoomFactor);
 	// set colour based on the tile's data
 	E_COLOUR_TYPE colorType = this->tileData.at(tileId);
@@ -238,11 +238,11 @@ void GameWorld::createHUD()
 	this->time = 60;
 
 	// create labels for score and time
-	this->scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), "fonts/Comic Sans MS.ttf", 18);
+	this->scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), RESOURCES_FONT_COMIC_SANS, 18);
 	this->scoreLabel->setPosition(Point(this->screenSize.width * 0.33f, this->screenSize.height * 0.875f));
 	this->addChild(this->scoreLabel, 1);
 
-	this->timeLabel = Label::createWithTTF(__String::createWithFormat("Time: %d", this->time)->getCString(), "fonts/Comic Sans MS.ttf", 18);
+	this->timeLabel = Label::createWithTTF(__String::createWithFormat("Time: %d", this->time)->getCString(), RESOURCES_FONT_COMIC_SANS, 18);
 	this->timeLabel->setPosition(Point(this->screenSize.width * 0.66f, this->screenSize.height * 0.875f));
 	this->addChild(this->timeLabel, 1);
 }
@@ -253,7 +253,7 @@ void GameWorld::doCountdownAnimation()
 	std::vector <Label*> labels;
 	for (int i = 0; i<4;i++)
 	{
-		auto label = Label::createWithTTF("", "fonts/Comic Sans MS.ttf", 52);
+		auto label = Label::createWithTTF("", RESOURCES_FONT_COMIC_SANS, 52);
 		// position the label at the centre of the screen
 		label->setPosition(Point(this->screenSize.width / 2, this->screenSize.height / 2));
 		// reduce opacity so that the label is invisible
@@ -396,7 +396,7 @@ void GameWorld::updateScore(Vec2 point)
 void GameWorld::showScoreText(int scoreToAdd, Vec2 point) {
 	// CCLOG("showScoreText");
 	// create the label with the score & place it at the respective point
-	auto bonusLabel = Label::createWithTTF(__String::createWithFormat("+%d", scoreToAdd)->getCString(), "fonts/Comic Sans MS.ttf", 32);
+	auto bonusLabel = Label::createWithTTF(__String::createWithFormat("+%d", scoreToAdd)->getCString(), RESOURCES_FONT_COMIC_SANS, 32);
 	bonusLabel->setPosition(point);
 	// initially scale it down completely
 	bonusLabel->setScale(0);
@@ -597,15 +597,15 @@ void GameWorld::showPausePopup() {
 	this->addChild(this->popup, 10);
 
 	// create the continue button
-	auto continueButton = MenuItemLabel::create(Label::createWithTTF("Continue", "fonts/Comic Sans MS.ttf", 32), this, menu_selector(GameWorld::onContinueClicked));
+	auto continueButton = MenuItemLabel::create(Label::createWithTTF("Continue", RESOURCES_FONT_COMIC_SANS, 32), this, menu_selector(GameWorld::onContinueClicked));
 	continueButton->setPosition(Vec2(this->screenSize.width*0.5f, this->screenSize.height*0.6f));
 
 	// create the restart button
-	auto restartButton = MenuItemLabel::create(Label::createWithTTF("Restart", "fonts/Comic Sans MS.ttf", 32), this, menu_selector(GameWorld::onRestartClicked));
+	auto restartButton = MenuItemLabel::create(Label::createWithTTF("Restart", RESOURCES_FONT_COMIC_SANS, 32), this, menu_selector(GameWorld::onRestartClicked));
 	restartButton->setPosition(Vec2(this->screenSize.width*0.5f, this->screenSize.height*0.5f));
 
 	// create the menu button
-	auto menuButton = MenuItemLabel::create(Label::createWithTTF("Menu", "fonts/Comic Sans MS.ttf", 32), this, menu_selector(GameWorld::onMenuClicked));
+	auto menuButton = MenuItemLabel::create(Label::createWithTTF("Menu", RESOURCES_FONT_COMIC_SANS, 32), this, menu_selector(GameWorld::onMenuClicked));
 	menuButton->setPosition(Vec2(this->screenSize.width*0.5f, this->screenSize.height*0.4f));
 
 	// create the pause menu with the above three button
@@ -614,7 +614,7 @@ void GameWorld::showPausePopup() {
 	this->popup->addChild(pauseMenu);
 
 	// title to inform the user which popup this is
-	auto pausedLabel = Label::createWithTTF("Game Paused", "fonts/Comic Sans MS.ttf", 52);
+	auto pausedLabel = Label::createWithTTF("Game Paused", RESOURCES_FONT_COMIC_SANS, 52);
 	pausedLabel->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.75));
 	this->popup->addChild(pausedLabel);
 }
@@ -653,11 +653,11 @@ void GameWorld::showGameOverPopup() {
 	this->addChild(this->popup, 10);
 
 	// create the restart button
-	auto restartButton = MenuItemLabel::create(Label::createWithTTF("Restart", "fonts/Comic Sans MS.ttf", 32), this, menu_selector(GameWorld::onRestartClicked));
+	auto restartButton = MenuItemLabel::create(Label::createWithTTF("Restart", RESOURCES_FONT_COMIC_SANS, 32), this, menu_selector(GameWorld::onRestartClicked));
 	restartButton->setPosition(Vec2(this->screenSize.width*0.5f, this->screenSize.height*0.5f));
 
 	// create the menu button
-	auto menuButton = MenuItemLabel::create(Label::createWithTTF("Menu", "fonts/Comic Sans MS.ttf", 32), this, menu_selector(GameWorld::onMenuClicked));
+	auto menuButton = MenuItemLabel::create(Label::createWithTTF("Menu", RESOURCES_FONT_COMIC_SANS, 32), this, menu_selector(GameWorld::onMenuClicked));
 	menuButton->setPosition(Vec2(this->screenSize.width*0.5f, this->screenSize.height*0.4f));
 
 	// create the pause menu with the above three button
@@ -666,12 +666,12 @@ void GameWorld::showGameOverPopup() {
 	this->popup->addChild(gameOverMenu);
 
 	// title to inform the user which popup this is
-	auto gameOverLabel = Label::createWithTTF("Game Over", "fonts/Comic Sans MS.ttf", 52);
+	auto gameOverLabel = Label::createWithTTF("Game Over", RESOURCES_FONT_COMIC_SANS, 52);
 	gameOverLabel->setPosition(Vec2(this->screenSize.width*0.5f, this->screenSize.height*0.75f));
 	this->popup->addChild(gameOverLabel);
 
 	// add a label to show the final score
-	auto scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), "fonts/Comic Sans MS.ttf", 48);
+	auto scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), RESOURCES_FONT_COMIC_SANS, 48);
 	scoreLabel->setPosition(Vec2(this->screenSize.width*0.5f, this->screenSize.height*0.6f));
 	// animate it with a nice heart beat effect to draw the user's attention
 	scoreLabel->runAction(
@@ -723,7 +723,7 @@ void GameWorld::drawDebugScreen(Vec2 *vertices) {
 	for (int i = 0; i<lengthOfVertice; i++) {
 		Vec2 vertice = vertices[i];
 		// CCLOG("vertice[%d]: %f, %f", i, vertice.x, vertice.y);
-		auto debugLabel = Label::createWithTTF(__String::createWithFormat("%d", i)->getCString(), "fonts/Comic Sans MS.ttf", 24);
+		auto debugLabel = Label::createWithTTF(__String::createWithFormat("%d", i)->getCString(), RESOURCES_FONT_COMIC_SANS, 24);
 		debugLabel->setPosition(vertice);
 		this->addChild(debugLabel, 1);
 	}

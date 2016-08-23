@@ -146,33 +146,30 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\GameWorldScene.cpp" />
-    <ClCompile Include="..\Classes\MainMenuScene.cpp" />
+    <ClCompile Include="..\Classes\colorsmasher\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\colorsmasher\GameWorldScene.cpp" />
+    <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\ColourSmashDefinition.h" />
-    <ClInclude Include="..\Classes\GameWorldScene.h" />
-    <ClInclude Include="..\Classes\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\colorsmasher\AppDelegate.h" />
+    <ClInclude Include="..\Classes\colorsmasher\ColourSmashDefinition.h" />
+    <ClInclude Include="..\Classes\colorsmasher\GameWorldScene.h" />
+    <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\Resources.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc" />
+    <Image Include="..\Resources\colorsmasher\CloseNormal.png" />
+    <Image Include="..\Resources\colorsmasher\CloseSelected.png" />
+    <Image Include="..\Resources\colorsmasher\HelloWorld.png" />
+    <Image Include="..\Resources\colorsmasher\pause_button.png" />
+    <Image Include="..\Resources\colorsmasher\play_button.png" />
+    <Image Include="..\Resources\colorsmasher\tile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\CloseNormal.png" />
-    <Image Include="..\Resources\CloseSelected.png" />
-    <Image Include="..\Resources\HelloWorld.png" />
-    <Image Include="..\Resources\pause_button.png" />
-    <Image Include="..\Resources\play_button.png" />
-    <Image Include="..\Resources\tile.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\Resources\fonts\arial.ttf" />
-    <Font Include="..\Resources\fonts\Comic Sans MS.ttf" />
-    <Font Include="..\Resources\fonts\Marker Felt.ttf" />
+    <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,6 +10,7 @@
 #include "SimpleAudioEngine.h"
 
 #include "ColourSmashDefinition.h"
+#include "..\Resources.h"
 #include "MainMenuScene.h"
 
 USING_NS_CC;

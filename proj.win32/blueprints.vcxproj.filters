@@ -13,75 +13,66 @@
     <Filter Include="resource\colorsmasher">
       <UniqueIdentifier>{ee60e601-bf79-452a-aff6-f8cf2337f583}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resource\colorsmasher\fonts">
-      <UniqueIdentifier>{664a4ad2-112f-4dfe-9117-ab1fc894c5a4}</UniqueIdentifier>
+    <Filter Include="src\colorsmasher">
+      <UniqueIdentifier>{3a41b33e-4900-4e06-992a-55977a69736c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\colorsmasher\AppDelegate.cpp">
+      <Filter>src\colorsmasher</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameWorldScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\colorsmasher\GameWorldScene.cpp">
+      <Filter>src\colorsmasher</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MainMenuScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp">
+      <Filter>src\colorsmasher</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\colorsmasher\AppDelegate.h">
+      <Filter>src\colorsmasher</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameWorldScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\colorsmasher\ColourSmashDefinition.h">
+      <Filter>src\colorsmasher</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MainMenuScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\colorsmasher\GameWorldScene.h">
+      <Filter>src\colorsmasher</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ColourSmashDefinition.h">
+    <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h">
+      <Filter>src\colorsmasher</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="..\Classes\Resources.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\tile.png">
+    <Image Include="..\Resources\colorsmasher\CloseNormal.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
-    <Image Include="..\Resources\CloseSelected.png">
+    <Image Include="..\Resources\colorsmasher\CloseSelected.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
-    <Image Include="..\Resources\HelloWorld.png">
+    <Image Include="..\Resources\colorsmasher\HelloWorld.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
-    <Image Include="..\Resources\pause_button.png">
+    <Image Include="..\Resources\colorsmasher\pause_button.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
-    <Image Include="..\Resources\play_button.png">
+    <Image Include="..\Resources\colorsmasher\play_button.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
-    <Image Include="..\Resources\CloseNormal.png">
+    <Image Include="..\Resources\colorsmasher\tile.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="..\Resources\fonts\arial.ttf">
-      <Filter>resource\colorsmasher\fonts</Filter>
-    </Font>
-    <Font Include="..\Resources\fonts\Comic Sans MS.ttf">
-      <Filter>resource\colorsmasher\fonts</Filter>
-    </Font>
-    <Font Include="..\Resources\fonts\Marker Felt.ttf">
-      <Filter>resource\colorsmasher\fonts</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="game.rc">
-      <Filter>resource\colorsmasher</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
 </Project>
