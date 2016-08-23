@@ -1,6 +1,6 @@
 #include "main.h"
 #include "cocos2d.h"
-#include "colorsmasher\AppDelegate.h"
+#include "dragondash\AppDelegate.h"
 
 USING_NS_CC;
 

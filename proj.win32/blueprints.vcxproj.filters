@@ -16,6 +16,12 @@
     <Filter Include="src\colorsmasher">
       <UniqueIdentifier>{3a41b33e-4900-4e06-992a-55977a69736c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\dragondash">
+      <UniqueIdentifier>{2a42e896-a50c-46a9-a95b-98143639031c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\dragondash">
+      <UniqueIdentifier>{c5d45317-47b8-458b-b7a8-f2c455165e67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +35,24 @@
     </ClCompile>
     <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp">
       <Filter>src\colorsmasher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\dragondash\FairyTaleManager.cpp">
+      <Filter>src\dragondash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\dragondash\GameWorldScene.cpp">
+      <Filter>src\dragondash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\dragondash\MainMenuScene.cpp">
+      <Filter>src\dragondash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\dragondash\TowerManager.cpp">
+      <Filter>src\dragondash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\dragondash\AppDelegate.cpp">
+      <Filter>src\dragondash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\dragondash\DragonManager.cpp">
+      <Filter>src\dragondash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +75,24 @@
     <ClInclude Include="..\Classes\Resources.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\FairyTaleManager.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\GameWorldScene.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\MainMenuScene.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\TowerManager.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\AppDelegate.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\DragonManager.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\colorsmasher\CloseNormal.png">
@@ -71,8 +113,30 @@
     <Image Include="..\Resources\colorsmasher\tile.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
+    <Image Include="..\Resources\dragondash\dhtex.png">
+      <Filter>resource\dragondash</Filter>
+    </Image>
+    <Image Include="..\Resources\dragondash\pause_button.png">
+      <Filter>resource\dragondash</Filter>
+    </Image>
+    <Image Include="..\Resources\dragondash\play_button.png">
+      <Filter>resource\dragondash</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="blueprints.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\dragondash\dhtex.plist">
+      <Filter>resource\dragondash</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Resources\dragondash\flap.mp3">
+      <Filter>resource\dragondash</Filter>
+    </Media>
+    <Media Include="..\Resources\dragondash\crash.mp3">
+      <Filter>resource\dragondash</Filter>
+    </Media>
   </ItemGroup>
 </Project>
