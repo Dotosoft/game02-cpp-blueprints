@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-#include "..\Resources.h"
+#include "Resources.h"
 
 USING_NS_CC;
 

@@ -4,8 +4,9 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-#include "..\Resources.h"
+#include "Resources.h"
 #include "dragondash\DragonDashDefinition.h"
+#include "dragondash\FairyTaleManager.h"
 
 USING_NS_CC;
 
@@ -13,6 +14,7 @@ class MainMenu : public cocos2d::Layer
 {
 	Size screenSize;
 	SpriteBatchNode* spriteBatchNode;
+	FairyTaleManager* fairytaleManager;
 
 	public:
 		static cocos2d::Scene* createScene();
@@ -28,6 +30,8 @@ class MainMenu : public cocos2d::Layer
 	private:
 		void addDragonAnimation();
 		void addDragon();
+		void onPlayClicked(cocos2d::Ref* ref);
+		void update(float dt);
 };
 
 #endif // _DRAGONDASH_MAINMENU_SCENE_H_

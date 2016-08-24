@@ -9,4 +9,7 @@
 #define RESOURCES_IMAGE_SHEET_DRAGON		"dragondash/dhtex.png"
 #define RESOURCES_PLIST_SHEET_DRAGON		"dragondash/dhtex.plist"
 
+#define RESOURCES_SFX_FLAP					"dragondash/flap.mp3"
+#define RESOURCES_SFX_CRASH					"dragondash/crash.mp3"
+
 #endif // _BLUEPRINT_RESOURCE_H_

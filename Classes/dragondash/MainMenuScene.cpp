@@ -25,14 +25,51 @@ bool MainMenu::init()
         return false;
     }
 
+	// set default value for high score
+	// this will be executed only the first time the game is launched
+	// local storage stores data persistently
+	UserDefault *def = UserDefault::getInstance();
+	if (def->getIntegerForKey(HIGHSCORE_KEY, 0) == 0) 
+	{
+		def->setIntegerForKey(HIGHSCORE_KEY, 0);
+	}
+
+	// preload audio and sprite sheet
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(RESOURCES_SFX_FLAP);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(RESOURCES_SFX_CRASH);
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(RESOURCES_PLIST_SHEET_DRAGON);
 
+	// store screen size for fast access
 	this->screenSize = Director::getInstance()->getWinSize();
+
+	// create and add the batch node
 	this->spriteBatchNode = SpriteBatchNode::create(RESOURCES_IMAGE_SHEET_DRAGON, 256);
 	this->addChild(this->spriteBatchNode, E_ZORDER::E_LAYER_BG + 1);
     
+	// create and init the environment
+	this->fairytaleManager = new FairyTaleManager(this);
+	this->fairytaleManager->init();
+
 	this->addDragonAnimation();
 	this->addDragon();
+
+	// add the game's title
+	auto titleSprite = Sprite::createWithSpriteFrameName("dhtitle");
+	titleSprite->setPosition(Vec2(this->screenSize.width * 0.5f, this->screenSize.height * 0.75f));
+	this->spriteBatchNode->addChild(titleSprite, 1);
+
+	// add the play button
+	auto playSprite = Sprite::createWithSpriteFrameName("dhplay");
+	auto playButton = MenuItemSprite::create(playSprite, playSprite, this, menu_selector(MainMenu::onPlayClicked));
+	playButton->setPosition(Vec2(this->screenSize.width * 0.5f, this->screenSize.height * 0.25f));
+
+	// add the menu
+	auto menu = Menu::create(playButton);
+	menu->setPosition(0, 0);
+	this->addChild(menu, 1);
+
+	// start ticking
+	this->scheduleUpdate();
     
     return true;
 }
@@ -44,6 +81,10 @@ void MainMenu::menuCloseCallback(Ref* pSender)
 	#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		exit(0);
 	#endif
+}
+
+void MainMenu::update(float dt) {
+	this->fairytaleManager->update();
 }
 
 void MainMenu::addDragonAnimation()
@@ -78,4 +119,8 @@ void MainMenu::addDragon()
 		EaseSineOut::create(MoveBy::create(animation->getDuration() / 2, Vec2(0, -10))),
 		NULL);
 	dragonSprite->runAction(RepeatForever::create(flySequence));
+}
+
+void MainMenu::onPlayClicked(cocos2d::Ref* ref) {
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, GameWorld::createScene()));
 }

@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-#include "..\Resources.h"
+#include "Resources.h"
 
 USING_NS_CC;
 
@@ -20,6 +20,9 @@ class GameWorld : public cocos2d::Layer
 
 		// implement the "static create()" method manually
 		CREATE_FUNC(GameWorld);
+
+		Size screenSize;
+		SpriteBatchNode* spriteBatchNode;
 };
 
 #endif // _DRAGONDASH_GAMEWORLD_SCENE_H_
