@@ -1,4 +1,5 @@
 #include "dragondash\GameWorldScene.h"
+using namespace dragondash;
 
 Scene* GameWorld::createScene()
 {

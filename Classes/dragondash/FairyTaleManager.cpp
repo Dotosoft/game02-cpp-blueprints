@@ -1,6 +1,7 @@
 #include "dragondash\FairyTaleManager.h"
+using namespace dragondash;
 
-FairyTaleManager::FairyTaleManager(Node* parent)
+FairyTaleManager::FairyTaleManager(ParentScene* parent)
 {
 	// save reference to GameWorld
 	this->parent = parent;

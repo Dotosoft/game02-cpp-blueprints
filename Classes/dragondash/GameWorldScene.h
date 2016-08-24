@@ -5,24 +5,25 @@
 #include "SimpleAudioEngine.h"
 
 #include "Resources.h"
+#include "dragondash\ParentScene.h"
 
 USING_NS_CC;
 
-class GameWorld : public cocos2d::Layer
+namespace dragondash 
 {
-	public:
-		static cocos2d::Scene* createScene();
+	class GameWorld : public ParentScene
+	{
+		public:
+			static cocos2d::Scene* createScene();
 
-		virtual bool init();
+			virtual bool init();
 
-		// a selector callback
-		void menuCloseCallback(cocos2d::Ref* pSender);
+			// a selector callback
+			void menuCloseCallback(cocos2d::Ref* pSender);
 
-		// implement the "static create()" method manually
-		CREATE_FUNC(GameWorld);
-
-		Size screenSize;
-		SpriteBatchNode* spriteBatchNode;
-};
+			// implement the "static create()" method manually
+			CREATE_FUNC(GameWorld);
+	};
+	}
 
 #endif // _DRAGONDASH_GAMEWORLD_SCENE_H_

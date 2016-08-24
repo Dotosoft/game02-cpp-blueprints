@@ -8,8 +8,11 @@
 
 USING_NS_CC;
 
-class DragonManager : public cocos2d::Ref
+namespace dragondash 
 {
-};
+	class DragonManager : public cocos2d::Ref
+	{
+	};
+}
 
 #endif // _DRAGONDASH_DRAGONMANAGER_SCENE_H_

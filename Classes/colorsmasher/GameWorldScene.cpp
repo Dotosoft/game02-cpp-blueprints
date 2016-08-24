@@ -1,4 +1,5 @@
 #include "colorsmasher\GameWorldScene.h"
+using namespace colorsmasher;
 
 Scene* GameWorld::createScene()
 {

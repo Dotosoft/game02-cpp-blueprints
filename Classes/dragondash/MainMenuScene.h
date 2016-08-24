@@ -7,31 +7,33 @@
 #include "Resources.h"
 #include "dragondash\DragonDashDefinition.h"
 #include "dragondash\FairyTaleManager.h"
+#include "dragondash\ParentScene.h"
 
 USING_NS_CC;
 
-class MainMenu : public cocos2d::Layer
+namespace dragondash 
 {
-	Size screenSize;
-	SpriteBatchNode* spriteBatchNode;
-	FairyTaleManager* fairytaleManager;
+	class MainMenu : public ParentScene
+	{
+		FairyTaleManager* fairytaleManager;
 
-	public:
-		static cocos2d::Scene* createScene();
+		public:
+			static cocos2d::Scene* createScene();
 
-		virtual bool init();
+			virtual bool init();
 
-		// a selector callback
-		void menuCloseCallback(cocos2d::Ref* pSender);
+			// a selector callback
+			void menuCloseCallback(cocos2d::Ref* pSender);
 
-		// implement the "static create()" method manually
-		CREATE_FUNC(MainMenu);
+			// implement the "static create()" method manually
+			CREATE_FUNC(MainMenu);
 
-	private:
-		void addDragonAnimation();
-		void addDragon();
-		void onPlayClicked(cocos2d::Ref* ref);
-		void update(float dt);
-};
+		private:
+			void addDragonAnimation();
+			void addDragon();
+			void onPlayClicked(cocos2d::Ref* ref);
+			void update(float dt);
+	};
+}
 
 #endif // _DRAGONDASH_MAINMENU_SCENE_H_

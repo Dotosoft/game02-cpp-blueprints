@@ -12,31 +12,34 @@
 
 USING_NS_CC;
 
-class FairyTaleManager : public cocos2d::Node
+namespace dragondash 
 {
-	// save reference to GameWorld
-	Node* parent;
-	Size screenSize;
+	class FairyTaleManager : public cocos2d::Node
+	{
+		// save reference to GameWorld
+		ParentScene* parent;
+		Size screenSize;
 	
-	// initialise variables
-	Size castleSpriteSize;
-	cocos2d::Vector<Sprite *> castleSprites;
-	int lastCastleIndex = 0;
+		// initialise variables
+		Size castleSpriteSize;
+		cocos2d::Vector<Sprite *> castleSprites;
+		int lastCastleIndex = 0;
 
-	Size silhouetteSpriteSize;
-	cocos2d::Vector<Sprite *> silhouetteSprites;
-	int lastSilhouetteIndex = 0;
+		Size silhouetteSpriteSize;
+		cocos2d::Vector<Sprite *> silhouetteSprites;
+		int lastSilhouetteIndex = 0;
 
-	public:
-		FairyTaleManager(Node* parent);
-		virtual bool init();
-		void update();
-	private:
-		void createCastle();
-		void createSilhouette();
-		void createStars();
-		void updateCastle();
-		void updateSilhouette();
-};
+		public:
+			FairyTaleManager(ParentScene* parent);
+			virtual bool init();
+			void update();
+		private:
+			void createCastle();
+			void createSilhouette();
+			void createStars();
+			void updateCastle();
+			void updateSilhouette();
+	};
+}
 
 #endif // _DRAGONDASH_FAIRYTALEMANAGER_SCENE_H_

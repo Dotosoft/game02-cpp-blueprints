@@ -2,6 +2,7 @@
 #include "colorsmasher\MainMenuScene.h"
 
 USING_NS_CC;
+using namespace colorsmasher;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(375, 620);	// 0.5625
 // static cocos2d::Size designResolutionSize = cocos2d::Size(768, 1184);	// 0.5625

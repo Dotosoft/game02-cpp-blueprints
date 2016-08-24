@@ -1,5 +1,5 @@
-#ifndef _COLORSMASH_HELLOWORLD_SCENE_H_
-#define _COLORSMASH_HELLOWORLD_SCENE_H_
+#ifndef _COLORSMASH_MAINMENU_SCENE_H_
+#define _COLORSMASH_MAINMENU_SCENE_H_
 
 #include <math.h>
 #include "cocos2d.h"
@@ -9,26 +9,29 @@
 
 USING_NS_CC;
 
-class MainMenu : public cocos2d::Layer
+namespace colorsmasher 
 {
-	public:
-		static cocos2d::Scene* createScene();
+	class MainMenu : public cocos2d::Layer
+	{
+		public:
+			static cocos2d::Scene* createScene();
 
-		virtual bool init();
+			virtual bool init();
 
-		// a selector callback
-		void menuCloseCallback(cocos2d::Ref* pSender);
-		void onPlayClicked(cocos2d::Ref* pSender);
-		void doAnimation(float dt);
-		Vec2 getRandomPositionForTile();
-		Color3B getColourForTile(E_COLOUR_TYPE colourData);
+			// a selector callback
+			void menuCloseCallback(cocos2d::Ref* pSender);
+			void onPlayClicked(cocos2d::Ref* pSender);
+			void doAnimation(float dt);
+			Vec2 getRandomPositionForTile();
+			Color3B getColourForTile(E_COLOUR_TYPE colourData);
 
-		// implement the "static create()" method manually
-		CREATE_FUNC(MainMenu);
+			// implement the "static create()" method manually
+			CREATE_FUNC(MainMenu);
 
-		float TILE_SIZE;
-		Vec2 GAMEPLAY_OFFSET;
-		float tileZoomFactor;
-};
+			float TILE_SIZE;
+			Vec2 GAMEPLAY_OFFSET;
+			float tileZoomFactor;
+	};
+}
 
-#endif // _COLORSMASH_HELLOWORLD_SCENE_H_
+#endif // _COLORSMASH_MAINMENU_SCENE_H_

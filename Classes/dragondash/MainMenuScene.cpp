@@ -1,4 +1,5 @@
 #include "dragondash\MainMenuScene.h"
+using namespace dragondash;
 
 Scene* MainMenu::createScene()
 {
@@ -60,17 +61,18 @@ bool MainMenu::init()
 
 	// add the play button
 	auto playSprite = Sprite::createWithSpriteFrameName("dhplay");
-	auto playButton = MenuItemSprite::create(playSprite, playSprite, this, menu_selector(MainMenu::onPlayClicked));
-	playButton->setPosition(Vec2(this->screenSize.width * 0.5f, this->screenSize.height * 0.25f));
+	auto playSpriteSelected = Sprite::createWithSpriteFrameName("dhplay");
+	auto playButton = MenuItemSprite::create(playSprite, playSpriteSelected, this, menu_selector(MainMenu::onPlayClicked));
+	playButton->setPosition( Vec2(this->screenSize.width * 0.5f, this->screenSize.height * 0.25f) );
 
 	// add the menu
-	auto menu = Menu::create(playButton);
+	auto menu = Menu::create(playButton, NULL);
 	menu->setPosition(0, 0);
 	this->addChild(menu, 1);
 
 	// start ticking
 	this->scheduleUpdate();
-    
+
     return true;
 }
 

@@ -3,6 +3,7 @@
 #include "dragondash\AppDelegate.h"
 
 USING_NS_CC;
+using namespace dragondash;
 
 #if _MSC_VER > 1800
 #pragma comment(lib,"libcocos2d_2015.lib")
