@@ -5,13 +5,31 @@
 #include "SimpleAudioEngine.h"
 
 #include "Resources.h"
+#include "dragondash\DragonDashDefinition.h"
+#include "dragondash\ParentScene.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 namespace dragondash 
 {
-	class DragonManager : public cocos2d::Ref
+	class DragonManager : public cocos2d::Node
 	{
+		ParentScene* parent;
+		Size screenSize;
+		Point dragonSpeed;
+		Vec2 dragonPosition;
+		bool mustApplyGravity;
+
+		public:
+			DragonManager(ParentScene* parent);
+			virtual bool init();
+			void onGameStart();
+			void update(float dt);
+			void dragonFlap();
+			void dragonDeath();
+
+			Sprite* dragonSprite;
 	};
 }
 

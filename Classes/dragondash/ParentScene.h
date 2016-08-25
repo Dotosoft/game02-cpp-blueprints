@@ -15,6 +15,7 @@ namespace dragondash
 		public:
 			Size screenSize;
 			SpriteBatchNode* spriteBatchNode;
+			int castleRoof = 0;
 	};
 }
 
