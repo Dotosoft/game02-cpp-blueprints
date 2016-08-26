@@ -49,6 +49,10 @@ bool GameWorld::init()
 
 	this->scheduleUpdate();
 
+	this->listener = EventListenerTouchOneByOne::create();
+	this->listener->onTouchBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
     return true;
 }
 
@@ -65,7 +69,7 @@ void GameWorld::createHUD()
 {
 	this->score = 0;
 	// create labels for score
-	this->scoreLabel = Label::createWithTTF(this->score + "", "Comic Sans MS", 120);
+	this->scoreLabel = Label::createWithTTF(__String::createWithFormat("%d", this->score)->getCString(), RESOURCES_FONT_COMIC_SANS, 120);
 	this->scoreLabel->setPosition(Vec2(this->screenSize.width * 0.5, this->screenSize.height * 0.875));
 	this->addChild(this->scoreLabel, E_ZORDER::E_LAYER_HUD);
 
@@ -120,7 +124,7 @@ void GameWorld::incrementScore()
 	this->scoreLabel->setString(this->score + "");
 	// run a simple action so the user knows the score is being added
 	// use the ease functions to create a heart beat effect
-	this->scoreLabel->runAction(Sequence::create(EaseSineIn::create(ScaleTo::create(0.125, 1.2)), EaseSineOut::create(ScaleTo::create(0.125, 1))));
+	this->scoreLabel->runAction(Sequence::create(EaseSineIn::create(ScaleTo::create(0.125, 1.2)), EaseSineOut::create(ScaleTo::create(0.125, 1)), NULL));
 }
 
 void GameWorld::onGameOver(Node *node)
@@ -135,7 +139,7 @@ bool GameWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	if (this->tutorialSprite)
 	{
 		// fade it out and then remove it
-		this->tutorialSprite->runAction(Sequence::create(FadeOut::create(0.25), RemoveSelf::create(true)));
+		this->tutorialSprite->runAction(Sequence::create(FadeOut::create(0.25), RemoveSelf::create(true), NULL));
 		this->tutorialSprite = NULL;
 	}
 	// inform DragonManager that the game has started
@@ -198,7 +202,8 @@ void GameWorld::showGameOverPopup()
 			CallFuncN::create([&](Node *node) {
 				highScoreLabel->setString(__String::createWithFormat("Your Best: %d", this->score)->getCString());
 			}),
-			EaseSineOut::create(ScaleTo::create(0.25, 1))));
+			EaseSineOut::create(ScaleTo::create(0.25, 1)),
+			NULL));
 	}
 }
 

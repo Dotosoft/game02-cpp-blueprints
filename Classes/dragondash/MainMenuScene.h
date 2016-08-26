@@ -15,13 +15,13 @@ namespace dragondash
 	class FairyTaleManager;
 	class MainMenu : public cocos2d::Layer
 	{
-		Size screenSize;
-		SpriteBatchNode* spriteBatchNode;
-		int castleRoof = 0;
-
 		FairyTaleManager* fairytaleManager;
 
 		public:
+			Size screenSize;
+			SpriteBatchNode* spriteBatchNode;
+			int castleRoof = 0;
+
 			static cocos2d::Scene* createScene();
 
 			virtual bool init();

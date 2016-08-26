@@ -31,6 +31,8 @@ namespace dragondash
 		int score;
 		bool mustAddScore;
 		bool hasGameStarted;
+		
+		EventListenerTouchOneByOne *listener;
 
 		public:
 			Size screenSize;

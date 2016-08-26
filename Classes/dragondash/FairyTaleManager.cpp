@@ -38,7 +38,12 @@ bool FairyTaleManager::init()
 
 	// this makes a nice midnight sky
 	auto background = LayerGradient::create(Color4B(15, 15, 25, 255), Color4B(84, 83, 104, 255));
-	this->gameworld->addChild(background, E_ZORDER::E_LAYER_BG);
+	if (this->gameworld) {
+		this->gameworld->addChild(background, E_ZORDER::E_LAYER_BG);
+	}
+	else {
+		this->mainmenu->addChild(background, E_ZORDER::E_LAYER_BG);
+	}
 
 	this->createCastle();
 	this->createSilhouette();
@@ -60,7 +65,12 @@ void FairyTaleManager::createCastle()
 		Sprite* castleSprite = Sprite::createWithSpriteFrameName("dhbase");
 		// castleSprite->setPosition( Vec2(nextPosition, CASTLE_SPRITE_Y) );
 		castleSprite->setPosition( Vec2(nextPosition, -50) );
-		this->gameworld->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
+		if(this->gameworld) {
+			this->gameworld->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
+		}
+		else {
+			this->mainmenu->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
+		}
 		// store this sprite...we need to update it
 		this->castleSprites.pushBack(castleSprite);
 		// the next wall depends on this variable
@@ -83,7 +93,13 @@ void FairyTaleManager::createSilhouette()
 		auto silhouetteSprite = Sprite::createWithSpriteFrameName("dhbush");
 		// silhouetteSprite->setPosition(nextPosition, SILHOUETTE_SPRITE_Y);
 		silhouetteSprite->setPosition(nextPosition, 100);
-		this->gameworld->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
+		if(this->gameworld) {
+			this->gameworld->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
+		}
+		else 
+		{
+			this->mainmenu->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
+		}
 		// store this sprite...we need to update it
 		this->silhouetteSprites.pushBack(silhouetteSprite);
 		// the next silhouette depends on this variable
@@ -117,7 +133,15 @@ void FairyTaleManager::createStars()
 		);
 		star->runAction(action);
 		// add this too the batch node as well
-		this->gameworld->spriteBatchNode->addChild(star);
+		if (this->gameworld) 
+		{
+			this->gameworld->spriteBatchNode->addChild(star);
+		}
+		else
+		{
+			this->mainmenu->spriteBatchNode->addChild(star);
+		}
+		
 	}
 }
 
