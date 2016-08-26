@@ -9,10 +9,10 @@ dragondash::TowerManager::TowerManager(Vec2 position)
 	this->position = position;
 }
 
-dragondash::TowerManager::TowerManager(ParentScene * parent)
+dragondash::TowerManager::TowerManager(GameWorld * parent)
 {
 	// save reference to GameWorld
-	this->parent = parent;
+	this->gameworld = parent;
 	this->screenSize = parent->screenSize;
 	// initialise variables
 	// this->towers = [];
@@ -51,13 +51,13 @@ void dragondash::TowerManager::createTower(Vec2 position)
 	tower->lowerSprite = Sprite::createWithSpriteFrameName("opst_02");
 	tower->lowerSprite->setPositionX(position.x);
 	tower->lowerSprite->setPositionY(position.y + VERT_GAP_BWN_TOWERS * -0.5 + this->towerSpriteSize.height * -0.5);
-	this->parent->spriteBatchNode->addChild(tower->lowerSprite, E_ZORDER::E_LAYER_TOWER);
+	this->gameworld->spriteBatchNode->addChild(tower->lowerSprite, E_ZORDER::E_LAYER_TOWER);
 
 	// create upper tower sprite & add it to GameWorld's batch node
 	tower->upperSprite = Sprite::createWithSpriteFrameName("opst_01");
 	tower->upperSprite->setPositionX(position.x);
 	tower->upperSprite->setPositionY(position.y + VERT_GAP_BWN_TOWERS * 0.5 + this->towerSpriteSize.height * 0.5);
-	this->parent->spriteBatchNode->addChild(tower->upperSprite, E_ZORDER::E_LAYER_TOWER);
+	this->gameworld->spriteBatchNode->addChild(tower->upperSprite, E_ZORDER::E_LAYER_TOWER);
 }
 
 void dragondash::TowerManager::update()

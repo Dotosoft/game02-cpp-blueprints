@@ -80,8 +80,10 @@ void GameWorld::update(float dt)
 	// update dragon
 	this->dragonManager->update(dt);
 	// update towers only after game has started
-	if (this->hasGameStarted)
+	if (this->hasGameStarted) 
+	{
 		this->towerManager->update();
+	}
 	// update environment
 	this->fairytaleManager->update();
 	this->checkCollisions();
@@ -98,14 +100,14 @@ void GameWorld::checkCollisions()
 	auto upperTowerAABB = frontTower->upperSprite->getBoundingBox();
 
 	// if the respective rects intersect, we have a collision
-	if (IntersectRect(dragonAABB, lowerTowerAABB) || IntersectRect(dragonAABB, upperTowerAABB))
+	if (dragonAABB.intersectsRect(lowerTowerAABB) || dragonAABB.intersectsRect(upperTowerAABB))
 	{
 		// dragon must die
 		this->dragonManager->dragonDeath();
 		// stop the update loop
 		this->unscheduleUpdate();
 	}
-	else if (abs(cc.rectGetMidX(lowerTowerAABB) - cc.rectGetMidX(dragonAABB)) <= MAX_SCROLLING_SPEED / 2)
+	else if (abs(lowerTowerAABB.getMidX() - dragonAABB.getMidX()) <= MAX_SCROLLING_SPEED / 2)
 	{
 		// increment score once the dragon has crossed the tower
 		this->incrementScore();
@@ -121,7 +123,7 @@ void GameWorld::incrementScore()
 	this->scoreLabel->runAction(Sequence::create(EaseSineIn::create(ScaleTo::create(0.125, 1.2)), EaseSineOut::create(ScaleTo::create(0.125, 1))));
 }
 
-void GameWorld::onGameOver()
+void GameWorld::onGameOver(Node *node)
 {
 	this->showGameOverPopup();
 }
@@ -140,6 +142,8 @@ bool GameWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	this->dragonManager->onGameStart();
 	// fly dragon...fly!!!
 	this->dragonManager->dragonFlap();
+
+	return true;
 }
 
 void GameWorld::showGameOverPopup()
@@ -149,9 +153,10 @@ void GameWorld::showGameOverPopup()
 	this->popup->runAction(FadeTo::create(0.25, 196));
 	this->addChild(this->popup, E_ZORDER::E_LAYER_POPUPS);
 
-	auto restartButton = MenuItemSprite::create(Sprite::createWithSpriteFrameName("dhplay"));
-	restartButton.setCallback(this::onRestartClicked, this);
-	restartButton.setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.25));
+	auto restartSprite = Sprite::createWithSpriteFrameName("dhplay");
+	auto restartSpriteSelected = Sprite::createWithSpriteFrameName("dhplay");
+	auto restartButton = MenuItemSprite::create(restartSprite, restartSpriteSelected, this, menu_selector(GameWorld::onRestartClicked));
+	restartButton->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.25));
 
 	auto gameOverMenu = Menu::create(restartButton);
 	gameOverMenu->setPosition(Point::ZERO);
@@ -161,7 +166,7 @@ void GameWorld::showGameOverPopup()
 	gameOverSprite->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.75));
 	this->popup->addChild(gameOverSprite);
 
-	auto scoreLabel = LabelTTF::create("Score:" + this->score, "Comic Sans MS", 60);
+	auto scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), RESOURCES_FONT_COMIC_SANS, 60);
 	scoreLabel->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.6));
 	scoreLabel->runAction(Sequence::create(
 			DelayTime::create(0.5),
@@ -171,27 +176,33 @@ void GameWorld::showGameOverPopup()
 	this->popup->addChild(scoreLabel);
 
 	// fetch old high score from browser's local storage
-	auto oldHighScore = parseInt(sys.localStorage.getItem(HIGHSCORE_KEY));
-
-	auto highScoreLabel = cc.LabelTTF.create("Your Best:" + oldHighScore, "Comic Sans MS", 60);
-	highScoreLabel.setPosition(cc.p(this->screenSize.width*0.5, this->screenSize.height*0.5));
+	auto oldHighScore = UserDefault::getInstance()->getIntegerForKey(HIGHSCORE_KEY);
+	auto highScoreLabel = Label::createWithTTF(__String::createWithFormat("Your Best: %d", oldHighScore)->getCString(), RESOURCES_FONT_COMIC_SANS, 60);
+	highScoreLabel->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.5));
 	this->popup->addChild(highScoreLabel);
 
 	// check if new high score has been achieved
 	if (this->score > oldHighScore)
 	{
 		// save the new high score
-		sys.localStorage.setItem(HIGHSCORE_KEY, this->score + "");
+		UserDefault::getInstance()->setIntegerForKey(HIGHSCORE_KEY, this->score);
+
+		auto actionMoveDone = CallFuncN::create([&](Node *node) {
+			node->removeFromParentAndCleanup(true);
+		});
 
 		// animate the button suggesting that a new high score has been achieved
-		highScoreLabel.runAction(cc.Sequence.create(cc.DelayTime.create(1),
-			cc.EaseSineIn.create(cc.ScaleTo.create(0.25, 1.1)),
-			cc.CallFunc.create(function(nodeExecutingAction, data) { nodeExecutingAction.setString("Your Best:" + this.score); }, this),
-			cc.EaseSineOut.create(cc.ScaleTo.create(0.25, 1))));
+		highScoreLabel->runAction(Sequence::create(
+			DelayTime::create(1),
+			EaseSineIn::create(ScaleTo::create(0.25, 1.1)),
+			CallFuncN::create([&](Node *node) {
+				highScoreLabel->setString(__String::createWithFormat("Your Best: %d", this->score)->getCString());
+			}),
+			EaseSineOut::create(ScaleTo::create(0.25, 1))));
 	}
 }
 
-void GameWorld::onRestartClicked()
+void GameWorld::onRestartClicked(cocos2d::Ref* ref)
 {
 	Director::getInstance()->replaceScene(TransitionFade::create(0.5, GameWorld::createScene()));
 }

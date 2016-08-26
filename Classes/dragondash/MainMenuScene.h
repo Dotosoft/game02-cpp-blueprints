@@ -7,14 +7,18 @@
 #include "Resources.h"
 #include "dragondash\DragonDashDefinition.h"
 #include "dragondash\FairyTaleManager.h"
-#include "dragondash\ParentScene.h"
 
 USING_NS_CC;
 
 namespace dragondash 
 {
-	class MainMenu : public ParentScene
+	class FairyTaleManager;
+	class MainMenu : public cocos2d::Layer
 	{
+		Size screenSize;
+		SpriteBatchNode* spriteBatchNode;
+		int castleRoof = 0;
+
 		FairyTaleManager* fairytaleManager;
 
 		public:

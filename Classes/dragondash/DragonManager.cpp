@@ -2,10 +2,10 @@
 
 using namespace dragondash;
 
-dragondash::DragonManager::DragonManager(ParentScene* parent)
+DragonManager::DragonManager(GameWorld* parent)
 {
 	// save reference to GameWorld
-	this->parent = parent;
+	this->gameworld = parent;
 	this->screenSize = parent->screenSize;
 	// initialise variables
 	this->dragonSprite = NULL;
@@ -14,13 +14,13 @@ dragondash::DragonManager::DragonManager(ParentScene* parent)
 	this->mustApplyGravity = false;
 }
 
-bool dragondash::DragonManager::init()
+bool DragonManager::init()
 {
 	// create sprite and add to GameWorld's sprite batch node
 	this->dragonSprite = Sprite::createWithSpriteFrameName("dhch_1");
 	this->dragonPosition = Vec2(this->screenSize.width * 0.2, this->screenSize.height * 0.5);
 	this->dragonSprite->setPosition(this->dragonPosition);
-	this->parent->spriteBatchNode->addChild(this->dragonSprite, E_ZORDER::E_LAYER_PLAYER);
+	this->gameworld->spriteBatchNode->addChild(this->dragonSprite, E_ZORDER::E_LAYER_PLAYER);
 
 	// fetch flying animation from cache & repeat it on the dragon's  sprite
 	auto animation = AnimationCache::getInstance()->getAnimation("dragonFlying");
@@ -52,19 +52,20 @@ void dragondash::DragonManager::update(float dt)
 {
 	// calculate bounding box after applying gravity
 	auto newAABB = this->dragonSprite->getBoundingBox();
-	/* newAABB->setY(newAABB->getY() + this->dragonSpeed.y);
+	newAABB.origin.y = newAABB.origin.y + this->dragonSpeed.y;
+	// newAABB->setY(newAABB->getY() + this->dragonSpeed.y);
 
 	// check if the dragon has touched the roof of the castle
-	if (newAABB.y <= this->parent.castleRoof)
+	if(newAABB.origin.y <= this->gameworld->castleRoof)
 	{
 		// stop downward movement and set position to the roof of the castle
 		this->dragonSpeed.y = 0;
-		this->dragonPosition.y = this->parent.castleRoof + newAABB->getHeight() * 0.5;
+		this->dragonPosition.y = this->gameworld->castleRoof + newAABB.size.height * 0.5f;
 
 		// dragon must die
 		this->dragonDeath();
 		// stop the update loop
-		this->parent->unscheduleUpdate();
+		this->gameworld->unscheduleUpdate();
 	}
 	// apply gravity only if game has started
 	else if (this->mustApplyGravity)
@@ -72,7 +73,6 @@ void dragondash::DragonManager::update(float dt)
 		// clamp gravity to a maximum of MAX_DRAGON_SPEED & add it
 		this->dragonSpeed.y = ((this->dragonSpeed.y + GRAVITY) < MAX_DRAGON_SPEED) ? MAX_DRAGON_SPEED : (this->dragonSpeed.y + GRAVITY);
 	}
-	*/
 
 	// update position
 	this->dragonPosition.y += this->dragonSpeed.y;
@@ -95,9 +95,9 @@ void dragondash::DragonManager::dragonDeath()
 {
 	// fall miserably to the roof of the castle
 	auto rise = EaseSineOut::create(MoveBy::create(0.25, Vec2(0, this->dragonSprite->getContentSize().height)));
-	// auto fall = EaseSineIn::create(MoveTo::create(0.5, Vec2(this->screenSize.width * 0.2, this->parent.castleRoof)));
+	auto fall = EaseSineIn::create(MoveTo::create(0.5, Vec2(this->screenSize.width * 0.2, this->gameworld->castleRoof)));
 	// inform GameWorld that dragon is no more :(
-	// auto finish = CallFuncN::create(this->parent, callfuncN_selector(this->parent::onGameOver));
+	auto finish = CallFuncN::create(this->gameworld, callfuncN_selector(GameWorld::onGameOver));
 	// stop the frame based animation...dragon can't fly once its dead
 	this->dragonSprite->stopAllActions();
 	// this->dragonSprite->runAction(Sequence::create(rise, fall, finish, NULL));

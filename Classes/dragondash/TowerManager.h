@@ -7,17 +7,17 @@
 #include "Resources.h"
 #include "dragondash\DragonDashDefinition.h"
 #include "dragondash\GameWorldScene.h"
-#include "dragondash\ParentScene.h"
 
 USING_NS_CC;
 
 namespace dragondash 
 {
+	class GameWorld;
 	class TowerManager : public cocos2d::Node
 	{
 		cocos2d::Vector<TowerManager *> towers;
 		
-		ParentScene* parent;
+		GameWorld* gameworld;
 		Vec2 position;
 		Size screenSize;
 		Size towerSpriteSize;
@@ -27,7 +27,7 @@ namespace dragondash
 
 		public:
 			TowerManager(Vec2 position);
-			TowerManager(ParentScene* gameworld);
+			TowerManager(GameWorld* gameworld);
 			virtual bool init();
 			void createTower(Vec2 position);
 			void update();

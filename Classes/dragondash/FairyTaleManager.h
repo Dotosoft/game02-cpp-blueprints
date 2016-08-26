@@ -9,15 +9,19 @@
 #include "Resources.h"
 #include "dragondash\DragonDashDefinition.h"
 #include "dragondash\GameWorldScene.h"
+#include "dragondash\MainMenuScene.h"
 
 USING_NS_CC;
 
 namespace dragondash 
 {
+	class GameWorld;
+	class MainMenu;
 	class FairyTaleManager : public cocos2d::Node
 	{
 		// save reference to GameWorld
-		ParentScene* parent;
+		GameWorld* gameworld;
+		MainMenu* mainmenu;
 		Size screenSize;
 	
 		// initialise variables
@@ -30,7 +34,8 @@ namespace dragondash
 		int lastSilhouetteIndex = 0;
 
 		public:
-			FairyTaleManager(ParentScene* parent);
+			FairyTaleManager(GameWorld* parent);
+			FairyTaleManager(MainMenu* parent);
 			virtual bool init();
 			void update();
 		private:

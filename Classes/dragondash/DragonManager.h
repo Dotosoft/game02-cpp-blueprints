@@ -6,23 +6,24 @@
 
 #include "Resources.h"
 #include "dragondash\DragonDashDefinition.h"
-#include "dragondash\ParentScene.h"
+#include "dragondash\GameWorldScene.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
 
 namespace dragondash 
 {
+	class GameWorld;
 	class DragonManager : public cocos2d::Node
 	{
-		ParentScene* parent;
+		GameWorld* gameworld;
 		Size screenSize;
 		Point dragonSpeed;
 		Vec2 dragonPosition;
 		bool mustApplyGravity;
 
 		public:
-			DragonManager(ParentScene* parent);
+			DragonManager(GameWorld* parent);
 			virtual bool init();
 			void onGameStart();
 			void update(float dt);

@@ -1,10 +1,23 @@
 #include "dragondash\FairyTaleManager.h"
 using namespace dragondash;
 
-FairyTaleManager::FairyTaleManager(ParentScene* parent)
+FairyTaleManager::FairyTaleManager(GameWorld* parent)
 {
 	// save reference to GameWorld
-	this->parent = parent;
+	this->gameworld = parent;
+	this->screenSize = Director::getInstance()->getWinSize();
+
+	// initialise variables
+	this->castleSpriteSize = Size::ZERO;
+	this->lastCastleIndex = 0;
+	this->silhouetteSpriteSize = Size::ZERO;
+	this->lastSilhouetteIndex = 0;
+}
+
+FairyTaleManager::FairyTaleManager(MainMenu* parent)
+{
+	// save reference to GameWorld
+	this->mainmenu = parent;
 	this->screenSize = Director::getInstance()->getWinSize();
 
 	// initialise variables
@@ -25,7 +38,7 @@ bool FairyTaleManager::init()
 
 	// this makes a nice midnight sky
 	auto background = LayerGradient::create(Color4B(15, 15, 25, 255), Color4B(84, 83, 104, 255));
-	this->parent->addChild(background, E_ZORDER::E_LAYER_BG);
+	this->gameworld->addChild(background, E_ZORDER::E_LAYER_BG);
 
 	this->createCastle();
 	this->createSilhouette();
@@ -47,7 +60,7 @@ void FairyTaleManager::createCastle()
 		Sprite* castleSprite = Sprite::createWithSpriteFrameName("dhbase");
 		// castleSprite->setPosition( Vec2(nextPosition, CASTLE_SPRITE_Y) );
 		castleSprite->setPosition( Vec2(nextPosition, -50) );
-		this->parent->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
+		this->gameworld->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
 		// store this sprite...we need to update it
 		this->castleSprites.pushBack(castleSprite);
 		// the next wall depends on this variable
@@ -70,7 +83,7 @@ void FairyTaleManager::createSilhouette()
 		auto silhouetteSprite = Sprite::createWithSpriteFrameName("dhbush");
 		// silhouetteSprite->setPosition(nextPosition, SILHOUETTE_SPRITE_Y);
 		silhouetteSprite->setPosition(nextPosition, 100);
-		this->parent->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
+		this->gameworld->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
 		// store this sprite...we need to update it
 		this->silhouetteSprites.pushBack(silhouetteSprite);
 		// the next silhouette depends on this variable
@@ -104,7 +117,7 @@ void FairyTaleManager::createStars()
 		);
 		star->runAction(action);
 		// add this too the batch node as well
-		this->parent->spriteBatchNode->addChild(star);
+		this->gameworld->spriteBatchNode->addChild(star);
 	}
 }
 
