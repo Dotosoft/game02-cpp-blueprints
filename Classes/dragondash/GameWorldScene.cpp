@@ -121,7 +121,7 @@ void GameWorld::checkCollisions()
 void GameWorld::incrementScore()
 {
 	++this->score;
-	this->scoreLabel->setString(this->score + "");
+	this->scoreLabel->setString(__String::createWithFormat("%d", this->score)->getCString());
 	// run a simple action so the user knows the score is being added
 	// use the ease functions to create a heart beat effect
 	this->scoreLabel->runAction(Sequence::create(EaseSineIn::create(ScaleTo::create(0.125, 1.2)), EaseSineOut::create(ScaleTo::create(0.125, 1)), NULL));
@@ -162,7 +162,7 @@ void GameWorld::showGameOverPopup()
 	auto restartButton = MenuItemSprite::create(restartSprite, restartSpriteSelected, this, menu_selector(GameWorld::onRestartClicked));
 	restartButton->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.25));
 
-	auto gameOverMenu = Menu::create(restartButton);
+	auto gameOverMenu = Menu::create(restartButton, NULL);
 	gameOverMenu->setPosition(Point::ZERO);
 	this->popup->addChild(gameOverMenu);
 
@@ -200,6 +200,7 @@ void GameWorld::showGameOverPopup()
 			DelayTime::create(1),
 			EaseSineIn::create(ScaleTo::create(0.25, 1.1)),
 			CallFuncN::create([&](Node *node) {
+				auto highScoreLabel = dynamic_cast<Label*>(node);
 				highScoreLabel->setString(__String::createWithFormat("Your Best: %d", this->score)->getCString());
 			}),
 			EaseSineOut::create(ScaleTo::create(0.25, 1)),

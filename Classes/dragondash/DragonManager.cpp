@@ -100,7 +100,7 @@ void dragondash::DragonManager::dragonDeath()
 	auto finish = CallFuncN::create(this->gameworld, callfuncN_selector(GameWorld::onGameOver));
 	// stop the frame based animation...dragon can't fly once its dead
 	this->dragonSprite->stopAllActions();
-	// this->dragonSprite->runAction(Sequence::create(rise, fall, finish, NULL));
+	this->dragonSprite->runAction(Sequence::create(rise, fall, finish, NULL));
 
 	SimpleAudioEngine::getInstance()->playEffect(RESOURCES_SFX_CRASH);
 }
