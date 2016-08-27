@@ -20,6 +20,7 @@ bool DragonManager::init()
 	this->dragonSprite = Sprite::createWithSpriteFrameName("dhch_1");
 	this->dragonPosition = Vec2(this->screenSize.width * 0.2, this->screenSize.height * 0.5);
 	this->dragonSprite->setPosition(this->dragonPosition);
+	this->dragonSprite->setScale(this->gameworld->scaleFactor);
 	this->gameworld->spriteBatchNode->addChild(this->dragonSprite, E_ZORDER::E_LAYER_PLAYER);
 
 	// fetch flying animation from cache & repeat it on the dragon's  sprite
@@ -40,7 +41,7 @@ bool DragonManager::init()
 	return true;
 }
 
-void dragondash::DragonManager::onGameStart()
+void DragonManager::onGameStart()
 {
 	// hover should stop once the game has started
 	this->dragonSprite->stopActionByTag(MOVEMENT_ACTION_TAG);
@@ -48,7 +49,7 @@ void dragondash::DragonManager::onGameStart()
 	this->mustApplyGravity = true;
 }
 
-void dragondash::DragonManager::update(float dt)
+void DragonManager::update(float dt)
 {
 	// calculate bounding box after applying gravity
 	auto newAABB = this->dragonSprite->getBoundingBox();
@@ -79,7 +80,7 @@ void dragondash::DragonManager::update(float dt)
 	this->dragonSprite->setPosition(this->dragonPosition);
 }
 
-void dragondash::DragonManager::dragonFlap()
+void DragonManager::dragonFlap()
 {
 	// don't flap if dragon will leave the top of the screen
 	if (this->dragonPosition.y + FLAP_FORCE >= this->screenSize.height)
@@ -88,10 +89,10 @@ void dragondash::DragonManager::dragonFlap()
 	// add flap force to speed
 	this->dragonSpeed.y = FLAP_FORCE;
 
-	SimpleAudioEngine::getInstance()->playEffect(RESOURCES_SFX_FLAP);
+	SimpleAudioEngine::getInstance()->playEffect(RESOURCES_DRAGON_SFX_FLAP);
 }
 
-void dragondash::DragonManager::dragonDeath()
+void DragonManager::dragonDeath()
 {
 	// fall miserably to the roof of the castle
 	auto rise = EaseSineOut::create(MoveBy::create(0.25, Vec2(0, this->dragonSprite->getContentSize().height)));
@@ -102,5 +103,5 @@ void dragondash::DragonManager::dragonDeath()
 	this->dragonSprite->stopAllActions();
 	this->dragonSprite->runAction(Sequence::create(rise, fall, finish, NULL));
 
-	SimpleAudioEngine::getInstance()->playEffect(RESOURCES_SFX_CRASH);
+	SimpleAudioEngine::getInstance()->playEffect(RESOURCES_DRAGON_SFX_CRASH);
 }

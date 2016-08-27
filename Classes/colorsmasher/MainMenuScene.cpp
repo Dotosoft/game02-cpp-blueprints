@@ -38,12 +38,12 @@ bool MainMenu::init()
     auto background = LayerColor::create( Color4B( 25, 0, 51, 255 ), screenSize.width, screenSize.height );
     this->addChild(background);
 
-    auto *titleLabel = Label::createWithTTF("ColourSmash",RESOURCES_FONT_COMIC_SANS, 32);
+    auto *titleLabel = Label::createWithTTF("ColourSmash",RESOURCES_DRAGON_FONT_COMIC_SANS, 32);
     titleLabel->setPosition(Vec2(screenSize.width * 0.5, screenSize.height * 0.8));
     this->addChild(titleLabel, 1);
 
-    auto playButtonNormal = Sprite::create(RESOURCES_IMAGE_BUTTON_PLAY);
-    auto playButtonClicked = Sprite::create(RESOURCES_IMAGE_BUTTON_PLAY);
+    auto playButtonNormal = Sprite::create(RESOURCES_DRAGON_IMAGE_BUTTON_PLAY);
+    auto playButtonClicked = Sprite::create(RESOURCES_DRAGON_IMAGE_BUTTON_PLAY);
     auto playButton = MenuItemSprite::create(playButtonNormal, playButtonClicked, this, menu_selector(MainMenu::onPlayClicked) );
     playButton->setPosition(Vec2(screenSize.width * 0.5, screenSize.height * 0.5));
 

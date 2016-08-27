@@ -66,9 +66,11 @@ void FairyTaleManager::createCastle()
 		// castleSprite->setPosition( Vec2(nextPosition, CASTLE_SPRITE_Y) );
 		castleSprite->setPosition( Vec2(nextPosition, -50) );
 		if(this->gameworld) {
+			castleSprite->setScale(this->gameworld->scaleFactor);
 			this->gameworld->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
 		}
 		else {
+			castleSprite->setScale(this->mainmenu->scaleFactor);
 			this->mainmenu->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
 		}
 		// store this sprite...we need to update it
@@ -94,10 +96,12 @@ void FairyTaleManager::createSilhouette()
 		// silhouetteSprite->setPosition(nextPosition, SILHOUETTE_SPRITE_Y);
 		silhouetteSprite->setPosition(nextPosition, 100);
 		if(this->gameworld) {
+			silhouetteSprite->setScale(this->gameworld->scaleFactor);
 			this->gameworld->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
 		}
 		else 
 		{
+			silhouetteSprite->setScale(this->mainmenu->scaleFactor);
 			this->mainmenu->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
 		}
 		// store this sprite...we need to update it
@@ -135,10 +139,12 @@ void FairyTaleManager::createStars()
 		// add this too the batch node as well
 		if (this->gameworld) 
 		{
+			star->setScale(this->gameworld->scaleFactor);
 			this->gameworld->spriteBatchNode->addChild(star);
 		}
 		else
 		{
+			star->setScale(this->mainmenu->scaleFactor);
 			this->mainmenu->spriteBatchNode->addChild(star);
 		}
 		

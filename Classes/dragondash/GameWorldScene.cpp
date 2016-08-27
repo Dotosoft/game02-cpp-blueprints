@@ -33,8 +33,11 @@ bool GameWorld::init()
 	this->screenSize = Director::getInstance()->getWinSize();
 
 	// create and add the batch node
-	this->spriteBatchNode = SpriteBatchNode::create(RESOURCES_IMAGE_SHEET_DRAGON, 256);
+	this->spriteBatchNode = SpriteBatchNode::create(RESOURCES_DRAGON_IMAGE_SHEET, 256);
 	this->addChild(this->spriteBatchNode, E_ZORDER::E_LAYER_BG + 1);
+
+	auto spriteTemp = Sprite::createWithSpriteFrameName("dhch_1");
+	this->scaleFactor = (this->screenSize.width / SCALE_FACTOR_DRAGON) / spriteTemp->getContentSize().width;
 
 	// set the roof of the castle
 	this->castleRoof = 100;
@@ -69,12 +72,13 @@ void GameWorld::createHUD()
 {
 	this->score = 0;
 	// create labels for score
-	this->scoreLabel = Label::createWithTTF(__String::createWithFormat("%d", this->score)->getCString(), RESOURCES_FONT_COMIC_SANS, 120);
+	this->scoreLabel = Label::createWithTTF(__String::createWithFormat("%d", this->score)->getCString(), RESOURCES_DRAGON_FONT_COMIC_SANS, 120);
 	this->scoreLabel->setPosition(Vec2(this->screenSize.width * 0.5, this->screenSize.height * 0.875));
 	this->addChild(this->scoreLabel, E_ZORDER::E_LAYER_HUD);
 
 	// create the tutorial sprite and add it to the batch node
 	this->tutorialSprite = Sprite::createWithSpriteFrameName("dhtap");
+	this->tutorialSprite->setScale(this->scaleFactor);
 	this->tutorialSprite->setPosition(Vec2(this->screenSize.width * 0.5, this->screenSize.height * 0.5));
 	this->spriteBatchNode->addChild(this->tutorialSprite);
 }
@@ -167,10 +171,11 @@ void GameWorld::showGameOverPopup()
 	this->popup->addChild(gameOverMenu);
 
 	auto gameOverSprite = Sprite::createWithSpriteFrameName("dhgover");
+	gameOverSprite->setScale(this->scaleFactor);
 	gameOverSprite->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.75));
 	this->popup->addChild(gameOverSprite);
 
-	auto scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), RESOURCES_FONT_COMIC_SANS, 60);
+	auto scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), RESOURCES_DRAGON_FONT_COMIC_SANS, 60);
 	scoreLabel->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.6));
 	scoreLabel->runAction(Sequence::create(
 			DelayTime::create(0.5),
@@ -181,7 +186,7 @@ void GameWorld::showGameOverPopup()
 
 	// fetch old high score from browser's local storage
 	auto oldHighScore = UserDefault::getInstance()->getIntegerForKey(HIGHSCORE_KEY);
-	auto highScoreLabel = Label::createWithTTF(__String::createWithFormat("Your Best: %d", oldHighScore)->getCString(), RESOURCES_FONT_COMIC_SANS, 60);
+	auto highScoreLabel = Label::createWithTTF(__String::createWithFormat("Your Best: %d", oldHighScore)->getCString(), RESOURCES_DRAGON_FONT_COMIC_SANS, 60);
 	highScoreLabel->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.5));
 	this->popup->addChild(highScoreLabel);
 
@@ -189,7 +194,9 @@ void GameWorld::showGameOverPopup()
 	if (this->score > oldHighScore)
 	{
 		// save the new high score
-		UserDefault::getInstance()->setIntegerForKey(HIGHSCORE_KEY, this->score);
+		UserDefault *def = UserDefault::getInstance();
+		def->setIntegerForKey(HIGHSCORE_KEY, this->score);
+		def->flush();
 
 		auto actionMoveDone = CallFuncN::create([&](Node *node) {
 			node->removeFromParentAndCleanup(true);
@@ -210,5 +217,5 @@ void GameWorld::showGameOverPopup()
 
 void GameWorld::onRestartClicked(cocos2d::Ref* ref)
 {
-	Director::getInstance()->replaceScene(TransitionFade::create(0.5, GameWorld::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, GameWorld::createScene()));
 }

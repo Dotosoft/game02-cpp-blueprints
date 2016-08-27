@@ -27,14 +27,11 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\colorsmasher\AppDelegate.cpp">
-      <Filter>src\colorsmasher</Filter>
+    <ClCompile Include="..\Classes\dragondash\AppDelegate.cpp">
+      <Filter>src\dragondash</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\colorsmasher\GameWorldScene.cpp">
-      <Filter>src\colorsmasher</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp">
-      <Filter>src\colorsmasher</Filter>
+    <ClCompile Include="..\Classes\dragondash\DragonManager.cpp">
+      <Filter>src\dragondash</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\dragondash\FairyTaleManager.cpp">
       <Filter>src\dragondash</Filter>
@@ -48,32 +45,32 @@
     <ClCompile Include="..\Classes\dragondash\TowerManager.cpp">
       <Filter>src\dragondash</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\AppDelegate.cpp">
-      <Filter>src\dragondash</Filter>
+    <ClCompile Include="..\Classes\colorsmasher\AppDelegate.cpp">
+      <Filter>src\colorsmasher</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\DragonManager.cpp">
-      <Filter>src\dragondash</Filter>
+    <ClCompile Include="..\Classes\colorsmasher\GameWorldScene.cpp">
+      <Filter>src\colorsmasher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp">
+      <Filter>src\colorsmasher</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\AppDelegate.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\ColourSmashDefinition.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\GameWorldScene.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
     <ClInclude Include="resource1.h" />
     <ClInclude Include="..\Classes\Resources.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\AppDelegate.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\DragonDashDefinition.h">
+      <Filter>src\dragondash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\dragondash\DragonManager.h">
+      <Filter>src\dragondash</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\dragondash\FairyTaleManager.h">
       <Filter>src\dragondash</Filter>
@@ -87,14 +84,17 @@
     <ClInclude Include="..\Classes\dragondash\TowerManager.h">
       <Filter>src\dragondash</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\AppDelegate.h">
-      <Filter>src\dragondash</Filter>
+    <ClInclude Include="..\Classes\colorsmasher\AppDelegate.h">
+      <Filter>src\colorsmasher</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\DragonManager.h">
-      <Filter>src\dragondash</Filter>
+    <ClInclude Include="..\Classes\colorsmasher\ColourSmashDefinition.h">
+      <Filter>src\colorsmasher</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\DragonDashDefinition.h">
-      <Filter>src\dragondash</Filter>
+    <ClInclude Include="..\Classes\colorsmasher\GameWorldScene.h">
+      <Filter>src\colorsmasher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h">
+      <Filter>src\colorsmasher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

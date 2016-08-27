@@ -24,7 +24,7 @@ dragondash::TowerManager::TowerManager(GameWorld * parent)
 bool dragondash::TowerManager::init()
 {
 	// record size of the tower's sprite
-	this->towerSpriteSize = SpriteFrameCache::getInstance()->getSpriteFrameByName("opst_02")->getOriginalSize();
+	this->towerSpriteSize = SpriteFrameCache::getInstance()->getSpriteFrameByName("opst_02")->getOriginalSize() * this->gameworld->scaleFactor;
 
 	// create the first pair of towers
 	// they should be two whole screens away from the dragon
@@ -49,12 +49,14 @@ void dragondash::TowerManager::createTower(Vec2 position)
 
 	// create lower tower sprite & add it to GameWorld's batch node
 	tower->lowerSprite = Sprite::createWithSpriteFrameName("opst_02");
+	tower->lowerSprite->setScale(this->gameworld->scaleFactor);
 	tower->lowerSprite->setPositionX(position.x);
 	tower->lowerSprite->setPositionY(position.y + VERT_GAP_BWN_TOWERS * -0.5 + this->towerSpriteSize.height * -0.5);
 	this->gameworld->spriteBatchNode->addChild(tower->lowerSprite, E_ZORDER::E_LAYER_TOWER);
 
 	// create upper tower sprite & add it to GameWorld's batch node
 	tower->upperSprite = Sprite::createWithSpriteFrameName("opst_01");
+	tower->upperSprite->setScale(this->gameworld->scaleFactor);
 	tower->upperSprite->setPositionX(position.x);
 	tower->upperSprite->setPositionY(position.y + VERT_GAP_BWN_TOWERS * 0.5 + this->towerSpriteSize.height * 0.5);
 	this->gameworld->spriteBatchNode->addChild(tower->upperSprite, E_ZORDER::E_LAYER_TOWER);

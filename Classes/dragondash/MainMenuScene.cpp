@@ -33,18 +33,22 @@ bool MainMenu::init()
 	if (def->getIntegerForKey(HIGHSCORE_KEY, 0) == 0) 
 	{
 		def->setIntegerForKey(HIGHSCORE_KEY, 0);
+		def->flush();
 	}
 
 	// preload audio and sprite sheet
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(RESOURCES_SFX_FLAP);
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(RESOURCES_SFX_CRASH);
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(RESOURCES_PLIST_SHEET_DRAGON);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(RESOURCES_DRAGON_SFX_FLAP);
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(RESOURCES_DRAGON_SFX_CRASH);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(RESOURCES_DRAGON_PLIST_SHEET);
 
 	// store screen size for fast access
 	this->screenSize = Director::getInstance()->getWinSize();
 
+	auto spriteTemp = Sprite::createWithSpriteFrameName("dhch_1");
+	this->scaleFactor = (this->screenSize.width / SCALE_FACTOR_DRAGON) / spriteTemp->getContentSize().width;
+
 	// create and add the batch node
-	this->spriteBatchNode = SpriteBatchNode::create(RESOURCES_IMAGE_SHEET_DRAGON, 256);
+	this->spriteBatchNode = SpriteBatchNode::create(RESOURCES_DRAGON_IMAGE_SHEET, 256);
 	this->addChild(this->spriteBatchNode, E_ZORDER::E_LAYER_BG + 1);
     
 	// create and init the environment
@@ -56,12 +60,15 @@ bool MainMenu::init()
 
 	// add the game's title
 	auto titleSprite = Sprite::createWithSpriteFrameName("dhtitle");
+	titleSprite->setScale(this->scaleFactor);
 	titleSprite->setPosition(Vec2(this->screenSize.width * 0.5f, this->screenSize.height * 0.75f));
 	this->spriteBatchNode->addChild(titleSprite, 1);
 
 	// add the play button
 	auto playSprite = Sprite::createWithSpriteFrameName("dhplay");
+	// playSprite->setScale(this->scaleFactor);
 	auto playSpriteSelected = Sprite::createWithSpriteFrameName("dhplay");
+	// playSpriteSelected->setScale(this->scaleFactor);
 	auto playButton = MenuItemSprite::create(playSprite, playSpriteSelected, this, menu_selector(MainMenu::onPlayClicked));
 	playButton->setPosition( Vec2(this->screenSize.width * 0.5f, this->screenSize.height * 0.25f) );
 
@@ -108,6 +115,7 @@ void MainMenu::addDragon()
 {
 	// create sprite and add to the sprite batch node
 	auto dragonSprite = Sprite::createWithSpriteFrameName("dhch_1");
+	dragonSprite->setScale(this->scaleFactor);
 	dragonSprite->setPosition(Vec2(this->screenSize.width * 0.2, this->screenSize.height * 0.5));
 	this->spriteBatchNode->addChild(dragonSprite, E_ZORDER::E_LAYER_PLAYER);
 
@@ -124,5 +132,5 @@ void MainMenu::addDragon()
 }
 
 void MainMenu::onPlayClicked(cocos2d::Ref* ref) {
-	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, GameWorld::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, GameWorld::createScene()));
 }

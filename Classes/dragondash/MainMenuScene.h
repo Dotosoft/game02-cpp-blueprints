@@ -21,6 +21,7 @@ namespace dragondash
 			Size screenSize;
 			SpriteBatchNode* spriteBatchNode;
 			int castleRoof = 0;
+			float scaleFactor;
 
 			static cocos2d::Scene* createScene();
 
