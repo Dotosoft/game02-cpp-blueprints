@@ -118,7 +118,7 @@ void FairyTaleManager::createStars()
 	{
 		Sprite* star;
 		// either big star or small
-		if (random() > 0.5)
+		if (CCRANDOM_0_1() > 0.5)
 			star = Sprite::createWithSpriteFrameName("dhstar1");
 		else
 			star = Sprite::createWithSpriteFrameName("dhstar2");
