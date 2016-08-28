@@ -63,8 +63,7 @@ void FairyTaleManager::createCastle()
 	{
 		// create castle wall sprite and add it to the parent's batch node
 		Sprite* castleSprite = Sprite::createWithSpriteFrameName("dhbase");
-		// castleSprite->setPosition( Vec2(nextPosition, CASTLE_SPRITE_Y) );
-		castleSprite->setPosition( Vec2(nextPosition, -50) );
+		castleSprite->setPosition( Vec2(nextPosition, CASTLE_SPRITE_Y) );
 		if(this->gameworld) {
 			castleSprite->setScale(this->gameworld->scaleFactor);
 			this->gameworld->spriteBatchNode->addChild(castleSprite, E_ZORDER::E_LAYER_CASTLE);
@@ -93,8 +92,7 @@ void FairyTaleManager::createSilhouette()
 	{
 		// create silhouette sprite and add it to the parent's batch node
 		auto silhouetteSprite = Sprite::createWithSpriteFrameName("dhbush");
-		// silhouetteSprite->setPosition(nextPosition, SILHOUETTE_SPRITE_Y);
-		silhouetteSprite->setPosition(nextPosition, 100);
+		silhouetteSprite->setPosition(nextPosition, SILHOUETTE_SPRITE_Y);
 		if(this->gameworld) {
 			silhouetteSprite->setScale(this->gameworld->scaleFactor);
 			this->gameworld->spriteBatchNode->addChild(silhouetteSprite, E_ZORDER::E_LAYER_SILHOUETTE);
@@ -116,8 +114,7 @@ void FairyTaleManager::createSilhouette()
 void FairyTaleManager::createStars()
 {
 	// random number of stars...this night sky always changes
-	// auto numStars = int(MAX_STARS) + floor(CCRANDOM_0_1() * int(MAX_STARS)));
-	auto numStars = 15 + floor(CCRANDOM_0_1() * 15);
+	auto numStars = MAX_STARS + floor(CCRANDOM_0_1() * MAX_STARS);
 	for (int i = 0; i < numStars; ++i)
 	{
 		Sprite* star;
@@ -163,15 +160,13 @@ void FairyTaleManager::updateCastle()
 	{
 		// first update the position based on the scroll speed
 		auto castleSprite = this->castleSprites.at(i);
-		// castleSprite.setPosition(castleSprite.getPositionX() - MAX_SCROLLING_SPEED, castleSprite.getPositionY());
-		castleSprite->setPosition(castleSprite->getPositionX() - 6, castleSprite->getPositionY());
+		castleSprite->setPosition(castleSprite->getPositionX() - MAX_SCROLLING_SPEED, castleSprite->getPositionY());
 
 		// check if the sprite has gone completely out of the left edge of the screen
 		if (castleSprite->getPositionX() < (this->castleSpriteSize.width * -0.5))
 		{
 			// reposition it after the last wall sprite
-			// auto positionX = this->castleSprites.at(this->lastCastleIndex)->getPositionX() + this->castleSpriteSize.width - MAX_SCROLLING_SPEED;
-			auto positionX = this->castleSprites.at(this->lastCastleIndex)->getPositionX() + this->castleSpriteSize.width - 6;
+			auto positionX = this->castleSprites.at(this->lastCastleIndex)->getPositionX() + this->castleSpriteSize.width - MAX_SCROLLING_SPEED;
 			castleSprite->setPosition(positionX, castleSprite->getPositionY());
 			// this sprite now becomes the new last wall
 			this->lastCastleIndex = i;
@@ -185,15 +180,13 @@ void FairyTaleManager::updateSilhouette()
 	{
 		// first update the position based on the scroll speed
 		auto silhouetteSprite = this->silhouetteSprites.at(i);
-		// silhouetteSprite->setPosition(this->silhouetteSprites.at(i).getPositionX() - MAX_SCROLLING_SPEED * 0.3f, silhouetteSprite->getPositionY());
-		silhouetteSprite->setPosition(this->silhouetteSprites.at(i)->getPositionX() - 6 * 0.3f, silhouetteSprite->getPositionY());
+		silhouetteSprite->setPosition(this->silhouetteSprites.at(i)->getPositionX() - MAX_SCROLLING_SPEED * 0.3f, silhouetteSprite->getPositionY());
 
 		// check if the sprite has gone completely out of the left edge of the screen
 		if (silhouetteSprite->getPositionX() < (this->silhouetteSpriteSize.width * -0.5))
 		{
 			// reposition it after the last silhouette sprite
-			// auto positionX = this->silhouetteSprites.at(this->lastSilhouetteIndex).getPositionX() + this->silhouetteSpriteSize.width - MAX_SCROLLING_SPEED*0.3;
-			auto positionX = this->silhouetteSprites.at(this->lastSilhouetteIndex)->getPositionX() + this->silhouetteSpriteSize.width - 6 * 0.3f;
+			auto positionX = this->silhouetteSprites.at(this->lastSilhouetteIndex)->getPositionX() + this->silhouetteSpriteSize.width - MAX_SCROLLING_SPEED*0.3;
 			silhouetteSprite->setPosition(positionX, silhouetteSprite->getPositionY());
 			// this sprite now becomes the new last silhouette
 			this->lastSilhouetteIndex = i;

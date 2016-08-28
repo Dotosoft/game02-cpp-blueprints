@@ -163,8 +163,7 @@ void GameWorld::showGameOverPopup()
 	this->addChild(this->popup, E_ZORDER::E_LAYER_POPUPS);
 
 	auto restartSprite = Sprite::createWithSpriteFrameName("dhplay");
-	auto restartSpriteSelected = Sprite::createWithSpriteFrameName("dhplay");
-	auto restartButton = MenuItemSprite::create(restartSprite, restartSpriteSelected, this, menu_selector(GameWorld::onRestartClicked));
+	auto restartButton = MenuItemSprite::create(restartSprite, restartSprite, this, menu_selector(GameWorld::onRestartClicked));
 	restartButton->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.25));
 
 	auto gameOverMenu = Menu::create(restartButton, NULL);
@@ -176,7 +175,7 @@ void GameWorld::showGameOverPopup()
 	gameOverSprite->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.75));
 	this->popup->addChild(gameOverSprite);
 
-	auto scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), RESOURCES_DRAGON_FONT_COMIC_SANS, 60);
+	auto scoreLabel = Label::createWithTTF(__String::createWithFormat("Score: %d", this->score)->getCString(), RESOURCES_DRAGON_FONT_COMIC_SANS, 50);
 	scoreLabel->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.6));
 	scoreLabel->runAction(Sequence::create(
 			DelayTime::create(0.5),
@@ -187,7 +186,7 @@ void GameWorld::showGameOverPopup()
 
 	// fetch old high score from browser's local storage
 	auto oldHighScore = UserDefault::getInstance()->getIntegerForKey(HIGHSCORE_KEY);
-	auto highScoreLabel = Label::createWithTTF(__String::createWithFormat("Your Best: %d", oldHighScore)->getCString(), RESOURCES_DRAGON_FONT_COMIC_SANS, 60);
+	auto highScoreLabel = Label::createWithTTF(__String::createWithFormat("Your Best: %d", oldHighScore)->getCString(), RESOURCES_DRAGON_FONT_COMIC_SANS, 50);
 	highScoreLabel->setPosition(Vec2(this->screenSize.width*0.5, this->screenSize.height*0.5));
 	this->popup->addChild(highScoreLabel);
 

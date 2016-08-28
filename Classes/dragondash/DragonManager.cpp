@@ -54,7 +54,6 @@ void DragonManager::update(float dt)
 	// calculate bounding box after applying gravity
 	auto newAABB = this->dragonSprite->getBoundingBox();
 	newAABB.origin.y = newAABB.origin.y + this->dragonSpeed.y;
-	// newAABB->setY(newAABB->getY() + this->dragonSpeed.y);
 
 	// check if the dragon has touched the roof of the castle
 	if(newAABB.origin.y <= this->gameworld->castleRoof)

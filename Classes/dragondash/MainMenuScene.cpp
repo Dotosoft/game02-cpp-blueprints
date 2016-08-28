@@ -67,10 +67,7 @@ bool MainMenu::init()
 
 	// add the play button
 	auto playSprite = Sprite::createWithSpriteFrameName("dhplay");
-	// playSprite->setScale(this->scaleFactor);
-	auto playSpriteSelected = Sprite::createWithSpriteFrameName("dhplay");
-	// playSpriteSelected->setScale(this->scaleFactor);
-	auto playButton = MenuItemSprite::create(playSprite, playSpriteSelected, this, menu_selector(MainMenu::onPlayClicked));
+	auto playButton = MenuItemSprite::create(playSprite, playSprite, this, menu_selector(MainMenu::onPlayClicked));
 	playButton->setPosition( Vec2(this->screenSize.width * 0.5f, this->screenSize.height * 0.25f) );
 
 	// add the menu
