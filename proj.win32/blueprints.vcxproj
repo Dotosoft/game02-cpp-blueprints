@@ -169,7 +169,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\dragondash\GameWorldScene.h" />
     <ClInclude Include="..\Classes\dragondash\MainMenuScene.h" />
     <ClInclude Include="..\Classes\dragondash\TowerManager.h" />
-    <ClInclude Include="..\Classes\Resources.h" />
+    <ClInclude Include="..\Classes\GameResources.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource1.h" />
   </ItemGroup>

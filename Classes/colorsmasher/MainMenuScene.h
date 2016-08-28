@@ -6,6 +6,7 @@
 #include "SimpleAudioEngine.h"
 #include "colorsmasher\ColourSmashDefinition.h"
 #include "colorsmasher\GameWorldScene.h"
+#include "GameResources.h"
 
 USING_NS_CC;
 

@@ -1,4 +1,5 @@
 #include "dragondash\MainMenuScene.h"
+
 using namespace dragondash;
 
 Scene* MainMenu::createScene()

@@ -4,15 +4,17 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-#include "Resources.h"
+#include "GameResources.h"
 #include "dragondash\DragonDashDefinition.h"
 #include "dragondash\FairyTaleManager.h"
+#include "dragondash\GameWorldScene.h"
 
 USING_NS_CC;
 
 namespace dragondash 
 {
 	class FairyTaleManager;
+	class GameWorld;
 	class MainMenu : public cocos2d::Layer
 	{
 		FairyTaleManager* fairytaleManager;

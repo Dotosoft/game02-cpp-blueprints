@@ -6,7 +6,7 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-#include "Resources.h"
+#include "GameResources.h"
 #include "dragondash\DragonDashDefinition.h"
 #include "dragondash\GameWorldScene.h"
 #include "dragondash\MainMenuScene.h"

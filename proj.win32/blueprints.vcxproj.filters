@@ -60,9 +60,6 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="resource1.h" />
-    <ClInclude Include="..\Classes\Resources.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\dragondash\AppDelegate.h">
       <Filter>src\dragondash</Filter>
     </ClInclude>
@@ -95,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h">
       <Filter>src\colorsmasher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameResources.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

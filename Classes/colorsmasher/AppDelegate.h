@@ -2,7 +2,7 @@
 #define  _COLORSMASH_APP_DELEGATE_H_
 
 #include "cocos2d.h"
-
+#include "colorsmasher\MainMenuScene.h"
 
 /**
 @brief    The cocos2d Application.

@@ -1,5 +1,4 @@
 #include "colorsmasher\AppDelegate.h"
-#include "colorsmasher\MainMenuScene.h"
 
 USING_NS_CC;
 using namespace colorsmasher;

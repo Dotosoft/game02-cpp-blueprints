@@ -1,4 +1,5 @@
 #include "colorsmasher\MainMenuScene.h"
+
 using namespace colorsmasher;
 
 Scene* MainMenu::createScene()

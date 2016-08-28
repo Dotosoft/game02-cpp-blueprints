@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-#include "Resources.h"
+#include "GameResources.h"
 #include "dragondash\TowerManager.h"
 #include "dragondash\DragonManager.h"
 #include "dragondash\FairyTaleManager.h"
