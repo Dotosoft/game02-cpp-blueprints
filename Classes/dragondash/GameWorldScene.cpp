@@ -132,7 +132,7 @@ void GameWorld::incrementScore()
 	this->scoreLabel->runAction(Sequence::create(EaseSineIn::create(ScaleTo::create(0.125, 1.2)), EaseSineOut::create(ScaleTo::create(0.125, 1)), NULL));
 }
 
-void GameWorld::onGameOver(Node *node)
+void GameWorld::onGameOver(cocos2d::Node *node)
 {
 	this->showGameOverPopup();
 }

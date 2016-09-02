@@ -1,5 +1,5 @@
-#ifndef _BLUEPRINT_RESOURCE_H_
-#define _BLUEPRINT_RESOURCE_H_
+#ifndef _SIMPLE2D_RESOURCE_H_
+#define _SIMPLE2D_RESOURCE_H_
 
 // COLOR SMASHER RESOURCE
 #define RESOURCES_COLOR_FONT_COMIC_SANS			"colorsmasher/fonts/Comic Sans MS.ttf"
@@ -16,4 +16,14 @@
 #define RESOURCES_DRAGON_IMAGE_BUTTON_PAUSE		"dragondash/pause_button.png"
 #define RESOURCES_DRAGON_IMAGE_BUTTON_PLAY		"dragondash/play_button.png"
 
-#endif // _BLUEPRINT_RESOURCE_H_
+// SPACE CRAZE RESOURCE
+#define RESOURCES_SPAZECRAZE_IMAGE_SFBG			"spacecraze/sfbg.png"
+#define RESOURCES_SPAZECRAZE_IMAGE_SPACETEX		"spacecraze/spacetex.png"
+#define RESOURCES_SPAZECRAZE_SOUND_BLAST_BRICK	"spacecraze/blast_brick.wav"
+#define RESOURCES_SPAZECRAZE_SOUND_BLAST_ENEMY	"spacecraze/blast_enemy.wav"
+#define RESOURCES_SPAZECRAZE_SHEET_EXPLOTION	"spacecraze/explosion.plist"
+
+// BRICK RESOURCE
+#define RESOURCES_TILED_IMAGE_BRICK				"tiledsprite\brick.png"
+
+#endif // _SIMPLE2D_RESOURCE_H_

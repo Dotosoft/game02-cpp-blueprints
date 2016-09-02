@@ -3,12 +3,6 @@
 USING_NS_CC;
 using namespace dragondash;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(375, 620);	// 0.5625
-// static cocos2d::Size designResolutionSize = cocos2d::Size(768, 1184);	// 0.5625
-static cocos2d::Size smallResolutionSize = cocos2d::Size(320, 480);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(768, 1024);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(1536, 2048);
-
 AppDelegate::AppDelegate() {}
 
 AppDelegate::~AppDelegate() {}

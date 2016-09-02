@@ -45,12 +45,11 @@ namespace dragondash
 			virtual bool init();
 
 			// a selector callback
-			void menuCloseCallback(cocos2d::Ref* pSender);
+			void menuCloseCallback(cocos2d::Ref * pSender);
+			void onGameOver(cocos2d::Node * node);
 
 			// implement the "static create()" method manually
 			CREATE_FUNC(GameWorld);
-
-			void onGameOver(Node *node);
 		private:
 			void createHUD();
 			void update(float dt);

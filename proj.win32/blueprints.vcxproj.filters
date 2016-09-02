@@ -22,6 +22,12 @@
     <Filter Include="resource\dragondash">
       <UniqueIdentifier>{c5d45317-47b8-458b-b7a8-f2c455165e67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\spacecraze">
+      <UniqueIdentifier>{4ed5d90a-9c1d-4464-a916-1d276df61f07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\spacecraze">
+      <UniqueIdentifier>{7f86902c-0ea2-4f59-9557-f4c35d4cbb45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +59,39 @@
     </ClCompile>
     <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp">
       <Filter>src\colorsmasher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\BackgroundManager.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\Brick.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\CustomSprite.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\Enemy.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\GameGlobals.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\GameWorld.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\MainMenu.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\Player.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\Popups.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\spacecraze\AppDelegate.cpp">
+      <Filter>src\spacecraze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tinyxml2.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +135,42 @@
     <ClInclude Include="..\Classes\GameResources.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\BackgroundManager.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\Brick.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\CustomSprite.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\Enemy.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\GameGlobals.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\GameWorld.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\MainMenu.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\Player.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\Popups.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\AppDelegate.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\spacecraze\AppMacros.h">
+      <Filter>src\spacecraze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tinyxml2.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\colorsmasher\CloseNormal.png">
@@ -125,6 +200,18 @@
     <Image Include="..\Resources\dragondash\play_button.png">
       <Filter>resource\dragondash</Filter>
     </Image>
+    <Image Include="..\Resources\spacecraze\sfbg.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
+    <Image Include="..\Resources\spacecraze\sftext_0.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
+    <Image Include="..\Resources\spacecraze\spacetex.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
+    <Image Include="..\Resources\spacecraze\texture.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="blueprints.rc" />
@@ -132,6 +219,15 @@
   <ItemGroup>
     <None Include="..\Resources\dragondash\dhtex.plist">
       <Filter>resource\dragondash</Filter>
+    </None>
+    <None Include="..\Resources\spacecraze\explosion.plist">
+      <Filter>resource\spacecraze</Filter>
+    </None>
+    <None Include="..\Resources\spacecraze\sftext.fnt">
+      <Filter>resource\spacecraze</Filter>
+    </None>
+    <None Include="..\Resources\spacecraze\spacetex.plist">
+      <Filter>resource\spacecraze</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -141,5 +237,43 @@
     <Media Include="..\Resources\dragondash\crash.mp3">
       <Filter>resource\dragondash</Filter>
     </Media>
+    <Media Include="..\Resources\spacecraze\blast_enemy.wav">
+      <Filter>resource\spacecraze</Filter>
+    </Media>
+    <Media Include="..\Resources\spacecraze\blast_player.wav">
+      <Filter>resource\spacecraze</Filter>
+    </Media>
+    <Media Include="..\Resources\spacecraze\game_over.wav">
+      <Filter>resource\spacecraze</Filter>
+    </Media>
+    <Media Include="..\Resources\spacecraze\level_complete.wav">
+      <Filter>resource\spacecraze</Filter>
+    </Media>
+    <Media Include="..\Resources\spacecraze\shoot_enemy.wav">
+      <Filter>resource\spacecraze</Filter>
+    </Media>
+    <Media Include="..\Resources\spacecraze\shoot_player.wav">
+      <Filter>resource\spacecraze</Filter>
+    </Media>
+    <Media Include="..\Resources\spacecraze\blast_brick.wav">
+      <Filter>resource\spacecraze</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Resources\spacecraze\Level01.xml">
+      <Filter>resource\spacecraze</Filter>
+    </Xml>
+    <Xml Include="..\Resources\spacecraze\Level02.xml">
+      <Filter>resource\spacecraze</Filter>
+    </Xml>
+    <Xml Include="..\Resources\spacecraze\Level03.xml">
+      <Filter>resource\spacecraze</Filter>
+    </Xml>
+    <Xml Include="..\Resources\spacecraze\Level04.xml">
+      <Filter>resource\spacecraze</Filter>
+    </Xml>
+    <Xml Include="..\Resources\spacecraze\Level05.xml">
+      <Filter>resource\spacecraze</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
