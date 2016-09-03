@@ -39,7 +39,7 @@ int Brick::Crumble()
 	auto remove = RemoveSelf::create(true);
 	runAction(Sequence::createWithTwoActions(blast, remove));
 
-	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_BRICK);
+	SOUND_ENGINE->playEffect(RESOURCES_SPACECRAZE_SOUND_BLAST_BRICK);
 
 	// return score_ so it can be credited to the player
 	return score_;

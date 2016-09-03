@@ -59,7 +59,7 @@ int Enemy::Die()
 
 	// play a particle effect
 	// modify the start & end color to suit the enemy
-	auto explosion = ParticleSystemQuad::create(RESOURCES_SPAZECRAZE_SHEET_EXPLOTION);
+	auto explosion = ParticleSystemQuad::create(RESOURCES_SPACECRAZE_SHEET_EXPLOTION);
 	explosion->setStartColor(particle_color_);
 	explosion->setEndColor(particle_color_);
 	explosion->setAutoRemoveOnFinish(true);
@@ -67,7 +67,7 @@ int Enemy::Die()
 	explosion->setPosition(getPosition());
 	game_world_->addChild(explosion);
 
-	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_ENEMY);
+	SOUND_ENGINE->playEffect(RESOURCES_SPACECRAZE_SOUND_BLAST_ENEMY);
 
 	// return score_ so it can be credited to the player
 	return score_;

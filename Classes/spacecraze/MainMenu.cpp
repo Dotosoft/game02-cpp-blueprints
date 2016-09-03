@@ -31,7 +31,7 @@ bool MainMenu::init()
 	addChild(background_manager, E_LAYER_BACKGROUND);
 
 	// create & add the batch node
-	sprite_batch_node_ = SpriteBatchNode::create(RESOURCES_SPAZECRAZE_IMAGE_SPACETEX, 10);
+	sprite_batch_node_ = SpriteBatchNode::create(RESOURCES_SPACECRAZE_IMAGE_SPACETEX, 10);
 	addChild(sprite_batch_node_, E_LAYER_FOREGROUND);
 
 	// create & add the title of the game

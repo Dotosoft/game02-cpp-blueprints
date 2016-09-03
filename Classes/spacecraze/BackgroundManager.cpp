@@ -15,7 +15,7 @@ bool BackgroundManager::init()
 	star_size_ = Size::ZERO;
 
 	// add the bright blue background
-	auto background_sprite = Sprite::create(RESOURCES_SPAZECRAZE_IMAGE_SFBG);
+	auto background_sprite = Sprite::create(RESOURCES_SPACECRAZE_IMAGE_SFBG);
 	background_sprite->setPosition(ccp(SCREEN_SIZE.width/2, SCREEN_SIZE.height/2));
 	addChild(background_sprite);
 
@@ -35,7 +35,7 @@ BackgroundManager::~BackgroundManager(void)
 void BackgroundManager::CreateStars()
 {
 	// create a batch node
-	auto sprite_batch_node = SpriteBatchNode::create(RESOURCES_SPAZECRAZE_IMAGE_SPACETEX, MAX_STARS);
+	auto sprite_batch_node = SpriteBatchNode::create(RESOURCES_SPACECRAZE_IMAGE_SPACETEX, MAX_STARS);
 	addChild(sprite_batch_node);
 
 	// create stars, position them randomly and add them to the batch node & the array

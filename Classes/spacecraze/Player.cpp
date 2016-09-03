@@ -28,6 +28,8 @@ Player* Player::createWithSpriteFrameName(GameWorld* game_world, const char* fra
 
 void Player::Enter()
 {
+	CCLOG("Player::Enter");
+
 	// initially position the player below the screen
 	setPosition( Vec2(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * -0.1) );
 
@@ -39,12 +41,16 @@ void Player::Enter()
 
 void Player::EnterFinished()
 {
+	CCLOG("Player::EnterFinished");
+
 	// player has entered, now start the game
 	game_world_->StartGame();
 }
 
 void Player::Leave()
 {
+	CCLOG("Player::Leave");
+
 	// no enemies left, fly out the top edge of the screen
 	auto movement = EaseBackIn::create(MoveBy::create(1.0f, Vec2(0, SCREEN_SIZE.height)));
 	runAction(movement);
@@ -52,6 +58,8 @@ void Player::Leave()
 
 void Player::Die()
 {
+	CCLOG("Player::Die");
+
 	// first reduce lives
 	lives_ = (--lives_ < 0) ? 0 : lives_;
 
@@ -65,17 +73,19 @@ void Player::Die()
 	runAction(Sequence::createWithTwoActions(death, after_death));
 
 	// play a particle...a sad one :(
-	auto explosion = ParticleSystemQuad::create(RESOURCES_SPAZECRAZE_SHEET_EXPLOTION);
+	auto explosion = ParticleSystemQuad::create(RESOURCES_SPACECRAZE_SHEET_EXPLOTION);
 	explosion->setAutoRemoveOnFinish(true);
 	// explosion->setPosition(m_obPosition);
 	explosion->setPosition(getPosition());
 	game_world_->addChild(explosion);
 
-	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_PLAYER);
+	SOUND_ENGINE->playEffect(RESOURCES_SPACECRAZE_SOUND_BLAST_PLAYER);
 }
 
 void Player::Respawn()
 {
+	CCLOG("Player::Respawn");
+
 	// reset the position, opacity & scale
 	setPosition(Vec2(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * 0.1));
 	setOpacity(255);
@@ -89,11 +99,15 @@ void Player::Respawn()
 
 void Player::OnRespawnComplete()
 {
+	CCLOG("Player::OnRespawnComplete");
+
 	is_respawning_ = false;
 }
 
 void Player::OnAllLivesFinished()
 {
+	CCLOG("Player::OnAllLivesFinished");
+
 	// player is finally dead...for sure...game is now over
 	game_world_->GameOver();
 }

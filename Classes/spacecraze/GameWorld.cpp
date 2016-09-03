@@ -101,7 +101,7 @@ void GameWorld::CreateLevel()
 	addChild(background_manager, E_LAYER_BACKGROUND);
 
 	// create & add the batch node
-	sprite_batch_node_ = SpriteBatchNode::create(RESOURCES_SPAZECRAZE_IMAGE_SPACETEX, 128);
+	sprite_batch_node_ = SpriteBatchNode::create(RESOURCES_SPACECRAZE_IMAGE_SPACETEX, 128);
 	addChild(sprite_batch_node_);
 
 	// initialize score & state machine flags
@@ -254,7 +254,7 @@ void GameWorld::CreateHUD()
 
 	// create & add score label
 	const char * buf = String::createWithFormat("%04d", score_)->getCString();
-	score_label_ = Label::createWithBMFont(RESOURCES_SPAZECRAZE_FONT_SFTEXT, buf);
+	score_label_ = Label::createWithBMFont(RESOURCES_SPACECRAZE_FONT_SFTEXT, buf);
 	score_label_->setPosition(Vec2(SCREEN_SIZE.width*0.3f, SCREEN_SIZE.height*0.925f));
 	addChild(score_label_, E_LAYER_HUD);
 
@@ -543,7 +543,7 @@ void GameWorld::GameOver()
 	// create & add the game over popup
 	auto game_over_popup = GameOverPopup::create(this, score_);
 	addChild(game_over_popup, E_LAYER_POPUP);
-	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_GAMEOVER);
+	SOUND_ENGINE->playEffect(RESOURCES_SPACECRAZE_SOUND_GAMEOVER);
 }
 
 void GameWorld::LevelComplete()
@@ -557,7 +557,7 @@ void GameWorld::LevelComplete()
 	// create & add the level complete popup
 	LevelCompletePopup* level_complete_popup = LevelCompletePopup::create(this, score_, player_->getLives());
 	addChild(level_complete_popup, E_LAYER_POPUP);
-	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_LVL_COMPLETE);
+	SOUND_ENGINE->playEffect(RESOURCES_SPACECRAZE_SOUND_LVL_COMPLETE);
 }
 
 void GameWorld::Reset()
@@ -685,7 +685,7 @@ void GameWorld::FirePlayerBullet(float dt)
 	auto remove = CallFuncN::create(this, callfuncN_selector(GameWorld::RemovePlayerBullet));
 	bullet->runAction(Sequence::createWithTwoActions(move_up, remove));
 
-	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_SHOOT_PLAYER);
+	SOUND_ENGINE->playEffect(RESOURCES_SPACECRAZE_SOUND_SHOOT_PLAYER);
 }
 
 void GameWorld::FireEnemyBullet(float dt)
@@ -715,7 +715,7 @@ void GameWorld::FireEnemyBullet(float dt)
 	auto remove = CallFuncN::create(this, callfuncN_selector(GameWorld::RemoveEnemyBullet));
 	bullet->runAction(Sequence::createWithTwoActions(move_down, remove));
 
-	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_SHOOT_ENEMY);
+	SOUND_ENGINE->playEffect(RESOURCES_SPACECRAZE_SOUND_SHOOT_ENEMY);
 }
 
 void GameWorld::RemovePlayerBullet(Node* bullet)
