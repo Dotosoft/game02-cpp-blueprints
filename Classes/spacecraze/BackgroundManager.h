@@ -6,7 +6,7 @@
 
 namespace spacecraze
 {
-	class BackgroundManager : public CCNode
+	class BackgroundManager : public Node
 	{
 		public:
 			virtual bool init();
@@ -18,8 +18,8 @@ namespace spacecraze
 			void update(float dt);
 
 		private:
-			CCArray* stars_;
-			CCSize star_size_;
+			__Array* stars_;
+			Size star_size_;
 	};
 }
 

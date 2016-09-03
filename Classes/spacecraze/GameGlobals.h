@@ -42,12 +42,12 @@ namespace spacecraze
 		static void LoadData();
 
 		// save screen size for fast access
-		static CCSize screen_size_;
+		static Size screen_size_;
 
 		// function takes comma separated string & returns vector of values
 		static vector<float> GetFloatListFromString(string input);
 		// function takes comma separated string & returns CCPoint
-		static CCPoint GetPointFromString(string input);
+		static Point GetPointFromString(string input);
 	};
 }
 

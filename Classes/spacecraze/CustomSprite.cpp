@@ -7,7 +7,7 @@ CustomSprite::~CustomSprite()
 
 CustomSprite* CustomSprite::createWithSpriteFrameName(const char* frame_name)
 {
-	CustomSprite* sprite = new CustomSprite();
+	auto sprite = new CustomSprite();
 	if(sprite && sprite->initWithSpriteFrameName(frame_name))
 	{
 		sprite->autorelease();

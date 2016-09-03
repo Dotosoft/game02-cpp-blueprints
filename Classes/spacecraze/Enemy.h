@@ -25,7 +25,7 @@ namespace spacecraze
 		CC_SYNTHESIZE(const char*, bullet_name_, BulletName);
 		CC_SYNTHESIZE(float, bullet_duration_, BulletDuration);
 
-		ccColor4F particle_color_;
+		Color4F particle_color_;
 
 	private:
 		GameWorld* game_world_;

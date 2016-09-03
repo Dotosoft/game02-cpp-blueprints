@@ -22,7 +22,7 @@ Brick::~Brick()
 
 Brick* Brick::createWithSpriteFrameName(const char* frame_name)
 {
-	Brick* brick = new Brick(frame_name);
+	auto brick = new Brick(frame_name);
 	if(brick && brick->initWithSpriteFrameName(frame_name))
 	{
 		brick->autorelease();
@@ -35,9 +35,9 @@ Brick* Brick::createWithSpriteFrameName(const char* frame_name)
 int Brick::Crumble()
 {
 	// play an animation when this brick is hit by player bullet
-	CCActionInterval* blast = CCScaleTo::create(0.25f, 0.0f);
-	CCRemoveSelf* remove = CCRemoveSelf::create(true);
-	runAction(CCSequence::createWithTwoActions(blast, remove));
+	auto blast = ScaleTo::create(0.25f, 0.0f);
+	auto remove = RemoveSelf::create(true);
+	runAction(Sequence::createWithTwoActions(blast, remove));
 
 	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_BRICK);
 

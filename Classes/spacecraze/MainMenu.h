@@ -5,14 +5,14 @@
 
 namespace spacecraze
 {
-	class MainMenu : public CCLayer
+	class MainMenu : public Layer
 	{
 	public:
 		// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 		virtual bool init();
 
 		// there's no 'id' in cpp, so we recommend returning the class instance pointer
-		static CCScene* scene();
+		static Scene* scene();
 
 		// implement the "static node()" method manually
 		CREATE_FUNC(MainMenu);
@@ -20,10 +20,10 @@ namespace spacecraze
 		// create some chaos
 		void Animate(float dt);
 		// play button handler
-		void OnPlayClicked(CCObject* sender);
+		void OnPlayClicked(Ref* sender);
 
-		CCArray* stars_;
-		CCSpriteBatchNode* sprite_batch_node_;
+		__Array* stars_;
+		SpriteBatchNode* sprite_batch_node_;
 	};
 }
 

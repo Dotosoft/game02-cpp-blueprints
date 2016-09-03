@@ -6,7 +6,7 @@ Size GameGlobals::screen_size_ = Size::ZERO;
 
 void GameGlobals::Init()
 {
-	screen_size_ = CCDirector::sharedDirector()->getWinSize();
+	screen_size_ = Director::getInstance()->getWinSize();
 	LoadData();
 }
 
@@ -16,7 +16,7 @@ void GameGlobals::LoadData()
 	// CCFileUtils::sharedFileUtils()->addSearchPath("Resources");
 
 	// load sprite sheet/s
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(RESOURCES_SPAZECRAZE_SHEET_SPACETEX);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(RESOURCES_SPAZECRAZE_SHEET_SPACETEX);
 
 	// load sound effects & background music
 	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_BRICK);

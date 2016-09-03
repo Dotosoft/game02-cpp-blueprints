@@ -4,13 +4,13 @@ using namespace spacecraze;
 
 bool BackgroundManager::init()
 {
-	if ( !CCNode::init() )
+	if ( !Node::init() )
     {
         return false;
     }
 
 	// create an array to hold the star sprites
-	stars_ = CCArray::createWithCapacity(MAX_STARS);
+	stars_ = __Array::createWithCapacity(MAX_STARS);
 	stars_->retain();
 	star_size_ = Size::ZERO;
 
@@ -35,26 +35,26 @@ BackgroundManager::~BackgroundManager(void)
 void BackgroundManager::CreateStars()
 {
 	// create a batch node
-	CCSpriteBatchNode* sprite_batch_node = CCSpriteBatchNode::create(RESOURCES_SPAZECRAZE_IMAGE_SPACETEX, MAX_STARS);
+	auto sprite_batch_node = SpriteBatchNode::create(RESOURCES_SPAZECRAZE_IMAGE_SPACETEX, MAX_STARS);
 	addChild(sprite_batch_node);
 
 	// create stars, position them randomly and add them to the batch node & the array
 	for(int i = 0; i < MAX_STARS; ++i)
 	{
-		CCSprite* star = CCSprite::createWithSpriteFrameName("star");
-		star->setPosition(ccp(CCRANDOM_0_1() * SCREEN_SIZE.width, CCRANDOM_0_1() * SCREEN_SIZE.height));
+		auto star = Sprite::createWithSpriteFrameName("star");
+		star->setPosition(Vec2(CCRANDOM_0_1() * SCREEN_SIZE.width, CCRANDOM_0_1() * SCREEN_SIZE.height));
 		sprite_batch_node->addChild(star);
 		stars_->addObject(star);
 	}
 
 	// save the size of the stars
-	star_size_ = ((CCSprite*)stars_->randomObject())->getContentSize();
+	star_size_ = ((Sprite*) stars_->getRandomObject())->getContentSize();
 }
 
 void BackgroundManager::update(float dt)
 {
-	CCObject* object = NULL;
-	CCSprite* star = NULL;
+	Object* object = NULL;
+	Sprite* star = NULL;
 	float speed = 10.0f;
 	float position = 0.0f;
 
@@ -62,7 +62,7 @@ void BackgroundManager::update(float dt)
 	// reposition star at top if it has crossed the bottom of the screen
 	CCARRAY_FOREACH(stars_, object)
 	{
-		star = (CCSprite*)object;
+		star = (Sprite*)object;
 		position = star->getPositionY() - speed;
 
 		if(position < star_size_.height * -0.5)

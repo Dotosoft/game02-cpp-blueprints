@@ -10,7 +10,7 @@ namespace spacecraze
 {
 	class Player;
 
-	class GameWorld : public CCLayer
+	class GameWorld : public Layer
 	{
 	public:
 		GameWorld();
@@ -20,7 +20,7 @@ namespace spacecraze
 		virtual bool init();
 
 		// there's no 'id' in cpp, so we recommend returning the class instance pointer
-		static CCScene* scene();
+		static Scene* scene();
 
 		virtual void update(float dt);
 
@@ -49,8 +49,8 @@ namespace spacecraze
 		void StartMovingEnemies();
 		void Update();
 		void CheckCollisions();
-		void HandleTouch(CCPoint touch);
-		void OnPauseClicked(CCObject* sender);
+		void HandleTouch(Point touch);
+		void OnPauseClicked(Ref* sender);
 
 		// level/game end functions
 		void GameOver();
@@ -60,8 +60,8 @@ namespace spacecraze
 		void NextLevel();
 
 		// remove functions
-		void RemoveEnemy(CCSprite* enemy);
-		void RemoveBrick(CCSprite* brick);
+		void RemoveEnemy(Sprite* enemy);
+		void RemoveBrick(Sprite* brick);
 
 		// HUD updating functions
 		void AddScore(int score_to_add);
@@ -70,32 +70,32 @@ namespace spacecraze
 		// Bullet related functions
 		void FirePlayerBullet(float dt);
 		void FireEnemyBullet(float dt);
-		void RemovePlayerBullet(CCNode* bullet);
-		void RemoveEnemyBullet(CCNode* bullet);
+		void RemovePlayerBullet(Node* bullet);
+		void RemoveEnemyBullet(Node* bullet);
 
 	private:
 		SpriteBatchNode* sprite_batch_node_;
 
 		// Player related members
 		Player* player_;
-		CCArray* player_bullets_;
+		__Array* player_bullets_;
 		float player_fire_rate_;
 
 		// Enemy related members
-		CCArray* enemies_;
-		CCArray* enemy_bullets_;
+		__Array* enemies_;
+		__Array* enemy_bullets_;
 		float enemy_movement_duration_;
 		float enemy_fire_rate_;
 		float left_side_enemy_position_;
 		float right_side_enemy_position_;
-		CCSize max_enemy_size_;
+		Size max_enemy_size_;
 
 		// Array containing Bricks
-		CCArray* bricks_;
+		__Array* bricks_;
 
 		// HUD elements
-		CCLabelBMFont* score_label_;
-		CCArray* life_sprites_;
+		Label* score_label_;
+		__Array* life_sprites_;
 		int score_;
 
 		// data to carry to next level

@@ -7,10 +7,10 @@ using namespace spacecraze;
 CCScene* MainMenu::scene()
 {
     // 'scene' is an autorelease object
-    CCScene *scene = CCScene::create();
+    auto scene = CCScene::create();
     
     // 'layer' is an autorelease object
-    MainMenu *layer = MainMenu::create();
+    auto layer = MainMenu::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -27,26 +27,26 @@ bool MainMenu::init()
     }
 
     // create the environment
-	BackgroundManager* background_manager = BackgroundManager::create();
+	auto background_manager = BackgroundManager::create();
 	addChild(background_manager, E_LAYER_BACKGROUND);
 
 	// create & add the batch node
-	sprite_batch_node_ = CCSpriteBatchNode::create(RESOURCES_SPAZECRAZE_IMAGE_SPACETEX, 10);
+	sprite_batch_node_ = SpriteBatchNode::create(RESOURCES_SPAZECRAZE_IMAGE_SPACETEX, 10);
 	addChild(sprite_batch_node_, E_LAYER_FOREGROUND);
 
 	// create & add the title of the game
-	CCSprite* title = CCSprite::createWithSpriteFrameName("sftitle");
+	auto title = Sprite::createWithSpriteFrameName("sftitle");
 	title->setPosition(ccp(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * 1.2));
-	title->runAction(CCSequence::createWithTwoActions(CCDelayTime::create(0.5f), CCEaseBackOut::create(CCMoveBy::create(0.5f, ccp(0, SCREEN_SIZE.height * -0.5f)))));
+	title->runAction(Sequence::createWithTwoActions(DelayTime::create(0.5f), EaseBackOut::create(MoveBy::create(0.5f, ccp(0, SCREEN_SIZE.height * -0.5f)))));
 	sprite_batch_node_->addChild(title, E_LAYER_FOREGROUND);
 
 	// create & add the play button
-	CCMenuItemSprite* play_button = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("play"), CCSprite::createWithSpriteFrameName("play"), this, menu_selector(MainMenu::OnPlayClicked));
+	auto play_button = MenuItemSprite::create(Sprite::createWithSpriteFrameName("play"), Sprite::createWithSpriteFrameName("play"), this, menu_selector(MainMenu::OnPlayClicked));
 	play_button->setPosition(ccp(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * -0.15));
-	play_button->runAction(CCSequence::createWithTwoActions(CCDelayTime::create(1.0f), CCEaseBackOut::create(CCMoveBy::create(0.5f, ccp(0, SCREEN_SIZE.height * 0.5f)))));
+	play_button->runAction(Sequence::createWithTwoActions(DelayTime::create(1.0f), EaseBackOut::create(MoveBy::create(0.5f, ccp(0, SCREEN_SIZE.height * 0.5f)))));
 
 	// create & add the play button's menu
-	CCMenu* play_menu = CCMenu::create(play_button, NULL);
+	auto play_menu = Menu::create(play_button, NULL);
 	play_menu->setAnchorPoint(Point::ZERO);
 	play_menu->setPosition(Point::ZERO);
 	addChild(play_menu, E_LAYER_FOREGROUND);
@@ -97,20 +97,20 @@ void MainMenu::Animate(float dt)
 	sprintf(buf, "sfenmy%d", type);
 
 	// create enemy sprite & add it
-	CCSprite* enemy_ship = CCSprite::createWithSpriteFrameName(buf);
+	auto enemy_ship = Sprite::createWithSpriteFrameName(buf);
 	sprite_batch_node_->addChild(enemy_ship);
 
 	// position enemy sprite
 	enemy_ship->setPosition(source);
 
 	// create & run sequence of move & remove
-	CCActionInterval* movement = CCMoveBy::create(duration, distance);
-	CCActionInstant* remove = CCRemoveSelf::create(true);
-	enemy_ship->runAction(CCSequence::createWithTwoActions(movement, remove));
+	auto movement = MoveBy::create(duration, distance);
+	auto remove = RemoveSelf::create(true);
+	enemy_ship->runAction(Sequence::createWithTwoActions(movement, remove));
 }
 
-void MainMenu::OnPlayClicked(CCObject* sender)
+void MainMenu::OnPlayClicked(Ref* sender)
 {
 	// handler function for the play button
-	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, GameWorld::scene()));
+	CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, GameWorld::scene()));
 }

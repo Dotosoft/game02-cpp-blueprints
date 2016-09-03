@@ -28,6 +28,7 @@
 #define RESOURCES_SPAZECRAZE_SOUND_SHOOT_PLAYER	"spacecraze/shoot_player.wav"
 #define RESOURCES_SPAZECRAZE_SHEET_EXPLOTION	"spacecraze/explosion.plist"
 #define RESOURCES_SPAZECRAZE_SHEET_SPACETEX		"spacecraze/spacetex.plist"
+#define RESOURCES_SPAZECRAZE_FONT_SFTEXT		"spacecraze/sftext.fnt"
 
 // BRICK RESOURCE
 #define RESOURCES_TILED_IMAGE_BRICK				"tiledsprite\brick.png"

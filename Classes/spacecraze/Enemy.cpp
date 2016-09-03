@@ -37,7 +37,7 @@ Enemy::~Enemy()
 
 Enemy* Enemy::createWithSpriteFrameName(GameWorld* game_world, const char* frame_name)
 {
-	Enemy* enemy = new Enemy(game_world, frame_name);
+	auto enemy = new Enemy(game_world, frame_name);
 	if(enemy && enemy->initWithSpriteFrameName(frame_name))
 	{
 		enemy->autorelease();
@@ -53,13 +53,13 @@ int Enemy::Die()
 	stopAllActions();
 
 	// play an animation when this enemy is hit by player bullet
-	CCActionInterval* blast = CCScaleTo::create(0.25f, 0.0f);
-	CCRemoveSelf* remove = CCRemoveSelf::create(true);
-	runAction(CCSequence::createWithTwoActions(blast, remove));
+	auto blast = ScaleTo::create(0.25f, 0.0f);
+	auto remove = RemoveSelf::create(true);
+	runAction(Sequence::createWithTwoActions(blast, remove));
 
 	// play a particle effect
 	// modify the start & end color to suit the enemy
-	CCParticleSystemQuad* explosion = CCParticleSystemQuad::create(RESOURCES_SPAZECRAZE_SHEET_EXPLOTION);
+	auto explosion = ParticleSystemQuad::create(RESOURCES_SPAZECRAZE_SHEET_EXPLOTION);
 	explosion->setStartColor(particle_color_);
 	explosion->setEndColor(particle_color_);
 	explosion->setAutoRemoveOnFinish(true);

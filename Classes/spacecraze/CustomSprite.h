@@ -5,7 +5,7 @@
 
 namespace spacecraze
 {
-	class CustomSprite : public CCSprite
+	class CustomSprite : public Sprite
 	{
 	public:
 		CustomSprite() : size_(Size::ZERO) {}
@@ -15,10 +15,10 @@ namespace spacecraze
 		static CustomSprite* createWithSpriteFrameName(const char* frame_name);
 
 		// override CCSprite's boundingBox method
-		virtual CCRect boundingBox();
+		virtual Rect boundingBox();
 
 		// add a customized CCSize used for the boundingBox
-		CC_SYNTHESIZE(CCSize, size_, Size);
+		CC_SYNTHESIZE(Size, size_, Size);
 	};
 }
 

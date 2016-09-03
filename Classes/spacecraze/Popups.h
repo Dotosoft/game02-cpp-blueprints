@@ -10,34 +10,34 @@ namespace spacecraze
 {
 	class GameWorld;
 
-	class Popup : public CCLayer
+	class Popup : public Layer
 	{
 	public:
 		Popup();
 		~Popup();
 
 		// create & add an empty CCMenu
-		virtual CCMenu* AddMenu();
+		virtual Menu* AddMenu();
 		// adds a CCMenuItem into the CCMenu
-		virtual CCMenuItem* AddButton(CCMenuItem* button, CCPoint position);
+		virtual MenuItem* AddButton(MenuItem* button, Point position);
 
 		// Creates & adds a CCMenuItemLabel using a CCLabelTTF
-		virtual CCMenuItemLabel* AddLabelButton(const char* text, CCPoint position, SEL_MenuHandler handler);
+		virtual MenuItemLabel* AddLabelButton(const char* text, Point position, SEL_MenuHandler handler);
 		// Creates & adds a CCMenuItemLabel using a CCLabelBMFont of given font name
-		virtual CCMenuItemLabel* AddLabelButton(const char* text, const char* font, CCPoint position, SEL_MenuHandler handler);
+		virtual MenuItemLabel* AddLabelButton(const char* text, const char* font, Point position, SEL_MenuHandler handler);
 		// Creates & adds a CCMenuItemSprite with specified frame_name
-		virtual CCMenuItemSprite* AddSpriteButton(const char* frame_name, CCPoint position, SEL_MenuHandler handler);
+		virtual MenuItemSprite* AddSpriteButton(const char* frame_name, Point position, SEL_MenuHandler handler);
 
 		// button handler functions
-		void ResumeGame(CCObject* sender);
-		void RestartGame(CCObject* sender);
-		void NextLevel(CCObject* sender);
-		void QuitToMainMenu(CCObject* sender);
+		void ResumeGame(Ref* sender);
+		void RestartGame(Ref* sender);
+		void NextLevel(Ref* sender);
+		void QuitToMainMenu(Ref* sender);
 
 
 	protected:
 		GameWorld* game_world_;
-		CCMenu* menu_;
+		Menu* menu_;
 	};
 
 	class PausePopup : public Popup

@@ -16,7 +16,7 @@ Player::~Player()
 
 Player* Player::createWithSpriteFrameName(GameWorld* game_world, const char* frame_name)
 {
-	Player* player = new Player(game_world);
+	auto player = new Player(game_world);
 	if(player && player->initWithSpriteFrameName(frame_name))
 	{
 		player->autorelease();
@@ -29,12 +29,12 @@ Player* Player::createWithSpriteFrameName(GameWorld* game_world, const char* fra
 void Player::Enter()
 {
 	// initially position the player below the screen
-	setPosition(ccp(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * -0.1));
+	setPosition( Vec2(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * -0.1) );
 
 	// animate the move into the screen
-	CCActionInterval* movement = CCEaseBackOut::create(CCMoveTo::create(1.0f, ccp(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * 0.1)));
-	CCActionInstant* movement_over = CCCallFunc::create(this, callfunc_selector(Player::EnterFinished));
-	runAction(CCSequence::createWithTwoActions(movement, movement_over));
+	auto movement = EaseBackOut::create(MoveTo::create(1.0f, Vec2(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * 0.1)));
+	auto movement_over = CallFunc::create(this, callfunc_selector(Player::EnterFinished));
+	runAction(Sequence::createWithTwoActions(movement, movement_over));
 }
 
 void Player::EnterFinished()
@@ -46,7 +46,7 @@ void Player::EnterFinished()
 void Player::Leave()
 {
 	// no enemies left, fly out the top edge of the screen
-	CCActionInterval* movement = CCEaseBackIn::create(CCMoveBy::create(1.0f, ccp(0, SCREEN_SIZE.height)));
+	auto movement = EaseBackIn::create(MoveBy::create(1.0f, Vec2(0, SCREEN_SIZE.height)));
 	runAction(movement);
 }
 
@@ -59,13 +59,13 @@ void Player::Die()
 	is_respawning_ = (lives_ > 0);
 
 	// animate the death :(
-	CCActionInterval* death = CCSpawn::createWithTwoActions(CCFadeOut::create(0.5f), CCScaleTo::create(0.5f, 1.5f));
+	auto death = Spawn::createWithTwoActions(FadeOut::create(0.5f), ScaleTo::create(0.5f, 1.5f));
 	// call the appropriate callback based on lives remaining
-	CCActionInstant* after_death = (lives_ <= 0) ? (CCCallFunc::create(this, callfunc_selector(Player::OnAllLivesFinished))) : (CCCallFunc::create(this, callfunc_selector(Player::Respawn)));
-	runAction(CCSequence::createWithTwoActions(death, after_death));
+	auto after_death = (lives_ <= 0) ? (CallFunc::create(this, callfunc_selector(Player::OnAllLivesFinished))) : (CallFunc::create(this, callfunc_selector(Player::Respawn)));
+	runAction(Sequence::createWithTwoActions(death, after_death));
 
 	// play a particle...a sad one :(
-	CCParticleSystemQuad* explosion = CCParticleSystemQuad::create(RESOURCES_SPAZECRAZE_SHEET_EXPLOTION);
+	auto explosion = ParticleSystemQuad::create(RESOURCES_SPAZECRAZE_SHEET_EXPLOTION);
 	explosion->setAutoRemoveOnFinish(true);
 	// explosion->setPosition(m_obPosition);
 	explosion->setPosition(getPosition());
@@ -77,14 +77,14 @@ void Player::Die()
 void Player::Respawn()
 {
 	// reset the position, opacity & scale
-	setPosition(ccp(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * 0.1));
+	setPosition(Vec2(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * 0.1));
 	setOpacity(255);
 	setScale(0.0f);
 
 	// animate the respawn
-	CCSpawn* respawn = CCSpawn::createWithTwoActions(CCScaleTo::create(0.5f, 1.0f), CCBlink::create(1.0f, 5));
-	CCCallFunc* respawn_complete = CCCallFunc::create(this, callfunc_selector(Player::OnRespawnComplete));
-	runAction(CCSequence::createWithTwoActions(respawn, respawn_complete));
+	auto respawn = Spawn::createWithTwoActions(ScaleTo::create(0.5f, 1.0f), Blink::create(1.0f, 5));
+	auto respawn_complete = CallFunc::create(this, callfunc_selector(Player::OnRespawnComplete));
+	runAction(Sequence::createWithTwoActions(respawn, respawn_complete));
 }
 
 void Player::OnRespawnComplete()
