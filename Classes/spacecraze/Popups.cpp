@@ -1,6 +1,4 @@
 #include "spacecraze\Popups.h"
-#include "spacecraze\GameWorld.h"
-#include "spacecraze\MainMenu.h"
 
 using namespace spacecraze;
 
@@ -49,7 +47,7 @@ CCMenuItem* Popup::AddButton(CCMenuItem* button, CCPoint position)
 CCMenuItemLabel* Popup::AddLabelButton(const char* text, CCPoint position, SEL_MenuHandler handler)
 {
 	// create CCMenuItemLabel with CCLabelTTF
-	return (CCMenuItemLabel*)AddButton(CCMenuItemLabel::create(CCLabelTTF::create(text, "Comic Sans MS", 36), this, handler), position);
+	return (CCMenuItemLabel*)AddButton(CCMenuItemLabel::create(CCLabelTTF::create(text, RESOURCES_FONT_COMIC_SANS, 36), this, handler), position);
 }
 
 CCMenuItemLabel* Popup::AddLabelButton(const char* text, const char* font, CCPoint position, SEL_MenuHandler handler)
@@ -95,7 +93,7 @@ PausePopup::PausePopup(GameWorld* game_world)
 	game_world_->is_popup_active_ = true;
 
 	// add the title/message of the popup
-	CCLabelTTF* label = CCLabelTTF::create("Game Paused", "Comic Sans MS", 52);
+	CCLabelTTF* label = CCLabelTTF::create("Game Paused", RESOURCES_FONT_COMIC_SANS, 52);
 	label->setColor(ccc3(0, 79, 135));
 	label->setPosition(ccp(SCREEN_SIZE.width*0.5, SCREEN_SIZE.height*0.75));
 	addChild(label);
@@ -128,7 +126,7 @@ LevelCompletePopup::LevelCompletePopup(GameWorld* game_world, int score, int liv
 	game_world_->is_popup_active_ = true;
 
 	// add the title/message of the popup
-	CCLabelTTF* label = CCLabelTTF::create("Stage Complete!", "Comic Sans MS", 52);
+	CCLabelTTF* label = CCLabelTTF::create("Stage Complete!", RESOURCES_FONT_COMIC_SANS, 52);
 	label->setColor(ccc3(0, 79, 135));
 	label->setPosition(ccp(SCREEN_SIZE.width*0.5, SCREEN_SIZE.height*0.75));
 	addChild(label);
@@ -136,14 +134,14 @@ LevelCompletePopup::LevelCompletePopup(GameWorld* game_world, int score, int liv
 	// add the score
 	char buf[16] = {0};
 	sprintf(buf, "Score:%d", score);
-	label = CCLabelTTF::create(buf, "Comic Sans MS", 44);
+	label = CCLabelTTF::create(buf, RESOURCES_FONT_COMIC_SANS, 44);
 	label->setColor(ccc3(0, 79, 135));
 	label->setPosition(ccp(SCREEN_SIZE.width*0.35, SCREEN_SIZE.height*0.6));
 	addChild(label);
 
 	// add player lives remaining
 	sprintf(buf, "Lives:%d/3", lives);
-	label = CCLabelTTF::create(buf, "Comic Sans MS", 44);
+	label = CCLabelTTF::create(buf, RESOURCES_FONT_COMIC_SANS, 44);
 	label->setColor(ccc3(0, 79, 135));
 	label->setPosition(ccp(SCREEN_SIZE.width*0.65, SCREEN_SIZE.height*0.6));
 	addChild(label);
@@ -177,7 +175,7 @@ GameOverPopup::GameOverPopup(GameWorld* game_world, int score)
 	game_world_->is_popup_active_ = true;
 
 	// add the title/message of the popup
-	CCLabelTTF* label = CCLabelTTF::create("Game Over!", "Comic Sans MS", 52);
+	CCLabelTTF* label = CCLabelTTF::create("Game Over!", RESOURCES_FONT_COMIC_SANS, 52);
 	label->setColor(ccc3(0, 79, 135));
 	label->setPosition(ccp(SCREEN_SIZE.width*0.5, SCREEN_SIZE.height*0.75));
 	addChild(label);
@@ -185,7 +183,7 @@ GameOverPopup::GameOverPopup(GameWorld* game_world, int score)
 	// add the score
 	char buf[16] = {0};
 	sprintf(buf, "Score:%d", score);
-	label = CCLabelTTF::create(buf, "Comic Sans MS", 44);
+	label = CCLabelTTF::create(buf, RESOURCES_FONT_COMIC_SANS, 44);
 	label->setColor(ccc3(0, 79, 135));
 	label->setPosition(ccp(SCREEN_SIZE.width*0.5, SCREEN_SIZE.height*0.6));
 	addChild(label);

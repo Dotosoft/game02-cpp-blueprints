@@ -146,15 +146,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\colorsmasher\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\colorsmasher\GameWorldScene.cpp" />
-    <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp" />
-    <ClCompile Include="..\Classes\dragondash\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\dragondash\DragonManager.cpp" />
-    <ClCompile Include="..\Classes\dragondash\FairyTaleManager.cpp" />
-    <ClCompile Include="..\Classes\dragondash\GameWorldScene.cpp" />
-    <ClCompile Include="..\Classes\dragondash\MainMenuScene.cpp" />
-    <ClCompile Include="..\Classes\dragondash\TowerManager.cpp" />
     <ClCompile Include="..\Classes\spacecraze\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\spacecraze\BackgroundManager.cpp" />
     <ClCompile Include="..\Classes\spacecraze\Brick.cpp" />
@@ -169,17 +160,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\colorsmasher\AppDelegate.h" />
-    <ClInclude Include="..\Classes\colorsmasher\ColourSmashDefinition.h" />
-    <ClInclude Include="..\Classes\colorsmasher\GameWorldScene.h" />
-    <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h" />
-    <ClInclude Include="..\Classes\dragondash\AppDelegate.h" />
-    <ClInclude Include="..\Classes\dragondash\DragonDashDefinition.h" />
-    <ClInclude Include="..\Classes\dragondash\DragonManager.h" />
-    <ClInclude Include="..\Classes\dragondash\FairyTaleManager.h" />
-    <ClInclude Include="..\Classes\dragondash\GameWorldScene.h" />
-    <ClInclude Include="..\Classes\dragondash\MainMenuScene.h" />
-    <ClInclude Include="..\Classes\dragondash\TowerManager.h" />
     <ClInclude Include="..\Classes\GameResources.h" />
     <ClInclude Include="..\Classes\spacecraze\AppDelegate.h" />
     <ClInclude Include="..\Classes\spacecraze\AppMacros.h" />
@@ -203,9 +183,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <Image Include="..\Resources\colorsmasher\pause_button.png" />
     <Image Include="..\Resources\colorsmasher\play_button.png" />
     <Image Include="..\Resources\colorsmasher\tile.png" />
-    <Image Include="..\Resources\dragondash\dhtex.png" />
-    <Image Include="..\Resources\dragondash\pause_button.png" />
-    <Image Include="..\Resources\dragondash\play_button.png" />
     <Image Include="..\Resources\spacecraze\sfbg.png" />
     <Image Include="..\Resources\spacecraze\sftext_0.png" />
     <Image Include="..\Resources\spacecraze\spacetex.png" />
@@ -215,14 +192,11 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\dragondash\dhtex.plist" />
     <None Include="..\Resources\spacecraze\explosion.plist" />
     <None Include="..\Resources\spacecraze\sftext.fnt" />
     <None Include="..\Resources\spacecraze\spacetex.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\Resources\dragondash\crash.mp3" />
-    <Media Include="..\Resources\dragondash\flap.mp3" />
     <Media Include="..\Resources\spacecraze\blast_brick.wav" />
     <Media Include="..\Resources\spacecraze\blast_enemy.wav" />
     <Media Include="..\Resources\spacecraze\blast_player.wav" />
@@ -237,6 +211,11 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <Xml Include="..\Resources\spacecraze\Level03.xml" />
     <Xml Include="..\Resources\spacecraze\Level04.xml" />
     <Xml Include="..\Resources\spacecraze\Level05.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\Resources\colorsmasher\fonts\arial.ttf" />
+    <Font Include="..\Resources\colorsmasher\fonts\Comic Sans MS.ttf" />
+    <Font Include="..\Resources\colorsmasher\fonts\Marker Felt.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

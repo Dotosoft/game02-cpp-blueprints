@@ -13,19 +13,19 @@ void GameGlobals::Init()
 void GameGlobals::LoadData()
 {
 	// add Resources folder to search path. This is necessary when releasing for win32
-	CCFileUtils::sharedFileUtils()->addSearchPath("Resources");
+	// CCFileUtils::sharedFileUtils()->addSearchPath("Resources");
 
 	// load sprite sheet/s
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("spacetex.plist");
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(RESOURCES_SPAZECRAZE_SHEET_SPACETEX);
 
 	// load sound effects & background music
-	SOUND_ENGINE->preloadEffect("blast_brick.wav");
-	SOUND_ENGINE->preloadEffect("blast_enemy.wav");
-	SOUND_ENGINE->preloadEffect("blast_player.wav");
-	SOUND_ENGINE->preloadEffect("game_over.wav");
-	SOUND_ENGINE->preloadEffect("level_complete.wav");
-	SOUND_ENGINE->preloadEffect("shoot_enemy.wav");
-	SOUND_ENGINE->preloadEffect("shoot_player.wav");
+	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_BRICK);
+	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_ENEMY);
+	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_PLAYER);
+	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_GAMEOVER);
+	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_LVL_COMPLETE);
+	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_SHOOT_ENEMY);
+	SOUND_ENGINE->preloadEffect(RESOURCES_SPAZECRAZE_SOUND_SHOOT_PLAYER);
 }
 
 // function takes comma separated string & returns vector of values

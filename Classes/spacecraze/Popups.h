@@ -2,6 +2,9 @@
 #define _SPACECRAZE_POPUPS_H_
 
 #include "spacecraze\GameGlobals.h"
+#include "spacecraze\GameWorld.h"
+#include "spacecraze\MainMenu.h"
+#include "GameResources.h"
 
 namespace spacecraze
 {

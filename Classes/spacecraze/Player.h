@@ -3,6 +3,7 @@
 
 #include "spacecraze\GameGlobals.h"
 #include "spacecraze\CustomSprite.h"
+#include "GameResources.h"
 
 namespace spacecraze
 {

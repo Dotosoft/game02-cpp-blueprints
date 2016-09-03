@@ -65,13 +65,13 @@ void Player::Die()
 	runAction(CCSequence::createWithTwoActions(death, after_death));
 
 	// play a particle...a sad one :(
-	CCParticleSystemQuad* explosion = CCParticleSystemQuad::create("explosion.plist");
+	CCParticleSystemQuad* explosion = CCParticleSystemQuad::create(RESOURCES_SPAZECRAZE_SHEET_EXPLOTION);
 	explosion->setAutoRemoveOnFinish(true);
 	// explosion->setPosition(m_obPosition);
 	explosion->setPosition(getPosition());
 	game_world_->addChild(explosion);
 
-	SOUND_ENGINE->playEffect("blast_player.wav");
+	SOUND_ENGINE->playEffect(RESOURCES_SPAZECRAZE_SOUND_BLAST_PLAYER);
 }
 
 void Player::Respawn()

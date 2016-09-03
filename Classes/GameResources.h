@@ -21,7 +21,13 @@
 #define RESOURCES_SPAZECRAZE_IMAGE_SPACETEX		"spacecraze/spacetex.png"
 #define RESOURCES_SPAZECRAZE_SOUND_BLAST_BRICK	"spacecraze/blast_brick.wav"
 #define RESOURCES_SPAZECRAZE_SOUND_BLAST_ENEMY	"spacecraze/blast_enemy.wav"
+#define RESOURCES_SPAZECRAZE_SOUND_BLAST_PLAYER	"spacecraze/blast_player.wav"
+#define RESOURCES_SPAZECRAZE_SOUND_GAMEOVER		"spacecraze/game_over.wav"
+#define RESOURCES_SPAZECRAZE_SOUND_LVL_COMPLETE "spacecraze/level_complete.wav"
+#define RESOURCES_SPAZECRAZE_SOUND_SHOOT_ENEMY	"spacecraze/shoot_enemy.wav"
+#define RESOURCES_SPAZECRAZE_SOUND_SHOOT_PLAYER	"spacecraze/shoot_player.wav"
 #define RESOURCES_SPAZECRAZE_SHEET_EXPLOTION	"spacecraze/explosion.plist"
+#define RESOURCES_SPAZECRAZE_SHEET_SPACETEX		"spacecraze/spacetex.plist"
 
 // BRICK RESOURCE
 #define RESOURCES_TILED_IMAGE_BRICK				"tiledsprite\brick.png"

@@ -10,55 +10,22 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resource\colorsmasher">
-      <UniqueIdentifier>{ee60e601-bf79-452a-aff6-f8cf2337f583}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\colorsmasher">
-      <UniqueIdentifier>{3a41b33e-4900-4e06-992a-55977a69736c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\dragondash">
-      <UniqueIdentifier>{2a42e896-a50c-46a9-a95b-98143639031c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resource\dragondash">
-      <UniqueIdentifier>{c5d45317-47b8-458b-b7a8-f2c455165e67}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\spacecraze">
       <UniqueIdentifier>{4ed5d90a-9c1d-4464-a916-1d276df61f07}</UniqueIdentifier>
     </Filter>
     <Filter Include="resource\spacecraze">
       <UniqueIdentifier>{7f86902c-0ea2-4f59-9557-f4c35d4cbb45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="resource\colorsmasher">
+      <UniqueIdentifier>{94878618-4f09-4a00-9120-fad5393786fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\colorsmasher\fonts">
+      <UniqueIdentifier>{73f25cf2-b64e-43c1-b0f7-cfed0731cd42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\AppDelegate.cpp">
-      <Filter>src\dragondash</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\DragonManager.cpp">
-      <Filter>src\dragondash</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\FairyTaleManager.cpp">
-      <Filter>src\dragondash</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\GameWorldScene.cpp">
-      <Filter>src\dragondash</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\MainMenuScene.cpp">
-      <Filter>src\dragondash</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\dragondash\TowerManager.cpp">
-      <Filter>src\dragondash</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\colorsmasher\AppDelegate.cpp">
-      <Filter>src\colorsmasher</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\colorsmasher\GameWorldScene.cpp">
-      <Filter>src\colorsmasher</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\colorsmasher\MainMenuScene.cpp">
-      <Filter>src\colorsmasher</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\spacecraze\BackgroundManager.cpp">
       <Filter>src\spacecraze</Filter>
@@ -99,42 +66,6 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="resource1.h" />
-    <ClInclude Include="..\Classes\dragondash\AppDelegate.h">
-      <Filter>src\dragondash</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\DragonDashDefinition.h">
-      <Filter>src\dragondash</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\DragonManager.h">
-      <Filter>src\dragondash</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\FairyTaleManager.h">
-      <Filter>src\dragondash</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\GameWorldScene.h">
-      <Filter>src\dragondash</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\MainMenuScene.h">
-      <Filter>src\dragondash</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\dragondash\TowerManager.h">
-      <Filter>src\dragondash</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\AppDelegate.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\ColourSmashDefinition.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\GameWorldScene.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\colorsmasher\MainMenuScene.h">
-      <Filter>src\colorsmasher</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameResources.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\spacecraze\BackgroundManager.h">
       <Filter>src\spacecraze</Filter>
     </ClInclude>
@@ -171,8 +102,23 @@
     <ClInclude Include="..\Classes\tinyxml2.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GameResources.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resources\spacecraze\sfbg.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
+    <Image Include="..\Resources\spacecraze\sftext_0.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
+    <Image Include="..\Resources\spacecraze\spacetex.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
+    <Image Include="..\Resources\spacecraze\texture.png">
+      <Filter>resource\spacecraze</Filter>
+    </Image>
     <Image Include="..\Resources\colorsmasher\CloseNormal.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
@@ -191,35 +137,11 @@
     <Image Include="..\Resources\colorsmasher\tile.png">
       <Filter>resource\colorsmasher</Filter>
     </Image>
-    <Image Include="..\Resources\dragondash\dhtex.png">
-      <Filter>resource\dragondash</Filter>
-    </Image>
-    <Image Include="..\Resources\dragondash\pause_button.png">
-      <Filter>resource\dragondash</Filter>
-    </Image>
-    <Image Include="..\Resources\dragondash\play_button.png">
-      <Filter>resource\dragondash</Filter>
-    </Image>
-    <Image Include="..\Resources\spacecraze\sfbg.png">
-      <Filter>resource\spacecraze</Filter>
-    </Image>
-    <Image Include="..\Resources\spacecraze\sftext_0.png">
-      <Filter>resource\spacecraze</Filter>
-    </Image>
-    <Image Include="..\Resources\spacecraze\spacetex.png">
-      <Filter>resource\spacecraze</Filter>
-    </Image>
-    <Image Include="..\Resources\spacecraze\texture.png">
-      <Filter>resource\spacecraze</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\dragondash\dhtex.plist">
-      <Filter>resource\dragondash</Filter>
-    </None>
     <None Include="..\Resources\spacecraze\explosion.plist">
       <Filter>resource\spacecraze</Filter>
     </None>
@@ -231,12 +153,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\Resources\dragondash\flap.mp3">
-      <Filter>resource\dragondash</Filter>
-    </Media>
-    <Media Include="..\Resources\dragondash\crash.mp3">
-      <Filter>resource\dragondash</Filter>
-    </Media>
     <Media Include="..\Resources\spacecraze\blast_enemy.wav">
       <Filter>resource\spacecraze</Filter>
     </Media>
@@ -275,5 +191,16 @@
     <Xml Include="..\Resources\spacecraze\Level05.xml">
       <Filter>resource\spacecraze</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\Resources\colorsmasher\fonts\arial.ttf">
+      <Filter>resource\colorsmasher\fonts</Filter>
+    </Font>
+    <Font Include="..\Resources\colorsmasher\fonts\Comic Sans MS.ttf">
+      <Filter>resource\colorsmasher\fonts</Filter>
+    </Font>
+    <Font Include="..\Resources\colorsmasher\fonts\Marker Felt.ttf">
+      <Filter>resource\colorsmasher\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>
