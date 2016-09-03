@@ -1,9 +1,4 @@
 #include "spacecraze\GameWorld.h"
-#include "spacecraze\BackgroundManager.h"
-#include "spacecraze\Player.h"
-#include "spacecraze\Enemy.h"
-#include "spacecraze\Brick.h"
-#include "spacecraze\Popups.h"
 
 using namespace spacecraze;
 
@@ -57,7 +52,11 @@ bool GameWorld::init()
         return false;
     }
     
-	// setTouchEnabled(true);
+	setTouchEnabled(true);
+	auto listener = EventListenerTouchAllAtOnce::create();
+	listener->onTouchesBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
+	listener->onTouchesMoved = CC_CALLBACK_2(GameWorld::onTouchMoving, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	// game always starts with first level
 	current_level_ = 1;
@@ -87,7 +86,7 @@ bool GameWorld::onTouchBegan(const std::vector<Touch*>& touches, Event* evt)
 	return true;
 }
 
-void GameWorld::onTouchMoved(const std::vector<Touch*>& touches, Event* evt)
+void GameWorld::onTouchMoving(const std::vector<Touch*>& touches, Event* evt)
 {
 	auto touch = (Touch*) touches.at(0);
 	auto touch_point = touch->getLocationInView();
@@ -254,9 +253,8 @@ void GameWorld::CreateHUD()
 	sprite_batch_node_->addChild(lives_sprite, E_LAYER_HUD);
 
 	// create & add score label
-	char buf[8] = {0};
-	sprintf(buf, "%04d", score_);
-	score_label_ = Label::createWithBMFont(buf, RESOURCES_SPAZECRAZE_FONT_SFTEXT);
+	const char * buf = String::createWithFormat("%04d", score_)->getCString();
+	score_label_ = Label::createWithBMFont(RESOURCES_SPAZECRAZE_FONT_SFTEXT, buf);
 	score_label_->setPosition(Vec2(SCREEN_SIZE.width*0.3f, SCREEN_SIZE.height*0.925f));
 	addChild(score_label_, E_LAYER_HUD);
 
@@ -376,13 +374,13 @@ void GameWorld::StartMovingEnemies()
 	int max_moves_right = floor(max_distance_right / distance_per_move);
 	int moves_between_left_right = floor( (right_side_enemy_position_ - left_side_enemy_position_) / distance_per_move );
 
-	ActionInterval* move_left = Sequence::createWithTwoActions(DelayTime::create(enemy_movement_duration_), EaseSineOut::create(MoveBy::create(0.25f, Vec2(distance_per_move*-1, 0))));
-	ActionInterval* move_right = Sequence::createWithTwoActions(DelayTime::create(enemy_movement_duration_), EaseSineOut::create(MoveBy::create(0.25f, Vec2(distance_per_move, 0))));
-	ActionInterval* move_start_to_left = Repeat::create(move_left, max_moves_left);
-	ActionInterval* move_left_to_start = Repeat::create(move_right, max_moves_left);
-	ActionInterval* move_start_to_right = Repeat::create(move_right, max_moves_right);
-	ActionInterval* move_right_to_start = Repeat::create(move_left, max_moves_right);
-	ActionInterval* movement_sequence = Sequence::create(move_start_to_left, move_left_to_start, move_start_to_right, move_right_to_start, NULL);
+	auto move_left = Sequence::createWithTwoActions(DelayTime::create(enemy_movement_duration_), EaseSineOut::create(MoveBy::create(0.25f, Vec2(distance_per_move*-1, 0))));
+	auto move_right = Sequence::createWithTwoActions(DelayTime::create(enemy_movement_duration_), EaseSineOut::create(MoveBy::create(0.25f, Vec2(distance_per_move, 0))));
+	auto move_start_to_left = Repeat::create(move_left, max_moves_left);
+	auto move_left_to_start = Repeat::create(move_right, max_moves_left);
+	auto move_start_to_right = Repeat::create(move_right, max_moves_right);
+	auto move_right_to_start = Repeat::create(move_left, max_moves_right);
+	auto movement_sequence = Sequence::create(move_start_to_left, move_left_to_start, move_start_to_right, move_right_to_start, NULL);
 
 	// Move each Enemy
 	Ref* object = NULL;
@@ -391,7 +389,7 @@ void GameWorld::StartMovingEnemies()
 		auto enemy = (Sprite*)object;
 		if(enemy)
 		{
-			enemy->runAction(RepeatForever::create( (ActionInterval*) movement_sequence->copy() ));
+			enemy->runAction(RepeatForever::create(movement_sequence->clone() ));
 		}
 	}
 }

@@ -1,8 +1,14 @@
 #ifndef _SPACECRAZE_GAMEWORLD_H_
 #define _SPACECRAZE_GAMEWORLD_H_
 
-#include "spacecraze\GameGlobals.h"
 #include "tinyxml2.h"
+#include "GameResources.h"
+#include "spacecraze\GameGlobals.h"
+#include "spacecraze\BackgroundManager.h"
+#include "spacecraze\Player.h"
+#include "spacecraze\Enemy.h"
+#include "spacecraze\Brick.h"
+#include "spacecraze\Popups.h"
 
 using namespace spacecraze;
 
@@ -31,7 +37,7 @@ namespace spacecraze
 		// virtual void ccTouchesBegan(CCSet* set, CCEvent* event);
 		// virtual void ccTouchesMoved(CCSet* set, CCEvent* event);
 		bool onTouchBegan(const std::vector<Touch*>& touches, Event* evt);
-		void onTouchMoved(const std::vector<Touch*>& touches, Event* evt);
+		void onTouchMoving(const std::vector<Touch*>& touches, Event* evt);
 
 		// functions that create the level
 		void CreateLevel();

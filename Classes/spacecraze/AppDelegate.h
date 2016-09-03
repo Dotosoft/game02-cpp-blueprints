@@ -12,11 +12,10 @@ using namespace CocosDenshion;
 The reason for implement as private inheritance is to hide some interface call by CCDirector.
 */
 namespace spacecraze {
-	static cocos2d::Size designResolutionSize = cocos2d::Size(375, 620);	// 0.5625
-																			// static cocos2d::Size designResolutionSize = cocos2d::Size(768, 1184);	// 0.5625
-	static cocos2d::Size smallResolutionSize = cocos2d::Size(320, 480);
-	static cocos2d::Size mediumResolutionSize = cocos2d::Size(768, 1024);
-	static cocos2d::Size largeResolutionSize = cocos2d::Size(1536, 2048);
+	static cocos2d::Size designResolutionSize = cocos2d::Size(1280, 800);
+	static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
+	static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
+	static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
 	class  AppDelegate : private cocos2d::Application
 	{
