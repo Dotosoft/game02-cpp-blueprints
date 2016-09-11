@@ -57,14 +57,18 @@ bool GameWorld::init()
         return false;
     }
     
-	// enable accelerometer
-    // setAccelerometerEnabled(true);
-	Device::setAccelerometerEnabled(true);
-	auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(GameWorld::onAcceleration, this));
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	useAccel = UserDefault::getInstance()->getBoolForKey("useAccel", false);
+
+	if (useAccel) {
+		// enable accelerometer
+		// setAccelerometerEnabled(true);
+		Device::setAccelerometerEnabled(true);
+		auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(GameWorld::onAcceleration, this));
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	}
 
 	// enable touch
-    // setTouchEnabled(true);
+	// setTouchEnabled(true);
 	auto listener1 = EventListenerTouchAllAtOnce::create();
 	listener1->onTouchesBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
 	listener1->onTouchesMoved = CC_CALLBACK_2(GameWorld::onTouchMoving, this);
@@ -579,7 +583,6 @@ void GameWorld::onAcceleration(Acceleration* acc, Event* event)
 
 bool GameWorld::onTouchBegan(const std::vector<Touch*>& set, Event* event)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	Touch* touch = (Touch*)(*set.begin());
 	Point touch_point = touch->getLocationInView();
 	touch_point = Director::getInstance()->convertToGL(touch_point);
@@ -591,38 +594,40 @@ bool GameWorld::onTouchBegan(const std::vector<Touch*>& set, Event* event)
 		return false;
 	}
 
-	// movement controls when running the game on win32
-	Point input = Point::ZERO;
-	input.x = (touch_point.x - SCREEN_SIZE.width * 0.5f) / (SCREEN_SIZE.width);
-	input.y = (touch_point.y - SCREEN_SIZE.height * 0.5f) / (SCREEN_SIZE.height);
-	HandleInput(input);
-#else
-	PauseGame();
-#endif	
-	return true;
+	if (!useAccel) {
+		// movement controls when running the game on win32
+		Point input = Point::ZERO;
+		input.x = (touch_point.x - SCREEN_SIZE.width * 0.5f) / (SCREEN_SIZE.width);
+		input.y = (touch_point.y - SCREEN_SIZE.height * 0.5f) / (SCREEN_SIZE.height);
+		HandleInput(input);
+
+		return true;
+	}
+
+	return false;
 }
 
 void GameWorld::onTouchMoving(const std::vector<Touch*>& set, Event* event)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	// movement controls when running the game on win32
-	Touch* touch = (Touch*)(*set.begin());
-	Point touch_point = touch->getLocationInView();
-	touch_point = Director::getInstance()->convertToGL(touch_point);
+	if (!useAccel) {
+		// movement controls when running the game on win32
+		Touch* touch = (Touch*)(*set.begin());
+		Point touch_point = touch->getLocationInView();
+		touch_point = Director::getInstance()->convertToGL(touch_point);
 
-	Point input = Point::ZERO;
-	input.x = (touch_point.x - SCREEN_SIZE.width * 0.5f) / (SCREEN_SIZE.width);
-	input.y = (touch_point.y - SCREEN_SIZE.height * 0.5f) / (SCREEN_SIZE.height);
-	HandleInput(input);
-#endif
+		Point input = Point::ZERO;
+		input.x = (touch_point.x - SCREEN_SIZE.width * 0.5f) / (SCREEN_SIZE.width);
+		input.y = (touch_point.y - SCREEN_SIZE.height * 0.5f) / (SCREEN_SIZE.height);
+		HandleInput(input);
+	}
 }
 
 void GameWorld::onTouchEnded(const std::vector<Touch*>& set, Event* event)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	// stop the player when touch has ended
-	HandleInput(Point::ZERO);
-#endif
+	if (!useAccel) {
+		// stop the player when touch has ended
+		HandleInput(Point::ZERO);
+	}
 }
 
 void GameWorld::HandleInput(Point input)

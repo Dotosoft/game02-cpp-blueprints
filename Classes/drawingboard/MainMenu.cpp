@@ -1,6 +1,9 @@
 #include "MainMenu.h"
 #include "BackgroundManager.h"
 #include "GameWorld.h"
+#include "ui/CocosGUI.h"
+
+using namespace cocos2d::ui;
 
 Scene* MainMenu::scene()
 {
@@ -55,6 +58,37 @@ bool MainMenu::init()
 	play_button->setPosition(Vec2(SCREEN_SIZE.width * 0.5, SCREEN_SIZE.height * -0.15));
 	play_button->runAction(Sequence::createWithTwoActions(DelayTime::create(1.0f), EaseBackOut::create(MoveBy::create(0.5f, Vec2(0, SCREEN_SIZE.height * 0.5)))));
 	menu->addChild(play_button);
+
+	// checkbox
+	auto checkbox = CheckBox::create("CheckBox_Normal.png",
+		"CheckBox_Press.png",
+		"CheckBoxNode_Normal.png",
+		"CheckBox_Disable.png",
+		"CheckBoxNode_Disable.png");
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	checkbox->setPosition(Vec2(50, visibleSize.height - 50));
+	checkbox->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		auto thisCheck = dynamic_cast<CheckBox*>(sender);
+		switch (type)
+		{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+				UserDefault::getInstance()->setBoolForKey("useAccel", thisCheck->isSelected());
+				break;
+			default:
+				break;
+		}
+	});
+
+	auto useAccel = UserDefault::getInstance()->getBoolForKey("useAccel", false);
+	checkbox->setSelected(useAccel);
+
+	//add the menu item for back to main menu
+	auto checkLabel = Label::createWithBMFont("infont.fnt", "Accelerometer");
+	checkLabel->setPosition(checkbox->getPosition() + Vec2(checkLabel->getWidth() + 175, 0));
+	addChild(checkbox);
+	addChild(checkLabel);
     
     return true;
 }

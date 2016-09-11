@@ -20,7 +20,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 		pEGLView = GLViewImpl::createWithRect("Boarding Draw", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f, true);
 #else
-		glview = GLViewImpl::create("Boarding Draw");
+		pEGLView = GLViewImpl::create("Boarding Draw");
 #endif
 		pDirector->setOpenGLView(pEGLView);
 	}

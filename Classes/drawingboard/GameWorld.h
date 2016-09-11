@@ -72,6 +72,8 @@ public:
 	int combo_timer_;
 	int score_;
 	bool is_popup_active_;
+private:
+	bool useAccel;
 };
 
 #endif // __GAMEWORLD_H__

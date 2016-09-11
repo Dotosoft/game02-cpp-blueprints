@@ -15,7 +15,7 @@ Blast* Blast::createWithRadiusAndDuration(float radius, float duration)
 
 bool Blast::initWithRadiusAndDuration(float radius, float duration)
 {
-	if(!CCDrawNode::init())
+	if(!DrawNode::init())
 	{
 		return false;
 	}

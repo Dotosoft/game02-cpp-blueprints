@@ -13,7 +13,7 @@ static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
 The reason for implement as private inheritance is to hide some interface call by CCDirector.
 */
-class  AppDelegate : private cocos2d::CCApplication
+class  AppDelegate : private cocos2d::Application
 {
 public:
     AppDelegate();
