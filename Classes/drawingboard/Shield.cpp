@@ -20,10 +20,10 @@ bool Shield::init(GameWorld* instance)
 		return false;
 	
 	// generate vertices for a hexagon
-	vector<CCPoint> vertices;
+	vector<Point> vertices;
 	GameGlobals::GetRegularPolygonVertices(vertices, 6, POWERUP_ICON_INNER_RADIUS, M_PI/6);
 	// draw a hexagon with cyan border
-	drawPolygon(&vertices[0], 6, ccc4f(0, 0, 0, 0), 3, ccc4f(0, 0.96862f, 1, 1));
+	drawPolygon(&vertices[0], 6, Color4F(0, 0, 0, 0), 3, Color4F(0, 0.96862f, 1, 1));
 
 	return true;
 }
@@ -56,7 +56,7 @@ void Shield::Tick()
 		// start blinking the shield when there are just two seconds left
 		else if(shield_time_left_ == 2)
 		{
-			CCActionInterval* blink = CCBlink::create(2.0f, 8);
+			auto blink = Blink::create(2.0f, 8);
 			blink->setTag(SHIELD_BLINK_TAG);
 			runAction(blink);
 		}
@@ -91,13 +91,13 @@ void Shield::Activate()
 		setScale(0);
 
 		// generate & draw a bigger cyan hexagon
-		vector<CCPoint> vertices;
+		vector<Point> vertices;
 		GameGlobals::GetRegularPolygonVertices(vertices, 6, PLAYER_RADIUS * 2.5f);
-		drawPolygon(&vertices[0], 6, ccc4f(0, 0, 0, 0), 4, ccc4f(0, 0.96862f, 1, 1));
+		drawPolygon(&vertices[0], 6, Color4F(0, 0, 0, 0), 4, Color4F(0, 0.96862f, 1, 1));
 
 		// animate the activation & life of the shield
-		runAction(CCEaseBounceOut::create(CCScaleTo::create(0.25f, 1.0f)));
-		runAction(CCRepeatForever::create(CCSequence::createWithTwoActions(CCEaseSineOut::create(CCScaleTo::create(0.25f, 1.15f)), CCEaseSineOut::create(CCScaleTo::create(0.25f, 1.0f)))));
+		runAction(EaseBounceOut::create(ScaleTo::create(0.25f, 1.0f)));
+		runAction(RepeatForever::create(Sequence::createWithTwoActions(EaseSineOut::create(ScaleTo::create(0.25f, 1.15f)), EaseSineOut::create(ScaleTo::create(0.25f, 1.0f)))));
 
 		// inform the player that it now has a shield around it
 		game_world_->player_->SetShield(this);

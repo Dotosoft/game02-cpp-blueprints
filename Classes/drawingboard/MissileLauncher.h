@@ -20,7 +20,7 @@ public:
 	virtual void Activate();
 
 private:
-	vector<CCPoint> GenerateTargets();
+	vector<Point> GenerateTargets();
 };
 
 #endif // MISSILE_LAUNCHER_H_

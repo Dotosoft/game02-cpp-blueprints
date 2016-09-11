@@ -5,7 +5,7 @@
 
 class GameWorld;
 
-class Blast : public CCDrawNode
+class Blast : public DrawNode
 {
 public:
 	Blast() : radius_(0.0f), duration_(0.0f), must_be_removed_(false) {};

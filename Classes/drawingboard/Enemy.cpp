@@ -15,26 +15,26 @@ Enemy* Enemy::create(GameWorld* instance)
 
 bool Enemy::init(GameWorld* instance)
 {
-	if(!CCDrawNode::init())
+	if(!DrawNode::init())
 		return false;
 
 	game_world_ = instance;
-	CCPoint vertices[NUM_SPIKES*2];
+	Point vertices[NUM_SPIKES*2];
 	GenerateVertices(vertices);	
 	
 	// draw the star shaped polygon filled with red colour
-	drawPolygon(vertices, NUM_SPIKES*2, ccc4f(1, 0, 0, 1), 1.5f, ccc4f(1, 0, 0, 1));
+	drawPolygon(vertices, NUM_SPIKES*2, Color4F(1, 0, 0, 1), 1.5f, Color4F(1, 0, 0, 1));
 	// draw a black hole in the middle
-	drawDot(Point::ZERO, ENEMY_RADIUS, ccc4f(0, 0, 0, 1));
+	drawDot(Point::ZERO, ENEMY_RADIUS, Color4F(0, 0, 0, 1));
 
 	setScale(0.0f);
 
 	return true;
 }
 
-void Enemy::GenerateVertices(CCPoint vertices[])
+void Enemy::GenerateVertices(Point vertices[])
 {
-	vector<CCPoint> inner_vertices, outer_vertices;
+	vector<Point> inner_vertices, outer_vertices;
 	// get two regular polygons, one smaller than the other and with a slightly advance rotation
 	GameGlobals::GetRegularPolygonVertices(inner_vertices, NUM_SPIKES, ENEMY_RADIUS);
 	GameGlobals::GetRegularPolygonVertices(outer_vertices, NUM_SPIKES, ENEMY_RADIUS * 1.5f, M_PI / NUM_SPIKES);
@@ -47,7 +47,7 @@ void Enemy::GenerateVertices(CCPoint vertices[])
 	}
 }
 
-void Enemy::Update(CCPoint player_position, bool towards_player)
+void Enemy::Update(Point player_position, bool towards_player)
 {
 	// no movement while spawning
 	if(is_spawning_)
@@ -57,23 +57,23 @@ void Enemy::Update(CCPoint player_position, bool towards_player)
 	Vec2 direction = player_position - getPosition();
 	direction.normalize();
 	// normalize direction then multiply with the speed_multiplier_
-	speed_ = ccpMult(direction, speed_multiplier_ * (towards_player ? 1 : -1));
+	speed_ = direction * speed_multiplier_ * (towards_player ? 1 : -1);
 
 	// restrict movement within the boundary of the game
-	CCPoint next_position = ccpAdd(getPosition(), speed_);
+	Point next_position = getPosition() + speed_;
 	if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, next_position, ENEMY_RADIUS * 1.5f))
 	{
 		setPosition(next_position);
 	}
 	else
 	{
-		if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, CCPoint(next_position.x - speed_.x, next_position.y), ENEMY_RADIUS * 1.5f))
+		if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, Point(next_position.x - speed_.x, next_position.y), ENEMY_RADIUS * 1.5f))
 		{
-			setPosition(ccp(next_position.x - speed_.x, next_position.y));
+			setPosition(Vec2(next_position.x - speed_.x, next_position.y));
 		}
-		else if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, CCPoint(next_position.x, next_position.y - speed_.y), ENEMY_RADIUS * 1.5f))
+		else if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, Point(next_position.x, next_position.y - speed_.y), ENEMY_RADIUS * 1.5f))
 		{
-			setPosition(ccp(next_position.x, next_position.y - speed_.y));
+			setPosition(Vec2(next_position.x, next_position.y - speed_.y));
 		}
 	}
 }
@@ -108,7 +108,7 @@ void Enemy::Spawn(float delay)
 {
 	// play a scale-up animation
 	is_spawning_ = true;
-	runAction(CCSequence::create(CCDelayTime::create(delay), CCEaseElasticOut::create(CCScaleTo::create(1.0f, 1.0f)), CCCallFunc::create(this, callfunc_selector(Enemy::FinishSpawn)), NULL));
+	runAction(Sequence::create(DelayTime::create(delay), EaseElasticOut::create(ScaleTo::create(1.0f, 1.0f)), CallFunc::create(this, callfunc_selector(Enemy::FinishSpawn)), NULL));
 }
 
 void Enemy::FinishSpawn()
@@ -126,6 +126,6 @@ void Enemy::Die()
 	// remove this enemy in the next iteration
 	must_be_removed_ = true;
 	// animate death then remove with cleanup
-	runAction(CCSequence::createWithTwoActions(CCSpawn::createWithTwoActions(CCEaseSineIn::create(CCScaleTo::create(0.1f, 0.0f)), CCEaseSineIn::create(CCRotateBy::create(0.1f, -90))), CCRemoveSelf::create(true)));
+	runAction(Sequence::createWithTwoActions(Spawn::createWithTwoActions(EaseSineIn::create(ScaleTo::create(0.1f, 0.0f)), EaseSineIn::create(RotateBy::create(0.1f, -90))), RemoveSelf::create(true)));
 	SOUND_ENGINE->playEffect("enemy_death.wav");
 }

@@ -5,13 +5,13 @@
 
 class GameWorld;
 
-class PowerUp : public CCDrawNode
+class PowerUp : public DrawNode
 {
 public:
 	PowerUp() : time_left_(0), speed_(Point::ZERO), is_active_(false), must_be_removed_(false), game_world_(NULL){}
 	~PowerUp(){};
 
-	virtual bool init(GameWorld* instance);
+	virtual bool init(GameWorld* instance); 
 	
 	virtual void Update();
 	virtual void Tick();
@@ -20,7 +20,7 @@ public:
 	virtual void Deactivate();
 	
 	CC_SYNTHESIZE(int, time_left_, TimeLeft);
-	CC_SYNTHESIZE(CCPoint, speed_, Speed);
+	CC_SYNTHESIZE(Point, speed_, Speed);
 	CC_SYNTHESIZE(bool, is_active_, IsActive);
 	CC_SYNTHESIZE(bool, must_be_removed_, MustBeRemoved);
 

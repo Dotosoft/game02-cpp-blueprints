@@ -15,13 +15,13 @@ Player* Player::create()
 
 bool Player::init()
 {
-	if(!CCDrawNode::init())
+	if(!DrawNode::init())
 		return false;
 
 	// generate vertices for the player
-	CCPoint vertices[] = {CCPoint(PLAYER_RADIUS * 1.75f, 0), CCPoint(PLAYER_RADIUS * -0.875f, PLAYER_RADIUS), CCPoint(PLAYER_RADIUS * -1.75, 0), CCPoint(PLAYER_RADIUS * -0.875f, PLAYER_RADIUS * -1)};
+	Point vertices[] = {Point(PLAYER_RADIUS * 1.75f, 0), Point(PLAYER_RADIUS * -0.875f, PLAYER_RADIUS), Point(PLAYER_RADIUS * -1.75, 0), Point(PLAYER_RADIUS * -0.875f, PLAYER_RADIUS * -1)};
 	// draw a green coloured player
-	drawPolygon(vertices, 4, ccc4f(0, 0, 0, 0), 1.5f, ccc4f(0, 1, 0, 1));
+	drawPolygon(vertices, 4, Color4F(0, 0, 0, 0), 1.5f, Color4F(0, 1, 0, 1));
 
 	scheduleUpdate();
 	return true;
@@ -29,8 +29,8 @@ bool Player::init()
 
 void Player::update(float dt)
 {
-	CCDrawNode::update(dt);
-	CCPoint previous_position = getPosition();
+	DrawNode::update(dt);
+	Point previous_position = getPosition();
 	UpdatePosition();
 	UpdateRotation(previous_position);
 }
@@ -38,36 +38,37 @@ void Player::update(float dt)
 void Player::UpdatePosition()
 {
 	// don't move if speed is too low
-	if(ccpLength(speed_) > 0.75f)
+	if(speed_.getLength() > 0.75f)
 	{
 		// add speed but limit movement within the boundary
-		CCPoint next_position = ccpAdd(getPosition(), speed_);
+		Point next_position = getPosition() + speed_;
 		if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, next_position, PLAYER_RADIUS))
 		{
 			setPosition(next_position);
 		}
 		else
 		{
-			if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, CCPoint(next_position.x - speed_.x, next_position.y), PLAYER_RADIUS))
+			if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, Point(next_position.x - speed_.x, next_position.y), PLAYER_RADIUS))
 			{
-				setPosition(ccp(next_position.x - speed_.x, next_position.y));
+				setPosition(Vec2(next_position.x - speed_.x, next_position.y));
 			}
-			else if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, CCPoint(next_position.x, next_position.y - speed_.y), PLAYER_RADIUS))
+			else if(RECT_CONTAINS_CIRCLE(game_world_->boundary_rect_, Point(next_position.x, next_position.y - speed_.y), PLAYER_RADIUS))
 			{
-				setPosition(ccp(next_position.x, next_position.y - speed_.y));
+				setPosition(Vec2(next_position.x, next_position.y - speed_.y));
 			}
 		}
 	}
 }
 
-void Player::UpdateRotation(CCPoint previous_position)
+void Player::UpdateRotation(Point previous_position)
 {
 	// don't rotate if speed is too low
-	if(ccpLength(speed_) > 1.0f)
+	if(speed_.getLength() > 1.0f)
 	{
 		float previous_rotation = getRotation();
 		// calculate target angle based on previous & current position
-		float target_rotation = CC_RADIANS_TO_DEGREES(ccpToAngle(ccpSub(getPosition(), previous_position)) * -1);
+		Vec2 targetVec = getPosition() - previous_position;
+		float target_rotation = CC_RADIANS_TO_DEGREES(targetVec.getAngle() * -1);
 		
 		// add some easing to the rotation
 		float rotation_step = 0.0f;
@@ -103,11 +104,11 @@ void Player::Die()
 	float shake_duration = 0.5f;
 	int num_shakes = 8;
 	// create & animate the death and end the game afterwards
-	CCActionInterval* shake = CCSpawn::createWithTwoActions(CCScaleTo::create(shake_duration, 1.2f), CCRepeat::create(CCSequence::createWithTwoActions(CCRotateBy::create(shake_duration/(num_shakes*2), -20.0), CCRotateBy::create(shake_duration/(num_shakes*2), 20.0)), num_shakes));
-	CCActionInterval* shrink = CCEaseSineIn::create(CCScaleTo::create(0.1f, 0.0f));
-	CCActionInterval* death = CCSequence::create(shake, shrink, NULL);
+	ActionInterval* shake = Spawn::createWithTwoActions(ScaleTo::create(shake_duration, 1.2f), Repeat::create(Sequence::createWithTwoActions(RotateBy::create(shake_duration/(num_shakes*2), -20.0), RotateBy::create(shake_duration/(num_shakes*2), 20.0)), num_shakes));
+	ActionInterval* shrink = EaseSineIn::create(ScaleTo::create(0.1f, 0.0f));
+	ActionInterval* death = Sequence::create(shake, shrink, NULL);
 
-	runAction(CCSequence::createWithTwoActions(death, CCCallFunc::create(this, callfunc_selector(Player::Dead))));
+	runAction(Sequence::createWithTwoActions(death, CallFunc::create(this, callfunc_selector(Player::Dead))));
 	SOUND_ENGINE->playEffect("blast_player.wav");
 }
 

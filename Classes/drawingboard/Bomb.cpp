@@ -20,10 +20,10 @@ bool Bomb::init(GameWorld* instance)
 		return false;
 	
 	// get vertices for a triangle
-	vector<CCPoint> vertices;
+	vector<Point> vertices;
 	GameGlobals::GetRegularPolygonVertices(vertices, 3, POWERUP_ICON_INNER_RADIUS);
 	// draw a triangle with a green border
-	drawPolygon(&vertices[0], 3, ccc4f(0, 0, 0, 0), 3, ccc4f(0, 1, 0, 1));
+	drawPolygon(&vertices[0], 3, Color4F(0, 0, 0, 0), 3, Color4F(0, 1, 0, 1));
 
 	return true;
 }

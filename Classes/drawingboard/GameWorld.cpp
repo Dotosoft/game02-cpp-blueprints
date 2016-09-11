@@ -32,13 +32,13 @@ GameWorld::~GameWorld()
 	CC_SAFE_RELEASE_NULL(enemies_);
 }
 
-CCScene* GameWorld::scene()
+Scene* GameWorld::scene()
 {
     // 'scene' is an autorelease object
-    CCScene *scene = CCScene::create();
+    auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    GameWorld *layer = GameWorld::create();
+    auto layer = GameWorld::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -52,19 +52,19 @@ bool GameWorld::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !CCLayer::init() )
+    if ( !Layer::init() )
     {
         return false;
     }
     
 	// enable accelerometer
-    setAccelerometerEnabled(true);
+    // setAccelerometerEnabled(true);
 	Device::setAccelerometerEnabled(true);
 	auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(GameWorld::onAcceleration, this));
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
 	// enable touch
-    setTouchEnabled(true);
+    // setTouchEnabled(true);
 	auto listener1 = EventListenerTouchAllAtOnce::create();
 	listener1->onTouchesBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
 	listener1->onTouchesMoved = CC_CALLBACK_2(GameWorld::onTouchMoving, this);
@@ -114,14 +114,14 @@ void GameWorld::CreateBoundary()
 	boundary_rect_.size.height = SCREEN_SIZE.height - SCREEN_SIZE.height * offset * 4;
 
 	// generate vertices for the boundary
-	CCPoint vertices[4] = {CCPoint(boundary_rect_.origin.x, boundary_rect_.origin.y), 
-		CCPoint(boundary_rect_.origin.x, boundary_rect_.origin.y + boundary_rect_.size.height), 
-		CCPoint(boundary_rect_.origin.x + boundary_rect_.size.width, boundary_rect_.origin.y + boundary_rect_.size.height), 
-		CCPoint(boundary_rect_.origin.x + boundary_rect_.size.width, boundary_rect_.origin.y)};
+	Point vertices[4] = {Point(boundary_rect_.origin.x, boundary_rect_.origin.y), 
+		Point(boundary_rect_.origin.x, boundary_rect_.origin.y + boundary_rect_.size.height), 
+		Point(boundary_rect_.origin.x + boundary_rect_.size.width, boundary_rect_.origin.y + boundary_rect_.size.height), 
+		Point(boundary_rect_.origin.x + boundary_rect_.size.width, boundary_rect_.origin.y)};
 
 	// draw the boundary
-	CCDrawNode* boundary = CCDrawNode::create();
-	boundary->drawPolygon(vertices, 4, ccc4f(0, 0, 0, 0), 1, ccc4f(1, 1, 1, 0.3f));
+	DrawNode* boundary = DrawNode::create();
+	boundary->drawPolygon(vertices, 4, Color4F(0, 0, 0, 0), 1, Color4F(1, 1, 1, 0.3f));
 	addChild(boundary, E_LAYER_FOREGROUND);
 }
 
@@ -137,22 +137,22 @@ void GameWorld::CreatePlayer()
 void GameWorld::CreateContainers()
 {
 	// create & retain CCArray container lists
-	enemies_ = CCArray::createWithCapacity(MAX_ENEMIES);
+	enemies_ = __Array::createWithCapacity(MAX_ENEMIES);
 	enemies_->retain();
-	powerups_ = CCArray::createWithCapacity(MAX_POWERUPS);
+	powerups_ = __Array::createWithCapacity(MAX_POWERUPS);
 	powerups_->retain();
-	blasts_ = CCArray::createWithCapacity(MAX_BLASTS);
+	blasts_ = __Array::createWithCapacity(MAX_BLASTS);
 	blasts_->retain();
-	missiles_ = CCArray::createWithCapacity(MAX_MISSILES);
+	missiles_ = __Array::createWithCapacity(MAX_MISSILES);
 	missiles_->retain();
 }
 
 void GameWorld::CreateHUD()
 {
 	// create & add the score label
-	score_label_ = CCLabelBMFont::create("Score: 0", "infont.fnt");
+	score_label_ = Label::createWithBMFont("infont.fnt", "Score: 0");
 	score_label_->setAnchorPoint(Point::ZERO);
-	score_label_->setPosition(CCPoint(SCREEN_SIZE.width * 0.1f, boundary_rect_.getMaxY() + boundary_rect_.getMinY()));
+	score_label_->setPosition(Point(SCREEN_SIZE.width * 0.1f, boundary_rect_.getMaxY() + boundary_rect_.getMinY()));
 	addChild(score_label_, E_LAYER_HUD);
 }
 
@@ -161,7 +161,7 @@ void GameWorld::AddEnemyFormation()
 	// fetch an enemy formation formation
 	EEnemyFormation type = GetEnemyFormationType();
 	// fetch a list of positions for the given formation
-	vector<CCPoint> formation = GameGlobals::GetEnemyFormation(type, boundary_rect_, player_->getPosition());
+	vector<Point> formation = GameGlobals::GetEnemyFormation(type, boundary_rect_, player_->getPosition());
 	int num_enemies_to_create = formation.size();	
 	int num_enemies_on_screen = enemies_->count();
 	// limit the total number of enemies to MAX_ENEMIES
@@ -249,7 +249,7 @@ void GameWorld::AddPowerUp()
 	}
 
 	// position it within the boundary & add it
-	powerup->setPosition(ccp(boundary_rect_.origin.x + CCRANDOM_0_1() * boundary_rect_.size.width, boundary_rect_.origin.y + CCRANDOM_0_1() * boundary_rect_.size.height));
+	powerup->setPosition( Vec2(boundary_rect_.origin.x + CCRANDOM_0_1() * boundary_rect_.size.width, boundary_rect_.origin.y + CCRANDOM_0_1() * boundary_rect_.size.height) );
 	powerup->Spawn();
 	addChild(powerup, E_LAYER_POWERUPS);
 	powerups_->addObject(powerup);
@@ -276,7 +276,7 @@ void GameWorld::update(float dt)
 		return;
 
 	// update each enemy
-	CCObject* object = NULL;
+	Ref* object = NULL;
 	CCARRAY_FOREACH(enemies_, object)
 	{
 		Enemy* enemy = (Enemy*)object;
@@ -304,17 +304,17 @@ void GameWorld::update(float dt)
 void GameWorld::CheckCollisions()
 {
 	// save player position & radius
-	CCPoint player_position = player_->getPosition();
+	Point player_position = player_->getPosition();
 	float player_radius = player_->getRadius();
 	
 	// iterate through all enemies
-	CCObject* object = NULL;
+	Ref* object = NULL;
 	CCARRAY_FOREACH(enemies_, object)
 	{
 		Enemy* enemy = (Enemy*)object;
 		if(enemy)
 		{
-			CCPoint enemy_position = enemy->getPosition();
+			Point enemy_position = enemy->getPosition();
 
 			// check with Player
 			if(CIRCLE_INTERSECTS_CIRCLE(player_position, player_radius, enemy_position, ENEMY_RADIUS))
@@ -331,7 +331,7 @@ void GameWorld::CheckCollisions()
 			}
 
 			// check with all blasts
-			CCObject* object2 = NULL;
+			Ref* object2 = NULL;
 			CCARRAY_FOREACH(blasts_, object2)
 			{
 				Blast* blast = (Blast*)object2;
@@ -379,7 +379,7 @@ void GameWorld::CheckCollisions()
 
 void GameWorld::CheckRemovals()
 {
-	CCObject* object = NULL;
+	Ref* object = NULL;
 	CCARRAY_FOREACH(enemies_, object)
 	{
 		Enemy* enemy = (Enemy*)object;
@@ -436,7 +436,7 @@ void GameWorld::Tick(float dt)
 		ComboTimeUp();
 
 	// Tick each enemy
-	CCObject* object = NULL;
+	Ref* object = NULL;
 	CCARRAY_FOREACH(enemies_, object)
 	{
 		Enemy* enemy = (Enemy*)object;
@@ -475,9 +475,7 @@ void GameWorld::EnemyKilled()
 
 	// add score & update the label
 	score_ += 7;
-	char buf[16] = {0};
-	sprintf(buf, "Score: %d", score_);
-	score_label_->setString(buf);
+	score_label_->setString( String::createWithFormat("Score: %d", score_)->getCString() );
 }
 
 void GameWorld::ComboTimeUp()
@@ -488,17 +486,14 @@ void GameWorld::ComboTimeUp()
 
 	// add combo to score and update the label
 	score_ += enemies_killed_combo_ * 10;
-	char buf[16] = {0};
-	sprintf(buf, "Score: %d", score_);
-	score_label_->setString(buf);
+	score_label_->setString( String::createWithFormat("Score: %d", score_)->getCString() );
 
 	// inform the user of the combo by adding a label
-	sprintf(buf, "X%d", enemies_killed_combo_);
-	CCLabelBMFont* combo_label = CCLabelBMFont::create(buf, "infont.fnt");
+	auto combo_label = Label::createWithBMFont("infont.fnt", String::createWithFormat("X%d", enemies_killed_combo_)->getCString());
 	combo_label->setPosition(player_->getPositionX(), player_->getPositionY() + combo_label->getContentSize().height);
 	combo_label->setScale(0.6f);
 	// animate it to move upwards then remove it
-	combo_label->runAction(CCSequence::create(CCMoveBy::create(1.0f, ccp(0, 50)), CCDelayTime::create(0.5f), CCRemoveSelf::create(true), NULL));
+	combo_label->runAction(Sequence::create(MoveBy::create(1.0f, Vec2(0, 50)), DelayTime::create(0.5f), RemoveSelf::create(true), NULL));
 	addChild(combo_label, E_LAYER_HUD);
 	// reset combo kill counter
 	enemies_killed_combo_ = 0;
@@ -513,16 +508,16 @@ void GameWorld::PauseGame()
 	is_popup_active_ = true;
 
 	// pause GameWorld update & Tick functions
-	pauseSchedulerAndActions();
+	pause();
 	
 	Vector<Node *> game_world_children = this->getChildren();
-	CCObject* child = NULL;
+	Ref* child = NULL;
 	// pause update functions & actions on all GameWorld's children
 	for (auto child : game_world_children)
 	{
 		if(child)
 		{
-			((CCNode*)child)->pauseSchedulerAndActions();
+			((Node*)child)->pause();
 		}
 	}
 
@@ -536,16 +531,16 @@ void GameWorld::ResumeGame()
 	is_popup_active_ = false;
 
 	// resume GameWorld update & Tick functions
-	resumeSchedulerAndActions();
+	resume();
 	
 	Vector<Node *> game_world_children = this->getChildren();
-	CCObject* child = NULL;
+	Ref* child = NULL;
 	// resume update functions & actions on all GameWorld's children
 	for(auto child : game_world_children)
 	{
 		if(child)
 		{
-			((CCNode*)child)->resumeSchedulerAndActions();
+			((Node*)child)->resume();
 		}
 	}
 }
@@ -555,17 +550,17 @@ void GameWorld::GameOver()
 	is_popup_active_ = true;
 
 	// stop GameWorld update & Tick functions
-	unscheduleAllSelectors();
+	unscheduleAllCallbacks();
 
 	Vector<Node *> game_world_children = this->getChildren();
-	CCObject* child = NULL;
+	Ref* child = NULL;
 	// stop update functions & actions on all GameWorld's children
 	for (auto child : game_world_children)
 	{
 		if(child)
 		{
-			((CCNode*)child)->unscheduleAllSelectors();
-			((CCNode*)child)->stopAllActions();
+			((Node*)child)->unscheduleAllCallbacks();
+			((Node*)child)->stopAllActions();
 		}
 	}
 
@@ -585,9 +580,9 @@ void GameWorld::onAcceleration(Acceleration* acc, Event* event)
 bool GameWorld::onTouchBegan(const std::vector<Touch*>& set, Event* event)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	CCTouch* touch = (CCTouch*)(*set.begin());
-	CCPoint touch_point = touch->getLocationInView();
-	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*)(*set.begin());
+	Point touch_point = touch->getLocationInView();
+	touch_point = Director::getInstance()->convertToGL(touch_point);
 
 	// pause the game if touch is outside the game's boundary
 	if(!boundary_rect_.containsPoint(touch_point))
@@ -597,7 +592,7 @@ bool GameWorld::onTouchBegan(const std::vector<Touch*>& set, Event* event)
 	}
 
 	// movement controls when running the game on win32
-	CCPoint input = Point::ZERO;
+	Point input = Point::ZERO;
 	input.x = (touch_point.x - SCREEN_SIZE.width * 0.5f) / (SCREEN_SIZE.width);
 	input.y = (touch_point.y - SCREEN_SIZE.height * 0.5f) / (SCREEN_SIZE.height);
 	HandleInput(input);
@@ -611,11 +606,11 @@ void GameWorld::onTouchMoving(const std::vector<Touch*>& set, Event* event)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	// movement controls when running the game on win32
-	CCTouch* touch = (CCTouch*)(*set.begin());
-	CCPoint touch_point = touch->getLocationInView();
-	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*)(*set.begin());
+	Point touch_point = touch->getLocationInView();
+	touch_point = Director::getInstance()->convertToGL(touch_point);
 
-	CCPoint input = Point::ZERO;
+	Point input = Point::ZERO;
 	input.x = (touch_point.x - SCREEN_SIZE.width * 0.5f) / (SCREEN_SIZE.width);
 	input.y = (touch_point.y - SCREEN_SIZE.height * 0.5f) / (SCREEN_SIZE.height);
 	HandleInput(input);
@@ -630,13 +625,13 @@ void GameWorld::onTouchEnded(const std::vector<Touch*>& set, Event* event)
 #endif
 }
 
-void GameWorld::HandleInput(CCPoint input)
+void GameWorld::HandleInput(Point input)
 {
 	/// don't accept input if popup is active or if player is dead
 	if(is_popup_active_ || player_->is_dying_)
 		return;
 
-	CCPoint input_abs = CCPoint(fabs(input.x), fabs(input.y));
+	Point input_abs = Point(fabs(input.x), fabs(input.y));
 
 	// calculate player speed based on how much device has tilted
 	// greater speed multipliers for greater tilt values
@@ -644,5 +639,5 @@ void GameWorld::HandleInput(CCPoint input)
 	player_->speed_.y = input.y * ( (input_abs.y > 0.3f) ? 36 : ( (input_abs.y > 0.2f) ? 28 : 20 ) );
 
 	// update the background
-	background_->setPosition(ccp(input.x * -30, input.y * -30));
+	background_->setPosition( Vec2(input.x * -30, input.y * -30) );
 }

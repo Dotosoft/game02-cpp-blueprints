@@ -9,7 +9,7 @@ class Enemy;
 class Blast;
 class Missile;
 
-class GameWorld : public CCLayer
+class GameWorld : public Layer
 {
 public:
 	GameWorld();
@@ -19,7 +19,7 @@ public:
     virtual bool init();  
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static CCScene* scene();
+    static Scene* scene();
     
     // implement the "static node()" method manually
     CREATE_FUNC(GameWorld);
@@ -54,17 +54,17 @@ public:
 	void onTouchMoving(const std::vector<Touch*>& touches, Event* evt);
 	void onTouchEnded(const std::vector<Touch*>& touches, Event* evt);
 
-	void HandleInput(CCPoint input);
+	void HandleInput(Point input);
 
 	BackgroundManager* background_;
 
-	CCRect boundary_rect_;
+	Rect boundary_rect_;
 	Player* player_;
-	CCArray* enemies_;
-	CCArray* powerups_;
-	CCArray* blasts_;
-	CCArray* missiles_;
-	CCLabelBMFont* score_label_;
+	__Array* enemies_;
+	__Array* powerups_;
+	__Array* blasts_;
+	__Array* missiles_;
+	Label* score_label_;
 
 	int seconds_;
 	int enemies_killed_total_;

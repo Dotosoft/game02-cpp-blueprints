@@ -3,7 +3,7 @@
 
 #include "GameGlobals.h"
 
-class BackgroundManager : public CCNode
+class BackgroundManager : public Node
 {
 public:
 	virtual bool init();

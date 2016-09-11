@@ -21,9 +21,9 @@ bool MissileLauncher::init(GameWorld* instance)
 	if(!PowerUp::init(instance))
 		return false;
 	
-	vector<CCPoint> vertices1;
-	vector<CCPoint> vertices2;
-	vector<CCPoint> vertices;
+	vector<Point> vertices1;
+	vector<Point> vertices2;
+	vector<Point> vertices;
 
 	// get two regular pentagons, one smaller than the other and with a slightly advance rotation
 	GameGlobals::GetRegularPolygonVertices(vertices1, 5, POWERUP_ICON_INNER_RADIUS - 6, M_PI * -2/20);
@@ -37,7 +37,7 @@ bool MissileLauncher::init(GameWorld* instance)
 	}
 
 	// draw the star shaped polygon with yellow border
-	drawPolygon(&vertices[0], 10, ccc4f(0, 0, 0, 0), 2, ccc4f(0.88235, 0.96078, 0, 1));
+	drawPolygon(&vertices[0], 10, Color4F(0, 0, 0, 0), 2, Color4F(0.88235, 0.96078, 0, 1));
 
 	return true;
 }
@@ -58,9 +58,9 @@ void MissileLauncher::Activate()
 	PowerUp::Activate();
 
 	// generate a target for each missile
-	vector<CCPoint> target = GenerateTargets();
+	vector<Point> target = GenerateTargets();
 	// generate an initial direction vertor for each missile
-	vector<CCPoint> initial_direction;
+	vector<Point> initial_direction;
 	GameGlobals::GetRegularPolygonVertices(initial_direction, 5, SCREEN_SIZE.width/4, M_PI * 2/20);
 
 	for(int i = 0; i < 5; ++i)
@@ -78,9 +78,9 @@ void MissileLauncher::Activate()
 	PowerUp::Deactivate();
 }
 
-vector<CCPoint> MissileLauncher::GenerateTargets()
+vector<Point> MissileLauncher::GenerateTargets()
 {
-	vector<CCPoint> target_points;
+	vector<Point> target_points;
 	target_points.clear();
 
 	int targets_found = 0;
@@ -89,7 +89,7 @@ vector<CCPoint> MissileLauncher::GenerateTargets()
 	// loop through the first 5 enemies within GameWorld & save their positions
 	for(int i = 0; i < num_enemies && targets_found < 5; ++i)
 	{
-		Enemy* enemy = (Enemy*)game_world_->enemies_->objectAtIndex(i);
+		Enemy* enemy = (Enemy*)game_world_->enemies_->getObjectAtIndex(i);
 		target_points.push_back(enemy->getPosition());
 		++ targets_found;
 	}
@@ -97,7 +97,7 @@ vector<CCPoint> MissileLauncher::GenerateTargets()
 	// if less than 5 enemies were found, fill up with random positions within the boundary
 	while(targets_found < 5)
 	{
-		target_points.push_back(CCPoint(CCRANDOM_0_1() * (game_world_->boundary_rect_.origin.x + game_world_->boundary_rect_.size.width) , CCRANDOM_0_1() * (game_world_->boundary_rect_.origin.y + game_world_->boundary_rect_.size.height)));
+		target_points.push_back(Point(CCRANDOM_0_1() * (game_world_->boundary_rect_.origin.x + game_world_->boundary_rect_.size.width) , CCRANDOM_0_1() * (game_world_->boundary_rect_.origin.y + game_world_->boundary_rect_.size.height)));
 		++ targets_found;
 	}
 

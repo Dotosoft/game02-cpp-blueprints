@@ -9,7 +9,7 @@ USING_NS_CC;
 using namespace std;
 
 #define SCREEN_SIZE GameGlobals::screen_size_
-#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::sharedEngine()
+#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::getInstance()
 
 #define MAX_STARS 250
 #define MAX_ENEMIES 250
@@ -31,13 +31,13 @@ using namespace std;
 
 #define SHIELD_BLINK_TAG 111
 
-#define CIRCLE_INTERSECTS_CIRCLE(circle1_position, circle1_radius, circle2_position, circle2_radius) (ccpDistance((circle1_position), (circle2_position)) <= ((circle1_radius) + (circle2_radius)))
-#define CIRCLE_CONTAINS_POINT(circle_position, circle_radius, point) (ccpDistance((circle_position), (point)) <= (circle_radius))
+#define CIRCLE_INTERSECTS_CIRCLE(circle1_position, circle1_radius, circle2_position, circle2_radius) (circle1_position.getDistance(circle2_position) <= ((circle1_radius) + (circle2_radius)))
+#define CIRCLE_CONTAINS_POINT(circle_position, circle_radius, point) (circle_position.getDistance(point) <= (circle_radius))
 #define RECT_CONTAINS_CIRCLE(rect, circle_position, circle_radius) \
-	((rect).containsPoint(ccp((circle_position).x - (circle_radius), (circle_position).y)) && \
-	(rect).containsPoint(ccp((circle_position).x, (circle_position).y + (circle_radius))) && \
-	(rect).containsPoint(ccp((circle_position).x + (circle_radius), (circle_position).y)) && \
-	(rect).containsPoint(ccp((circle_position).x, (circle_position).y - (circle_radius))))
+	((rect).containsPoint(Vec2((circle_position).x - (circle_radius), (circle_position).y)) && \
+	(rect).containsPoint(Vec2((circle_position).x, (circle_position).y + (circle_radius))) && \
+	(rect).containsPoint(Vec2((circle_position).x + (circle_radius), (circle_position).y)) && \
+	(rect).containsPoint(Vec2((circle_position).x, (circle_position).y - (circle_radius))))
 
 // enum used for proper z-ordering
 enum EZIndex
@@ -107,18 +107,18 @@ public:
 	// load initial/all game data here
 	static void LoadData();
 
-	static void GetRegularPolygonVertices(vector<CCPoint> &vertices, int num_vertices, float circum_radius);
-	static void GetRegularPolygonVertices(vector<CCPoint> &vertices, int num_vertices, float circum_radius, float start_angle);
+	static void GetRegularPolygonVertices(vector<Point> &vertices, int num_vertices, float circum_radius);
+	static void GetRegularPolygonVertices(vector<Point> &vertices, int num_vertices, float circum_radius, float start_angle);
 	
 	static int GetNumVerticesForFormation(EEnemyFormation type);
-	static vector<CCPoint> GetEnemyFormation(EEnemyFormation type, CCRect boundary, CCPoint anchor_point);
-	static void GenerateRandomFormation(vector<CCPoint> &vertices, int num_vertices, CCRect boundary);
-	static void GenerateVerticalFormation(vector<CCPoint> &vertices, int num_vertices, CCRect boundary);
-	static void GenerateHorizontalFormation(vector<CCPoint> &vertices, int num_vertices, CCRect boundary);
-	static void GeneratePolygonFormation(EEnemyFormation type, vector<CCPoint> &vertices, int num_vertices, CCRect boundary, CCPoint anchor_point);
+	static vector<Point> GetEnemyFormation(EEnemyFormation type, Rect boundary, Point anchor_point);
+	static void GenerateRandomFormation(vector<Point> &vertices, int num_vertices, Rect boundary);
+	static void GenerateVerticalFormation(vector<Point> &vertices, int num_vertices, Rect boundary);
+	static void GenerateHorizontalFormation(vector<Point> &vertices, int num_vertices, Rect boundary);
+	static void GeneratePolygonFormation(EEnemyFormation type, vector<Point> &vertices, int num_vertices, Rect boundary, Point anchor_point);
 
 	// save screen size for fast access
-	static CCSize screen_size_;
+	static Size screen_size_;
 	static const int skill1_formations_size = 2;
 	static const int skill1_formations[];
 	static const int skill2_formations_size = 10;

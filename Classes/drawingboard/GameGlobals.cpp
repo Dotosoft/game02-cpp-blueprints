@@ -1,6 +1,6 @@
 #include "GameGlobals.h"
 
-CCSize GameGlobals::screen_size_ = Size::ZERO;
+Size GameGlobals::screen_size_ = Size::ZERO;
 
 // arrays to store the frequency of formations for each skill level
 const int GameGlobals::skill1_formations[] = {0, 4};
@@ -15,15 +15,15 @@ void GameGlobals::Init()
 {
 	// initialise pseud-random number generator
 	srand(time(0));
-	screen_size_ = CCDirector::sharedDirector()->getWinSize();
+	screen_size_ = Director::getInstance()->getWinSize();
 	LoadData();
 }
 
 void GameGlobals::LoadData()
 {
 	// add Resources folder to search path. This is necessary when releasing for win32
-	CCFileUtils::sharedFileUtils()->addSearchPath("Resources");
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("iutexure.plist");
+	FileUtils::getInstance()->addSearchPath("Resources");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("iutexure.plist");
 
 	// load sound effects & background music
 	SOUND_ENGINE->preloadEffect("big_blast.wav");
@@ -35,19 +35,19 @@ void GameGlobals::LoadData()
 	SOUND_ENGINE->preloadEffect("small_blast.wav");
 }
 
-void GameGlobals::GetRegularPolygonVertices(vector<CCPoint> &vertices, int num_vertices, float circum_radius)
+void GameGlobals::GetRegularPolygonVertices(vector<Point> &vertices, int num_vertices, float circum_radius)
 {
 	GetRegularPolygonVertices(vertices, num_vertices, circum_radius, 0.0f);
 }
 
-void GameGlobals::GetRegularPolygonVertices(vector<CCPoint> &vertices, int num_vertices, float circum_radius, float start_angle)
+void GameGlobals::GetRegularPolygonVertices(vector<Point> &vertices, int num_vertices, float circum_radius, float start_angle)
 {
 	vertices.clear();
 	float delta_theta = 2 * M_PI / num_vertices;
 	float theta = start_angle;
 	for(int i = 0; i < num_vertices; ++i, theta += delta_theta)
 	{
-		vertices.push_back(CCPoint(circum_radius * cosf(theta), circum_radius * sinf(theta)));
+		vertices.push_back(Point(circum_radius * cosf(theta), circum_radius * sinf(theta)));
 	}
 }
 
@@ -84,10 +84,10 @@ int GameGlobals::GetNumVerticesForFormation(EEnemyFormation type)
 	return 0;
 }
 
-vector<CCPoint> GameGlobals::GetEnemyFormation(EEnemyFormation type, CCRect boundary, CCPoint anchor_point)
+vector<Point> GameGlobals::GetEnemyFormation(EEnemyFormation type, Rect boundary, Point anchor_point)
 {
 	int num_vertices = GetNumVerticesForFormation(type);
-	vector<CCPoint> vertices;
+	vector<Point> vertices;
 	vertices.clear();
 
 	switch(type)
@@ -117,45 +117,45 @@ vector<CCPoint> GameGlobals::GetEnemyFormation(EEnemyFormation type, CCRect boun
 	return vertices;
 }
 
-void GameGlobals::GenerateRandomFormation(vector<CCPoint> &vertices, int num_vertices, CCRect boundary)
+void GameGlobals::GenerateRandomFormation(vector<Point> &vertices, int num_vertices, Rect boundary)
 {
 	// return random positions within the game's boundary
 	for(int i = 0; i < num_vertices; ++i)
 	{
-		CCPoint vertex = Point::ZERO;
+		Point vertex = Point::ZERO;
 		vertex.x = boundary.origin.x + ENEMY_RADIUS*2 + (CCRANDOM_0_1() * (boundary.size.width - ENEMY_RADIUS*4));
 		vertex.y = boundary.origin.y + ENEMY_RADIUS*2 + (CCRANDOM_0_1() * (boundary.size.height - ENEMY_RADIUS*4));
 		vertices.push_back(vertex);
 	}
 }
 
-void GameGlobals::GenerateVerticalFormation(vector<CCPoint> &vertices, int num_vertices, CCRect boundary)
+void GameGlobals::GenerateVerticalFormation(vector<Point> &vertices, int num_vertices, Rect boundary)
 {
 	// choose between left & right edge of screen
 	float start_x = (CCRANDOM_MINUS1_1() > 0) ? boundary.origin.x + ENEMY_RADIUS*2 : boundary.origin.x + boundary.size.width - ENEMY_RADIUS*2;
-	CCPoint start_point = CCPoint(start_x, boundary.origin.y + ENEMY_RADIUS*2);
+	Point start_point = Point(start_x, boundary.origin.y + ENEMY_RADIUS*2);
 	// calculate vertical distance between adjacent enemies
 	float vertical_gap = boundary.size.height / num_vertices;
 	for(int i = 0; i < num_vertices; ++i)
 	{
-		vertices.push_back(CCPoint(start_point.x, start_point.y + i * vertical_gap));
+		vertices.push_back(Point(start_point.x, start_point.y + i * vertical_gap));
 	}
 }
 
-void GameGlobals::GenerateHorizontalFormation(vector<CCPoint> &vertices, int num_vertices, CCRect boundary)
+void GameGlobals::GenerateHorizontalFormation(vector<Point> &vertices, int num_vertices, Rect boundary)
 {
 	// choose between top & bottom edge of screen
 	float start_y = (CCRANDOM_MINUS1_1() > 0) ? boundary.origin.y + ENEMY_RADIUS*2 : boundary.origin.y + boundary.size.height - ENEMY_RADIUS*2;
-	CCPoint start_point = CCPoint(boundary.origin.x + ENEMY_RADIUS*2, start_y);
+	Point start_point = Point(boundary.origin.x + ENEMY_RADIUS*2, start_y);
 	// calculate horizontal distance between adjacent enemies
 	float horizontal_gap = boundary.size.width / num_vertices;
 	for(int i = 0; i < num_vertices; ++i)
 	{
-		vertices.push_back(CCPoint(start_point.x + i * horizontal_gap, start_point.y));
+		vertices.push_back(Point(start_point.x + i * horizontal_gap, start_point.y));
 	}
 }
 
-void GameGlobals::GeneratePolygonFormation(EEnemyFormation type, vector<CCPoint> &vertices, int num_vertices, CCRect boundary, CCPoint anchor_point)
+void GameGlobals::GeneratePolygonFormation(EEnemyFormation type, vector<Point> &vertices, int num_vertices, Rect boundary, Point anchor_point)
 {
 	int num_polygons = 1;
 	float polygon_radius = SCREEN_SIZE.width/6;
@@ -177,7 +177,7 @@ void GameGlobals::GeneratePolygonFormation(EEnemyFormation type, vector<CCPoint>
 	}
 	// calculate number of vertices for a single polygon
 	int num_vertices_per_polygon = (int)(num_vertices/num_polygons);
-	vector<CCPoint> vertices_per_polygon;
+	vector<Point> vertices_per_polygon;
 	vertices_per_polygon.clear();
 
 	for(int i = 0; i < num_polygons; ++i)
@@ -189,7 +189,7 @@ void GameGlobals::GeneratePolygonFormation(EEnemyFormation type, vector<CCPoint>
 		for(int j = 0; j < num_vertices_per_polygon; ++j)
 		{
 			// the anchor point will act as the center of the polygon
-			CCPoint vertex = ccpAdd(vertices_per_polygon[j], anchor_point);
+			Point vertex = vertices_per_polygon[j] + anchor_point;
 			// exclude any vertices that are out of the boundary
 			if(RECT_CONTAINS_CIRCLE(boundary, vertex, ENEMY_RADIUS*2))
 			{

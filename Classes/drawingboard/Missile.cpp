@@ -2,7 +2,7 @@
 #include "GameWorld.h"
 #include "Blast.h"
 
-Missile* Missile::createWithTarget(GameWorld* instance, CCPoint target, CCPoint speed)
+Missile* Missile::createWithTarget(GameWorld* instance, Point target, Point speed)
 {
 	Missile* missile = new Missile();
 	if(missile && missile->initWithTarget(instance, target, speed))
@@ -14,9 +14,9 @@ Missile* Missile::createWithTarget(GameWorld* instance, CCPoint target, CCPoint 
 	return NULL;
 }
 
-bool Missile::initWithTarget(GameWorld* instance, CCPoint target, CCPoint speed)
+bool Missile::initWithTarget(GameWorld* instance, Point target, Point speed)
 {
-	if(!CCDrawNode::init())
+	if(!DrawNode::init())
 	{
 		return false;
 	}
@@ -26,9 +26,9 @@ bool Missile::initWithTarget(GameWorld* instance, CCPoint target, CCPoint speed)
 	speed_ = speed;
 
 	// generate vertices for the missile
-	CCPoint vertices[] = {CCPoint(MISSILE_RADIUS * 1.75f, 0), CCPoint(MISSILE_RADIUS * -0.875f, MISSILE_RADIUS), CCPoint(MISSILE_RADIUS * -1.75f, 0), CCPoint(MISSILE_RADIUS * -0.875f, MISSILE_RADIUS * -1)};
+	Point vertices[] = {Point(MISSILE_RADIUS * 1.75f, 0), Point(MISSILE_RADIUS * -0.875f, MISSILE_RADIUS), Point(MISSILE_RADIUS * -1.75f, 0), Point(MISSILE_RADIUS * -0.875f, MISSILE_RADIUS * -1)};
 	// draw a yellow coloured missile
-	drawPolygon(vertices, 4, ccc4f(0.91765f, 1, 0.14118f, 1), 0, ccc4f(0, 0, 0, 0));
+	drawPolygon(vertices, 4, Color4F(0.91765f, 1, 0.14118f, 1), 0, Color4F(0, 0, 0, 0));
 
 	// schedule to explode after 5 seconds
 	scheduleOnce(schedule_selector(Missile::Explode), 5.0f);
@@ -40,7 +40,7 @@ bool Missile::initWithTarget(GameWorld* instance, CCPoint target, CCPoint speed)
 void Missile::update(float dt)
 {
 	// find a vector pointing to the target
-	CCPoint direction = target_ - getPosition();
+	Point direction = target_ - getPosition();
 	direction.normalize();
 	// add the direction to the speed for smooth curved movement
 	speed_.x += direction.x;
@@ -48,11 +48,11 @@ void Missile::update(float dt)
 	// normalize the speed & multiply with a constant
 	speed_.normalize();
 	speed_ = speed_ * MISSILE_SPEED;
-
 	setPosition(getPosition().x + speed_.x, getPosition().y + speed_.y);
 
 	// update the rotation of the missile
-	float angle = ccpToAngle(ccpSub(getPosition(), previous_position_));
+	Vec2 remainAngle = getPosition() - previous_position_;
+	float angle = remainAngle.getAngle();
 	setRotation(CC_RADIANS_TO_DEGREES(angle * -1));
 	previous_position_ = getPosition();
 
@@ -76,12 +76,12 @@ void Missile::Explode(float dt)
 		// create a blast twice the size of the player that should last for quarter of a second
 		Blast* blast = Blast::createWithRadiusAndDuration(PLAYER_RADIUS * 2, 0.25f);
 		// position it randomly around the missile
-		blast->setPosition(ccpAdd(getPosition(), CCPoint(CCRANDOM_0_1() * PLAYER_RADIUS * 2 * i, CCRANDOM_0_1() * PLAYER_RADIUS * 2 * i)));
+		blast->setPosition(getPosition() + Point(CCRANDOM_0_1() * PLAYER_RADIUS * 2 * i, CCRANDOM_0_1() * PLAYER_RADIUS * 2 * i));
 		game_world_->AddBlast(blast);
 	}
 	// remove this missile in the next iteration
 	must_be_removed_ = true;
-	runAction(CCSequence::createWithTwoActions(CCDelayTime::create(0.01f), CCRemoveSelf::create(true)));
+	runAction(Sequence::createWithTwoActions(DelayTime::create(0.01f), RemoveSelf::create(true)));
 	SOUND_ENGINE->playEffect("small_blast.wav");
 }
 

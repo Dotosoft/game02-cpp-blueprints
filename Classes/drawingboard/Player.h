@@ -6,7 +6,7 @@
 class GameWorld;
 class Shield;
 
-class Player : public CCDrawNode
+class Player : public DrawNode
 {
 public:
 	Player() : radius_(PLAYER_RADIUS), shield_(NULL), game_world_(NULL), speed_(Point::ZERO), is_dying_(false) {}
@@ -17,7 +17,7 @@ public:
 	virtual bool init();
 	virtual void update(float dt);
 	void UpdatePosition();
-	void UpdateRotation(CCPoint previous_position);
+	void UpdateRotation(Point previous_position);
 
 	void Die();
 	void Dead();
@@ -31,7 +31,7 @@ protected:
 
 public:
 	GameWorld* game_world_;
-	CCPoint speed_;
+	Point speed_;
 	bool is_dying_;
 };
 
