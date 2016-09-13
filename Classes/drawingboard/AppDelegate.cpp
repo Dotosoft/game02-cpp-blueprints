@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "MainMenu.h"
 #include "GameGlobals.h"
+#include "TestScene.h"
 
 USING_NS_CC;
 
@@ -37,7 +38,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	GameGlobals::Init();
 
     // create a scene. it's an autorelease object
-    auto pScene = MainMenu::scene();
+    // auto pScene = TestScene::scene();
+	auto pScene = MainMenu::scene();
 
     // run
     pDirector->runWithScene(pScene);

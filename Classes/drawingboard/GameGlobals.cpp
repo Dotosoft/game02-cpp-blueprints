@@ -47,6 +47,7 @@ void GameGlobals::GetRegularPolygonVertices(vector<Point> &vertices, int num_ver
 	float theta = start_angle;
 	for(int i = 0; i < num_vertices; ++i, theta += delta_theta)
 	{
+		// log("vertice[%d]: %f, %f", i, circum_radius * cosf(theta), circum_radius * sinf(theta));
 		vertices.push_back(Point(circum_radius * cosf(theta), circum_radius * sinf(theta)));
 	}
 }

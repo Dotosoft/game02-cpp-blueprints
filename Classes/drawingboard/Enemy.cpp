@@ -36,7 +36,9 @@ void Enemy::GenerateVertices(Point vertices[])
 {
 	vector<Point> inner_vertices, outer_vertices;
 	// get two regular polygons, one smaller than the other and with a slightly advance rotation
+	log("\ninner_vertices");
 	GameGlobals::GetRegularPolygonVertices(inner_vertices, NUM_SPIKES, ENEMY_RADIUS);
+	log("\nouter_vertices");
 	GameGlobals::GetRegularPolygonVertices(outer_vertices, NUM_SPIKES, ENEMY_RADIUS * 1.5f, M_PI / NUM_SPIKES);
 
 	// run a loop to splice the polygons together to form a star

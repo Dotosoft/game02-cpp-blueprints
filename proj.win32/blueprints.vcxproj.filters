@@ -63,6 +63,9 @@
     <ClCompile Include="..\Classes\drawingboard\AppDelegate.cpp">
       <Filter>src\drawingboard</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\drawingboard\TestScene.cpp">
+      <Filter>src\drawingboard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -115,6 +118,9 @@
       <Filter>src\drawingboard</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\drawingboard\AppDelegate.h">
+      <Filter>src\drawingboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\drawingboard\TestScene.h">
       <Filter>src\drawingboard</Filter>
     </ClInclude>
   </ItemGroup>
