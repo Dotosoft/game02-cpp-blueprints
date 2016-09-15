@@ -146,41 +146,31 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\drawingboard\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\BackgroundManager.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\Blast.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\Bomb.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\Enemy.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\GameGlobals.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\GameWorld.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\MainMenu.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\Missile.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\MissileLauncher.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\Player.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\Popups.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\PowerUp.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\Shield.cpp" />
-    <ClCompile Include="..\Classes\drawingboard\TestScene.cpp" />
+    <ClCompile Include="..\Classes\trampolin\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\trampolin\BackgroundManager.cpp" />
+    <ClCompile Include="..\Classes\trampolin\Clown.cpp" />
+    <ClCompile Include="..\Classes\trampolin\Collectible.cpp" />
+    <ClCompile Include="..\Classes\trampolin\GameGlobals.cpp" />
+    <ClCompile Include="..\Classes\trampolin\GameObject.cpp" />
+    <ClCompile Include="..\Classes\trampolin\GameWorld.cpp" />
+    <ClCompile Include="..\Classes\trampolin\GLES-Render.cpp" />
+    <ClCompile Include="..\Classes\trampolin\MainMenu.cpp" />
+    <ClCompile Include="..\Classes\trampolin\Popups.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\drawingboard\AppDelegate.h" />
-    <ClInclude Include="..\Classes\drawingboard\AppMacros.h" />
-    <ClInclude Include="..\Classes\drawingboard\BackgroundManager.h" />
-    <ClInclude Include="..\Classes\drawingboard\Blast.h" />
-    <ClInclude Include="..\Classes\drawingboard\Bomb.h" />
-    <ClInclude Include="..\Classes\drawingboard\Enemy.h" />
-    <ClInclude Include="..\Classes\drawingboard\GameGlobals.h" />
-    <ClInclude Include="..\Classes\drawingboard\GameWorld.h" />
-    <ClInclude Include="..\Classes\drawingboard\MainMenu.h" />
-    <ClInclude Include="..\Classes\drawingboard\Missile.h" />
-    <ClInclude Include="..\Classes\drawingboard\MissileLauncher.h" />
-    <ClInclude Include="..\Classes\drawingboard\Player.h" />
-    <ClInclude Include="..\Classes\drawingboard\Popups.h" />
-    <ClInclude Include="..\Classes\drawingboard\PowerUp.h" />
-    <ClInclude Include="..\Classes\drawingboard\Shield.h" />
-    <ClInclude Include="..\Classes\drawingboard\TestScene.h" />
     <ClInclude Include="..\Classes\GameResources.h" />
+    <ClInclude Include="..\Classes\trampolin\AppDelegate.h" />
+    <ClInclude Include="..\Classes\trampolin\AppMacros.h" />
+    <ClInclude Include="..\Classes\trampolin\BackgroundManager.h" />
+    <ClInclude Include="..\Classes\trampolin\Clown.h" />
+    <ClInclude Include="..\Classes\trampolin\Collectible.h" />
+    <ClInclude Include="..\Classes\trampolin\GameGlobals.h" />
+    <ClInclude Include="..\Classes\trampolin\GameObject.h" />
+    <ClInclude Include="..\Classes\trampolin\GameWorld.h" />
+    <ClInclude Include="..\Classes\trampolin\GLES-Render.h" />
+    <ClInclude Include="..\Classes\trampolin\MainMenu.h" />
+    <ClInclude Include="..\Classes\trampolin\Popups.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource1.h" />
   </ItemGroup>
@@ -188,22 +178,24 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\Resources\drawingboard\big_blast.wav" />
-    <Media Include="..\Resources\drawingboard\blast_player.wav" />
-    <Media Include="..\Resources\drawingboard\enemy_death.wav" />
-    <Media Include="..\Resources\drawingboard\game_over.wav" />
-    <Media Include="..\Resources\drawingboard\missile.wav" />
-    <Media Include="..\Resources\drawingboard\shield.wav" />
-    <Media Include="..\Resources\drawingboard\small_blast.wav" />
+    <Image Include="..\Resources\trampolin\cjsbar01.png" />
+    <Image Include="..\Resources\trampolin\cjtexset_01.png" />
+    <Image Include="..\Resources\trampolin\cjtexset_02.png" />
+    <Image Include="..\Resources\trampolin\jcfont_0.png" />
+    <Image Include="..\Resources\trampolin\texture.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\drawingboard\infont.fnt" />
-    <None Include="..\Resources\drawingboard\iutexure.plist" />
+    <None Include="..\Resources\trampolin\cjtexset_01.plist" />
+    <None Include="..\Resources\trampolin\cjtexset_02.plist" />
+    <None Include="..\Resources\trampolin\explosion.plist" />
+    <None Include="..\Resources\trampolin\jcfont.fnt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\drawingboard\infont_0.png" />
-    <Image Include="..\Resources\drawingboard\iutexure.png" />
-    <Image Include="..\Resources\drawingboard\play_button.png" />
+    <Media Include="..\Resources\trampolin\base_platform.wav" />
+    <Media Include="..\Resources\trampolin\bottle_rocket.wav" />
+    <Media Include="..\Resources\trampolin\collectible.wav" />
+    <Media Include="..\Resources\trampolin\game_over.wav" />
+    <Media Include="..\Resources\trampolin\platform.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,6 @@
 #include "main.h"
 #include "cocos2d.h"
-#include "drawingboard\AppDelegate.h"
+#include "trampolin\AppDelegate.h"
 
 USING_NS_CC;
 
