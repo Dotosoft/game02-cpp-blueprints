@@ -34,9 +34,9 @@ GameWorld::GameWorld()
 GameWorld::~GameWorld()
 {}
 
-CCScene* GameWorld::scene()
+Scene* GameWorld::scene()
 {
-    CCScene *scene = CCScene::create();
+    Scene *scene = Scene::create();
     GameWorld *layer = GameWorld::create();
     scene->addChild(layer);
     return scene;
@@ -44,7 +44,7 @@ CCScene* GameWorld::scene()
 
 bool GameWorld::init()
 {
-    if ( !CCLayer::init() )
+    if ( !Layer::init() )
     {
         return false;
     }
@@ -52,16 +52,16 @@ bool GameWorld::init()
 	// enable accelerometer
 	// setAccelerometerEnabled(true);
 	Device::setAccelerometerEnabled(true);
-	auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(GameWorld::onAcceleration, this));
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	this->accListener = EventListenerAcceleration::create(CC_CALLBACK_2(GameWorld::onAcceleration, this));
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(this->accListener, this);
 
 	// enable touch
 	// setTouchEnabled(true);
-	auto listener1 = EventListenerTouchAllAtOnce::create();
-	listener1->onTouchesBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
-	listener1->onTouchesMoved = CC_CALLBACK_2(GameWorld::onTouchMoving, this);
-	listener1->onTouchesEnded = CC_CALLBACK_2(GameWorld::onTouchEnded, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
+	this->touchListener = EventListenerTouchAllAtOnce::create();
+	this->touchListener->onTouchesBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
+	this->touchListener->onTouchesMoved = CC_CALLBACK_2(GameWorld::onTouchMoving, this);
+	this->touchListener->onTouchesEnded = CC_CALLBACK_2(GameWorld::onTouchEnded, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(this->touchListener, this);
     
 	CreateWorld();
 	CreateGame();
@@ -78,7 +78,7 @@ void GameWorld::CreateWorld()
 	world_->SetContactListener(this);
 
 	// create the moving container that will hold all the game elements
-	game_object_layer_ = CCNode::create();
+	game_object_layer_ = Node::create();
 	addChild(game_object_layer_, E_LAYER_FOREGROUND);
 
 #ifdef ENABLE_DEBUG_DRAW
@@ -114,7 +114,7 @@ void GameWorld::CreateGame()
 	addChild(background_manager_, E_LAYER_BACKGROUND);
 
 	// create & add the batch node
-	sprite_batch_node_ = CCSpriteBatchNode::create("cjtexset_01.png", 128);
+	sprite_batch_node_ = SpriteBatchNode::create("cjtexset_01.png", 128);
 	game_object_layer_->addChild(sprite_batch_node_);
 	
 	CreateWall();
@@ -125,8 +125,10 @@ void GameWorld::CreateGame()
 	CreateHUD();
 
 	// enable touch & accelerometer
-	setTouchEnabled(true);
-	setAccelerometerEnabled(true);
+	// setTouchEnabled(true);
+	//setAccelerometerEnabled(true);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(this->touchListener, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(this->accListener, this);
 
 	// everything created, start updating
 	scheduleUpdate();
@@ -199,7 +201,7 @@ void GameWorld::CreatePlatform()
 
 	// create platform, set physics body & add to batch node
 	platform_ = GameObject::create(this, "cjump01.png");
-	platform_->setAnchorPoint(ccp(0, 0.25f));
+	platform_->setAnchorPoint(Vec2(0, 0.25f));
 	platform_->setVisible(false);
 	platform_->SetBody(platform_body);
 	platform_->SetType(E_GAME_OBJECT_PLATFORM);
@@ -209,9 +211,9 @@ void GameWorld::CreatePlatform()
 void GameWorld::CreateCollectibles()
 {
 	// create the pool and active containers
-	pool_collectibles_ = CCArray::createWithCapacity(MAX_COLLECTIBLES);
+	pool_collectibles_ = __Array::createWithCapacity(MAX_COLLECTIBLES);
 	pool_collectibles_->retain();
-	active_collectibles_ = CCArray::createWithCapacity(MAX_COLLECTIBLES);
+	active_collectibles_ = __Array::createWithCapacity(MAX_COLLECTIBLES);
 	active_collectibles_->retain();
 
 	// all collectibles will be static bodies
@@ -235,14 +237,14 @@ void GameWorld::CreateHUD()
 	// create & add score label
 	char buf[8] = {0};
 	sprintf(buf, "Score:%d", score_);
-	score_label_ = CCLabelBMFont::create(buf, "jcfont.fnt");
-	score_label_->setPosition(ccp(SCREEN_SIZE.width*0.5f, SCREEN_SIZE.height*0.925f));
+	score_label_ = Label::createWithBMFont("jcfont.fnt", buf);
+	score_label_->setPosition(Vec2(SCREEN_SIZE.width*0.5f, SCREEN_SIZE.height*0.925f));
 	addChild(score_label_, E_LAYER_HUD);
 
 	// create & add the pause menu containing pause button
-	CCMenuItemSprite* pause_button = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName("cjbpause.png"), CCSprite::createWithSpriteFrameName("cjbpause.png"), this, menu_selector(GameWorld::OnPauseClicked));
-	pause_button->setPosition(ccp(SCREEN_SIZE.width*0.9f, SCREEN_SIZE.height*0.925f));
-	CCMenu* menu = CCMenu::create(pause_button, NULL);
+	MenuItemSprite* pause_button = MenuItemSprite::create(Sprite::createWithSpriteFrameName("cjbpause.png"), Sprite::createWithSpriteFrameName("cjbpause.png"), this, menu_selector(GameWorld::OnPauseClicked));
+	pause_button->setPosition(Vec2(SCREEN_SIZE.width*0.9f, SCREEN_SIZE.height*0.925f));
+	Menu* menu = Menu::create(pause_button, NULL);
 	menu->setAnchorPoint(Point::ZERO);
 	menu->setPosition(Point::ZERO);
 	addChild(menu, E_LAYER_HUD);
@@ -251,7 +253,7 @@ void GameWorld::CreateHUD()
 #ifdef ENABLE_DEBUG_DRAW
 void GameWorld::draw()
 {
-	CCLayer::draw();
+	Layer::draw();
 	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
 	kmGLPushMatrix();
 	world_->DrawDebugData();
@@ -273,7 +275,7 @@ void GameWorld::update(float dt)
 	
 	for(int i = 0; i < num_collectibles_active_; ++i)
 	{
-		((Collectible*)active_collectibles_->objectAtIndex(i))->Update();
+		((Collectible*)active_collectibles_->getObjectAtIndex(i))->Update();
 	}
 
 	// update platform if user is dragging one
@@ -323,9 +325,9 @@ bool GameWorld::onTouchBegan(const std::vector<Touch*>& touches, Event* evt)
 		return false;
 	}
 
-	CCTouch* touch = (CCTouch*) touches[0];
-	CCPoint touch_point = touch->getLocationInView();
-	touch_start_ = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*) touches[0];
+	Point touch_point = touch->getLocationInView();
+	touch_start_ = Director::getInstance()->convertToGL(touch_point);
 	
 	// remove any previously added platforms
 	RemovePlatform();
@@ -333,6 +335,8 @@ bool GameWorld::onTouchBegan(const std::vector<Touch*>& touches, Event* evt)
 	platform_->setPosition(game_object_layer_->convertToNodeSpace(touch_start_));
 	platform_->setVisible(true);
 	platform_->setScaleX(0);
+
+	return true;
 }
 
 void GameWorld::onTouchMoving(const std::vector<Touch*>& touches, Event* evt)
@@ -343,17 +347,18 @@ void GameWorld::onTouchMoving(const std::vector<Touch*>& touches, Event* evt)
 		clown_->GetState() == E_CLOWN_UP)
 		return;
 
-	CCTouch* touch = (CCTouch*) touches[0];
-	CCPoint touch_point = touch->getLocationInView();
-	touch_end_ = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*) touches[0];
+	Point touch_point = touch->getLocationInView();
+	touch_end_ = Director::getInstance()->convertToGL(touch_point);
 
 	// manipulate anchor point so the platform is correctly oriented
-	platform_->setAnchorPoint( touch_end_.x >= touch_start_.x ? ccp(0, 0.5f) : ccp(1, 0.5f) );
-	float length = ccpDistance(touch_end_, touch_start_);
+	platform_->setAnchorPoint( touch_end_.x >= touch_start_.x ? Vec2(0, 0.5f) : Vec2(1, 0.5f) );
+	float length = touch_end_.distance(touch_start_);
 	// scale the platform according to user input
 	platform_->setScaleX(length / platform_->getContentSize().width);
 	// manipulate rotation so that platform doesn't appear upside down
-	float angle = CC_RADIANS_TO_DEGREES(-1 * ccpToAngle(ccpSub(touch_end_, touch_start_)));
+	Vec2 vecAngle = touch_end_ - touch_start_;
+	float angle = CC_RADIANS_TO_DEGREES(-1 * vecAngle.getAngle());
 	platform_->setRotation( touch_end_.x >= touch_start_.x ? angle : angle + 180 );
 }
 
@@ -365,9 +370,9 @@ void GameWorld::onTouchEnded(const std::vector<Touch*>& touches, Event* evt)
 		clown_->GetState() == E_CLOWN_UP)
 		return;
 
-	CCTouch* touch = (CCTouch*)touches[0];
-	CCPoint touch_point = touch->getLocationInView();
-	touch_end_ = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*)touches[0];
+	Point touch_point = touch->getLocationInView();
+	touch_end_ = Director::getInstance()->convertToGL(touch_point);
 	
 	platform_->setPosition(game_object_layer_->convertToNodeSpace(touch_start_));
 	// user input has finished...time to add the platform's fixture
@@ -428,7 +433,7 @@ void GameWorld::BeginContact(b2Contact *contact)
 	}
 }
 
-void GameWorld::AddPlatform(CCPoint start, CCPoint end)
+void GameWorld::AddPlatform(Point start, Point end)
 {
 	// ensure the platform has only one edge shaped fixture
 	if(platform_->GetBody()->GetFixtureList())
@@ -470,7 +475,7 @@ void GameWorld::AddCollectible(bool special)
 	for(int i = 0; i < num_pool_collectibles; ++i)
 	{
 		// if a special collectible is required, return one if available
-		collectible = (Collectible*)pool_collectibles_->objectAtIndex(i);
+		collectible = (Collectible*)pool_collectibles_->getObjectAtIndex(i);
 		if(special && (collectible->GetType() == E_GAME_OBJECT_ROCKET || collectible->GetType() == E_GAME_OBJECT_BALLOON))
 			break;
 		else if(!special && collectible->GetType() != E_GAME_OBJECT_ROCKET && collectible->GetType() != E_GAME_OBJECT_BALLOON)
@@ -531,7 +536,7 @@ void GameWorld::OnCollision(b2Vec2 contact_normal)
 	// save the normal at the point of contact
 	contact_normal_ = contact_normal;
 	// animate the platform
-	platform_->runAction(CCSequence::createWithTwoActions(CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("platform_animation")), CCHide::create()));
+	platform_->runAction(Sequence::createWithTwoActions(Animate::create(AnimationCache::getInstance()->getAnimation("platform_animation")), Hide::create()));
 	// schedule the actual collision response after a short duration
 	scheduleOnce(schedule_selector(GameWorld::DoCollisionResponse), 0.15f);
 
@@ -569,7 +574,7 @@ void GameWorld::DoCollisionResponse(float dt)
 
 void GameWorld::DoBasePlatformCollision()
 {
-	base_platform_->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjtrapm02.png"));
+	base_platform_->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjtrapm02.png"));
 	// return to idle frame after short duration
 	scheduleOnce(schedule_selector(GameWorld::DoBasePlatformIdle), 0.15f);
 	// update the clown's state
@@ -580,13 +585,13 @@ void GameWorld::DoBasePlatformCollision()
 
 void GameWorld::DoBasePlatformIdle(float dt)
 {
-	base_platform_->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjtrapm01.png"));
+	base_platform_->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjtrapm01.png"));
 }
 
 void GameWorld::ResumeGame()
 {
 	is_popup_active_ = false;
-	resumeSchedulerAndActions();
+	resume();
 	clown_->Resume();
 }
 
@@ -594,21 +599,22 @@ void GameWorld::GameOver()
 {
 	SOUND_ENGINE->playEffect("game_over.wav");
 
-	unscheduleAllSelectors();
-	setTouchEnabled(false);
+	unscheduleAllCallbacks();
+	// setTouchEnabled(false);
+	_eventDispatcher->removeEventListener(this->touchListener);
 
 	// create & add the game over popup
 	GameOverPopup* game_over_popup = GameOverPopup::create(this, score_);
 	addChild(game_over_popup, E_LAYER_POPUP);
 }
 
-void GameWorld::OnPauseClicked(CCObject* sender)
+void GameWorld::OnPauseClicked(Ref* sender)
 {
 	// this prevents multiple pause popups
 	if(is_popup_active_)
 		return;
 
-	pauseSchedulerAndActions();
+	pause();
 	clown_->Pause();
 
 	// create & add the pause popup

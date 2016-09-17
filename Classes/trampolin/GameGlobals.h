@@ -10,7 +10,7 @@ USING_NS_CC;
 using namespace std;
 
 #define SCREEN_SIZE GameGlobals::screen_size_
-#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::sharedEngine()
+#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::getInstance()
 
 #define PTM_RATIO 128
 #define SCREEN_TO_WORLD(value) (float)(value)/PTM_RATIO
@@ -71,12 +71,12 @@ public:
 	static void LoadData();
 
 	// save screen size for fast access
-	static CCSize screen_size_;
+	static Size screen_size_;
 
 	// function takes comma separated string & returns vector of values
 	static vector<float> GetFloatListFromString(string input);
 	// function takes comma separated string & returns CCPoint
-	static CCPoint GetPointFromString(string input);
+	static Point GetPointFromString(string input);
 };
 
 #endif // GAME_GLOBALS_H_

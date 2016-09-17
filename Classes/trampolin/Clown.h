@@ -36,7 +36,7 @@ public:
 	CC_SYNTHESIZE(float, highest_position_, HighestPosition);
 private:
 	EClownState state_;
-	CCParticleSystemQuad* rocket_trail_;
+	ParticleSystemQuad* rocket_trail_;
 };
 
 #endif //CLOWN_H_

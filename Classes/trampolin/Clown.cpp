@@ -107,17 +107,17 @@ void Clown::SetState(EClownState state)
 
 void Clown::StartGoingUp()
 {
-	setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjoker02.png"));
+	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjoker02.png"));
 }
 
 void Clown::StartComingDown()
 {
-	setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjoker01.png"));
+	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjoker01.png"));
 }
 
 void Clown::StartBounce()
 {
-	setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjoker05.png"));
+	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjoker05.png"));
 	// stay in this state only for a short duration
 	scheduleOnce(schedule_selector(Clown::FinishBounce), 0.15f);
 }
@@ -130,7 +130,7 @@ void Clown::FinishBounce(float dt)
 
 void Clown::StartRocket()
 {
-	setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjroket.png"));
+	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjroket.png"));
 	// unschedule any previously scheduled selectors...possibly by another rocket/balloon
 	unschedule(schedule_selector(Clown::FinishRocketBalloon));
 	// stay in this state for some time
@@ -142,9 +142,9 @@ void Clown::StartRocket()
 	body_->SetLinearVelocity(b2Vec2(0.0f, 30.0f));
 
 	// create neat jet stream for the rocket
-	rocket_trail_ = CCParticleSystemQuad::create("explosion.plist");
+	rocket_trail_ = ParticleSystemQuad::create("explosion.plist");
 	rocket_trail_->setDuration(-1);
-	rocket_trail_->setPositionType(kCCPositionTypeRelative);
+	rocket_trail_->setPositionType(ParticleSystem::PositionType::RELATIVE);
 	game_world_->game_object_layer_->addChild(rocket_trail_);
 
 	SOUND_ENGINE->playEffect("bottle_rocket.wav");
@@ -152,7 +152,7 @@ void Clown::StartRocket()
 
 void Clown::StartBalloon()
 {
-	setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjballon.png"));
+	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjballon.png"));
 	// unschedule any previously scheduled selectors...possibly by another rocket/balloon
 	unschedule(schedule_selector(Clown::FinishRocketBalloon));
 	// stay in this state for some time
@@ -181,18 +181,18 @@ void Clown::FinishRocketBalloon(float dt)
 
 void Clown::Pause()
 {
-	pauseSchedulerAndActions();
+	pause();
 	if(rocket_trail_)
 	{
-		rocket_trail_->pauseSchedulerAndActions();
+		rocket_trail_->pause();
 	}
 }
 
 void Clown::Resume()
 {
-	resumeSchedulerAndActions();
+	resume();
 	if(rocket_trail_)
 	{
-		rocket_trail_->resumeSchedulerAndActions();
+		rocket_trail_->resume();
 	}
 }

@@ -5,7 +5,7 @@
 
 class GameWorld;
 
-class GameObject : public CCSprite
+class GameObject : public Sprite
 {
 public:
 	GameObject() : game_world_(NULL), body_(NULL), type_(E_GAME_OBJECT_NONE) {}
@@ -25,7 +25,7 @@ public:
 		// update position of sprite based on position of body
 		if(body_)
 		{
-			setPosition(ccp(WORLD_TO_SCREEN(body_->GetPosition().x), WORLD_TO_SCREEN(body_->GetPosition().y)));
+			setPosition(Vec2(WORLD_TO_SCREEN(body_->GetPosition().x), WORLD_TO_SCREEN(body_->GetPosition().y)));
 		}
 	}
 

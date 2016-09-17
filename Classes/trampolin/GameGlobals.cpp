@@ -1,21 +1,21 @@
 #include "GameGlobals.h"
 
-CCSize GameGlobals::screen_size_ = Size::ZERO;
+Size GameGlobals::screen_size_ = Size::ZERO;
 
 void GameGlobals::Init()
 {
-	screen_size_ = CCDirector::sharedDirector()->getWinSize();
+	screen_size_ = Director::getInstance()->getWinSize();
 	LoadData();
 }
 
 void GameGlobals::LoadData()
 {
 	// add Resources folder to search path. This is necessary when releasing for win32
-	CCFileUtils::sharedFileUtils()->addSearchPath("Resources");
+	FileUtils::getInstance()->addSearchPath("Resources");
 
 	// load sprite sheet/s
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("cjtexset_01.plist");
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("cjtexset_02.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("cjtexset_01.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("cjtexset_02.plist");
 
 	// load sound effects & background music
 	SOUND_ENGINE->preloadEffect("base_platform.wav");
@@ -25,15 +25,15 @@ void GameGlobals::LoadData()
 	SOUND_ENGINE->preloadEffect("platform.wav");
 	
 	// create and add platform animation
-	CCAnimation* animation = CCAnimation::create();
+	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.05f);
-	animation->addSpriteFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjump04.png"));
-	animation->addSpriteFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjump03.png"));
-	animation->addSpriteFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjump02.png"));
-	animation->addSpriteFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjump01.png"));
-	animation->addSpriteFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjump05.png"));
-	animation->addSpriteFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("cjump01.png"));
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "platform_animation");
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjump04.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjump03.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjump02.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjump01.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjump05.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("cjump01.png"));
+	AnimationCache::getInstance()->addAnimation(animation, "platform_animation");
 }
 
 // function takes comma separated string & returns vector of values
@@ -57,9 +57,9 @@ vector<float> GameGlobals::GetFloatListFromString(string input)
 }
 
 // function takes comma separated string & returns CCPoint
-CCPoint GameGlobals::GetPointFromString(string input)
+Point GameGlobals::GetPointFromString(string input)
 {
-	CCPoint point = Point::ZERO;
+	Point point = Point::ZERO;
 	if(input == "")
 		return point;
 	vector<float> list = GetFloatListFromString(input);

@@ -9,7 +9,7 @@ class Clown;
 class Collectible;
 class BackgroundManager;
 
-class GameWorld : public CCLayer, public b2ContactListener
+class GameWorld : public Layer, public b2ContactListener
 {
 public:
 	GameWorld();
@@ -19,7 +19,7 @@ public:
     virtual bool init();  
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static CCScene* scene();
+    static Scene* scene();
     
 #ifdef ENABLE_DEBUG_DRAW
 	virtual void draw();
@@ -52,7 +52,7 @@ public:
 	void CreateHUD();
 
 	// add remove game element functions
-	void AddPlatform(CCPoint start, CCPoint end);
+	void AddPlatform(Point start, Point end);
 	void RemovePlatform();
 	void RemoveBasePlatform();
 	void AddCollectible(bool special);
@@ -73,14 +73,14 @@ public:
 	void GameOver();
 
 	// game update functions
-	void OnPauseClicked(CCObject* sender);
+	void OnPauseClicked(Ref* sender);
 
 private:
 	b2World* world_;
 #ifdef ENABLE_DEBUG_DRAW
     GLESDebugDraw* debug_draw_;
 #endif
-	CCSpriteBatchNode* sprite_batch_node_;
+	SpriteBatchNode* sprite_batch_node_;
 	BackgroundManager* background_manager_;
 
 	Clown* clown_;
@@ -89,17 +89,20 @@ private:
 	GameObject* platform_;
 	GameObject* base_platform_;
 
-	CCArray* pool_collectibles_;
-	CCArray* active_collectibles_;
+	__Array* pool_collectibles_;
+	__Array* active_collectibles_;
 	int num_collectibles_active_;
 
 	bool has_game_begun_;
-	CCPoint touch_start_, touch_end_;
-	CCLabelBMFont* score_label_;
+	Point touch_start_, touch_end_;
+	Label* score_label_;
 	int score_;
 
+	EventListenerAcceleration *accListener;
+	EventListenerTouchAllAtOnce *touchListener;
+
 public:
-	CCNode* game_object_layer_;
+	Node* game_object_layer_;
 	bool is_popup_active_;
 	int distance_travelled_;
 };

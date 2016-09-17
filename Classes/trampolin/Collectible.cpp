@@ -103,7 +103,7 @@ void Collectible::OnCollision()
 	// add respective score
 	game_world_->AddScore(score_);
 	// scale down and exit
-	runAction(CCSequence::createWithTwoActions(CCSequence::createWithTwoActions(CCScaleTo::create(0.01f, 1.2f), CCScaleTo::create(0.1f, 0.0f)), CCCallFunc::create(this, callfunc_selector(Collectible::AfterCollision))));
+	runAction(Sequence::createWithTwoActions(Sequence::createWithTwoActions(ScaleTo::create(0.01f, 1.2f), ScaleTo::create(0.1f, 0.0f)), CallFunc::create(this, callfunc_selector(Collectible::AfterCollision))));
 
 	// inform player of respective state change
 	if(type_ == E_GAME_OBJECT_ROCKET)
@@ -130,12 +130,12 @@ void Collectible::AfterCollision()
 
 void Collectible::ShowParticle()
 {
-	CCParticleSystemQuad* burst = CCParticleSystemQuad::create("explosion.plist");
-	burst->setStartColor(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
-	burst->setStartColorVar(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
-	burst->setEndColor(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
-	burst->setEndColorVar(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
-	burst->setPositionType(kCCPositionTypeGrouped);
+	ParticleSystemQuad* burst = ParticleSystemQuad::create("explosion.plist");
+	burst->setStartColor(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	burst->setStartColorVar(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	burst->setEndColor(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	burst->setEndColorVar(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	burst->setPositionType(ParticleSystem::PositionType::GROUPED);
 	burst->setAutoRemoveOnFinish(true);
 	burst->setPosition(getPosition());
 	game_world_->game_object_layer_->addChild(burst);

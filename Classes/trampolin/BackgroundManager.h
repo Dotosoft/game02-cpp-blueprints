@@ -5,7 +5,7 @@
 
 class GameWorld;
 
-class BackgroundManager : public CCNode
+class BackgroundManager : public Node
 {
 public:
 	virtual bool init();
@@ -20,12 +20,12 @@ public:
 	void UpdateWall(float speed);
 
 private:
-	CCSpriteBatchNode* batch_node_;
-	CCSprite* bg_sprite_;
+	SpriteBatchNode* batch_node_;
+	Sprite* bg_sprite_;
 	int num_bg_pieces_;
-	CCArray* bg_pieces_;
-	CCArray* wall_sprites_;
-	CCSize bg_piece_size_;
+	__Array* bg_pieces_;
+	__Array* wall_sprites_;
+	Size bg_piece_size_;
 
 public:
 	GameWorld* game_world_;
