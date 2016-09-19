@@ -10,46 +10,43 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resource\trampolin">
-      <UniqueIdentifier>{a22b21dd-9623-4386-a76e-273a1e9e5785}</UniqueIdentifier>
+    <Filter Include="resource\flyingpinguin">
+      <UniqueIdentifier>{a1880f91-0548-496b-acd1-8bdc45e74c98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\trampolin">
-      <UniqueIdentifier>{4115e3e2-6db9-4249-bf83-546c5fe55536}</UniqueIdentifier>
+    <Filter Include="src\flyingpinguin">
+      <UniqueIdentifier>{ae11d1c0-6f6a-4f42-8bca-602087320d12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\AppDelegate.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\BackgroundManager.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\GameWorld.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\Clown.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\GLES-Render.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\Collectible.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\MainMenu.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\GameGlobals.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\Penguin.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\GameObject.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\Popups.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\GameWorld.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\Sky.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\GLES-Render.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\AppDelegate.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\MainMenu.cpp">
-      <Filter>src\trampolin</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\trampolin\Popups.cpp">
-      <Filter>src\trampolin</Filter>
+    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,89 +57,90 @@
     <ClInclude Include="..\Classes\GameResources.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\AppDelegate.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\AppMacros.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\AppMacros.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\BackgroundManager.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\GameWorld.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\Clown.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\GLES-Render.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\Collectible.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\MainMenu.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\GameGlobals.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\Penguin.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\GameObject.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\Popups.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\GameWorld.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\Sky.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\GLES-Render.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\AppDelegate.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\MainMenu.h">
-      <Filter>src\trampolin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\trampolin\Popups.h">
-      <Filter>src\trampolin</Filter>
+    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h">
+      <Filter>src\flyingpinguin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\trampolin\cjsbar01.png">
-      <Filter>resource\trampolin</Filter>
+    <Image Include="..\Resources\flyingpinguin\clouds.png">
+      <Filter>resource\flyingpinguin</Filter>
     </Image>
-    <Image Include="..\Resources\trampolin\cjtexset_01.png">
-      <Filter>resource\trampolin</Filter>
+    <Image Include="..\Resources\flyingpinguin\noise1.png">
+      <Filter>resource\flyingpinguin</Filter>
     </Image>
-    <Image Include="..\Resources\trampolin\cjtexset_02.png">
-      <Filter>resource\trampolin</Filter>
+    <Image Include="..\Resources\flyingpinguin\noise2.png">
+      <Filter>resource\flyingpinguin</Filter>
     </Image>
-    <Image Include="..\Resources\trampolin\jcfont_0.png">
-      <Filter>resource\trampolin</Filter>
+    <Image Include="..\Resources\flyingpinguin\pause.png">
+      <Filter>resource\flyingpinguin</Filter>
     </Image>
-    <Image Include="..\Resources\trampolin\texture.png">
-      <Filter>resource\trampolin</Filter>
+    <Image Include="..\Resources\flyingpinguin\pause_button.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\penguin_1.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\penguin_2.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\penguin_3.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\play.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\play_button.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\popup.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\texture.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\title.png">
+      <Filter>resource\flyingpinguin</Filter>
+    </Image>
+    <Image Include="..\Resources\flyingpinguin\wal_font_0.png">
+      <Filter>resource\flyingpinguin</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\trampolin\cjtexset_01.plist">
-      <Filter>resource\trampolin</Filter>
+    <None Include="..\Resources\flyingpinguin\explosion.plist">
+      <Filter>resource\flyingpinguin</Filter>
     </None>
-    <None Include="..\Resources\trampolin\cjtexset_02.plist">
-      <Filter>resource\trampolin</Filter>
+    <None Include="..\Resources\flyingpinguin\wal_font.fnt">
+      <Filter>resource\flyingpinguin</Filter>
     </None>
-    <None Include="..\Resources\trampolin\explosion.plist">
-      <Filter>resource\trampolin</Filter>
-    </None>
-    <None Include="..\Resources\trampolin\jcfont.fnt">
-      <Filter>resource\trampolin</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\Resources\trampolin\collectible.wav">
-      <Filter>resource\trampolin</Filter>
-    </Media>
-    <Media Include="..\Resources\trampolin\game_over.wav">
-      <Filter>resource\trampolin</Filter>
-    </Media>
-    <Media Include="..\Resources\trampolin\platform.wav">
-      <Filter>resource\trampolin</Filter>
-    </Media>
-    <Media Include="..\Resources\trampolin\base_platform.wav">
-      <Filter>resource\trampolin</Filter>
-    </Media>
-    <Media Include="..\Resources\trampolin\bottle_rocket.wav">
-      <Filter>resource\trampolin</Filter>
-    </Media>
   </ItemGroup>
 </Project>

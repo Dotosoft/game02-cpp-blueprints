@@ -146,31 +146,29 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\trampolin\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\trampolin\BackgroundManager.cpp" />
-    <ClCompile Include="..\Classes\trampolin\Clown.cpp" />
-    <ClCompile Include="..\Classes\trampolin\Collectible.cpp" />
-    <ClCompile Include="..\Classes\trampolin\GameGlobals.cpp" />
-    <ClCompile Include="..\Classes\trampolin\GameObject.cpp" />
-    <ClCompile Include="..\Classes\trampolin\GameWorld.cpp" />
-    <ClCompile Include="..\Classes\trampolin\GLES-Render.cpp" />
-    <ClCompile Include="..\Classes\trampolin\MainMenu.cpp" />
-    <ClCompile Include="..\Classes\trampolin\Popups.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\GameWorld.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\GLES-Render.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\MainMenu.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\Penguin.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\Popups.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\Sky.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\flyingpinguin\AppDelegate.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\AppMacros.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\GameWorld.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\GLES-Render.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\MainMenu.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\Penguin.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\Popups.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\Sky.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h" />
     <ClInclude Include="..\Classes\GameResources.h" />
-    <ClInclude Include="..\Classes\trampolin\AppDelegate.h" />
-    <ClInclude Include="..\Classes\trampolin\AppMacros.h" />
-    <ClInclude Include="..\Classes\trampolin\BackgroundManager.h" />
-    <ClInclude Include="..\Classes\trampolin\Clown.h" />
-    <ClInclude Include="..\Classes\trampolin\Collectible.h" />
-    <ClInclude Include="..\Classes\trampolin\GameGlobals.h" />
-    <ClInclude Include="..\Classes\trampolin\GameObject.h" />
-    <ClInclude Include="..\Classes\trampolin\GameWorld.h" />
-    <ClInclude Include="..\Classes\trampolin\GLES-Render.h" />
-    <ClInclude Include="..\Classes\trampolin\MainMenu.h" />
-    <ClInclude Include="..\Classes\trampolin\Popups.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource1.h" />
   </ItemGroup>
@@ -178,24 +176,24 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\trampolin\cjsbar01.png" />
-    <Image Include="..\Resources\trampolin\cjtexset_01.png" />
-    <Image Include="..\Resources\trampolin\cjtexset_02.png" />
-    <Image Include="..\Resources\trampolin\jcfont_0.png" />
-    <Image Include="..\Resources\trampolin\texture.png" />
+    <Image Include="..\Resources\flyingpinguin\clouds.png" />
+    <Image Include="..\Resources\flyingpinguin\noise1.png" />
+    <Image Include="..\Resources\flyingpinguin\noise2.png" />
+    <Image Include="..\Resources\flyingpinguin\pause.png" />
+    <Image Include="..\Resources\flyingpinguin\pause_button.png" />
+    <Image Include="..\Resources\flyingpinguin\penguin_1.png" />
+    <Image Include="..\Resources\flyingpinguin\penguin_2.png" />
+    <Image Include="..\Resources\flyingpinguin\penguin_3.png" />
+    <Image Include="..\Resources\flyingpinguin\play.png" />
+    <Image Include="..\Resources\flyingpinguin\play_button.png" />
+    <Image Include="..\Resources\flyingpinguin\popup.png" />
+    <Image Include="..\Resources\flyingpinguin\texture.png" />
+    <Image Include="..\Resources\flyingpinguin\title.png" />
+    <Image Include="..\Resources\flyingpinguin\wal_font_0.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\trampolin\cjtexset_01.plist" />
-    <None Include="..\Resources\trampolin\cjtexset_02.plist" />
-    <None Include="..\Resources\trampolin\explosion.plist" />
-    <None Include="..\Resources\trampolin\jcfont.fnt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\Resources\trampolin\base_platform.wav" />
-    <Media Include="..\Resources\trampolin\bottle_rocket.wav" />
-    <Media Include="..\Resources\trampolin\collectible.wav" />
-    <Media Include="..\Resources\trampolin\game_over.wav" />
-    <Media Include="..\Resources\trampolin\platform.wav" />
+    <None Include="..\Resources\flyingpinguin\explosion.plist" />
+    <None Include="..\Resources\flyingpinguin\wal_font.fnt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
