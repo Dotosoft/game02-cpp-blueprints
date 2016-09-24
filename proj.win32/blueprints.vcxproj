@@ -147,6 +147,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\flyingpinguin\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp" />
     <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp" />
     <ClCompile Include="..\Classes\flyingpinguin\GameWorld.cpp" />
     <ClCompile Include="..\Classes\flyingpinguin\GLES-Render.cpp" />
@@ -154,12 +155,12 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\flyingpinguin\Penguin.cpp" />
     <ClCompile Include="..\Classes\flyingpinguin\Popups.cpp" />
     <ClCompile Include="..\Classes\flyingpinguin\Sky.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\flyingpinguin\AppDelegate.h" />
     <ClInclude Include="..\Classes\flyingpinguin\AppMacros.h" />
+    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h" />
     <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h" />
     <ClInclude Include="..\Classes\flyingpinguin\GameWorld.h" />
     <ClInclude Include="..\Classes\flyingpinguin\GLES-Render.h" />
@@ -167,7 +168,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\flyingpinguin\Penguin.h" />
     <ClInclude Include="..\Classes\flyingpinguin\Popups.h" />
     <ClInclude Include="..\Classes\flyingpinguin\Sky.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h" />
     <ClInclude Include="..\Classes\GameResources.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource1.h" />

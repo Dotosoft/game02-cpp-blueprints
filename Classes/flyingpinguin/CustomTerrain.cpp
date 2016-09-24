@@ -41,19 +41,22 @@ bool CustomTerrain::init(b2World* world, float start_x)
 	// save instance of the world
 	world_ = world;
 
-	// select between a type of stripe
-	EStripeType stripe_type = (EStripeType)((int)(CCRANDOM_0_1() * (E_STRIPE_SLOPE_DOWN + 1)));
-	// generate the stiped sprite
-	sprite_ = GenerateStripedSprite(stripe_type , 8);
-	// retain for use since we won't be adding it
-	sprite_->retain();
-	// setup the texture to repeat and stick to the edge
-	Texture2D::TexParams tex_params;
-	tex_params.minFilter = GL_LINEAR;
-    tex_params.magFilter = GL_LINEAR;
-	tex_params.wrapS = GL_REPEAT;
-    tex_params.wrapT = GL_CLAMP_TO_EDGE;
-	sprite_->getTexture()->setTexParameters(&tex_params);
+	if(sprite_ == NULL) {
+		// select between a type of stripe
+		EStripeType stripe_type = (EStripeType)((int)(CCRANDOM_0_1() * (E_STRIPE_SLOPE_DOWN + 1)));
+		// generate the stiped sprite
+		sprite_ = GenerateStripedSprite(stripe_type, 8);
+		sprite_->setPosition(Vec2(0, 0));
+		// retain for use since we won't be adding it
+		sprite_->retain();
+		// setup the texture to repeat and stick to the edge
+		Texture2D::TexParams tex_params;
+		tex_params.minFilter = GL_LINEAR;
+		tex_params.magFilter = GL_LINEAR;
+		tex_params.wrapS = GL_REPEAT;
+		tex_params.wrapT = GL_CLAMP_TO_EDGE;
+		sprite_->getTexture()->setTexParameters(&tex_params);
+	}
 
 	// generate the hill & its curve
 	GenerateHillKeyPoints(start_x);
@@ -130,15 +133,22 @@ CCSprite* CustomTerrain::GenerateStripedSprite(EStripeType stripe_type, int num_
 	// begin with pure black
 	render_texture->beginWithClear(0.0f, 0.0f, 0.0f, 0.0f);
 	
+	_customCommandSprite.init(render_texture->getGlobalZOrder());
+	_customCommandSprite.func = CC_CALLBACK_0(CustomTerrain::onDrawSpriteCommand, this, stripe_type, num_stripes);
+	auto renderer = Director::getInstance()->getRenderer();
+	renderer->addCommand(&_customCommandSprite);
+	RenderNoise();
+	render_texture->end();
+	// create a sprite out of the rendered texture & return it
+	return CCSprite::createWithTexture(render_texture->getSprite()->getTexture());
+}
+
+void CustomTerrain::onDrawSpriteCommand(EStripeType stripe_type, int num_stripes) {
 	RenderStripes(stripe_type, num_stripes);
 	RenderGradient();
 	RenderHighlight();
 	RenderTopBorder();
-	RenderNoise();
-	
-	render_texture->end();
-	// create a sprite out of the rendered texture & return it
-	return CCSprite::createWithTexture(render_texture->getSprite()->getTexture());
+	// RenderNoise();
 }
 
 void CustomTerrain::RenderStripes(EStripeType stripe_type, int num_stripes)
@@ -576,15 +586,15 @@ void CustomTerrain::ResetVertices()
 void CustomTerrain::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
 {
 	CCLOG("CustomTerrain::draw");
-	_customCommand.init(_globalZOrder);
-	_customCommand.func = CC_CALLBACK_0(CustomTerrain::onDrawPrimitives, this, renderer, transform, flags);
-	renderer->addCommand(&_customCommand);
+	setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(GLProgram::SHADER_NAME_POSITION_TEXTURE));
+	_customCommandTerrain.init(_globalZOrder);
+	_customCommandTerrain.func = CC_CALLBACK_0(CustomTerrain::onDrawPrimitives, this);
+	renderer->addCommand(&_customCommandTerrain);
 }
 
-// void CustomTerrain::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
-void CustomTerrain::onDrawPrimitives(Renderer *renderer, const Mat4& transform, uint32_t flags)
+void CustomTerrain::onDrawPrimitives()
 {
-	CCLOG("CustomTerrain::onDrawPrimitives %d");
+	CCLOG("CustomTerrain::onDrawPrimitives");
 #ifdef ENABLE_DEBUG_DRAW
 	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
 	kmGLPushMatrix();
@@ -602,11 +612,15 @@ void CustomTerrain::onDrawPrimitives(Renderer *renderer, const Mat4& transform, 
 
 	// bind the texture for this node
 	GL::bindTexture2D(sprite_->getTexture()->getName());
+
+	// sprite_->getTexture()->getGLProgram()->use();
+	// sprite_->getTexture()->getGLProgram()->setUniformsForBuiltins();
+
 	// enable position & colour attributes
-	GL::enableVertexAttribs(kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
+	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
 	// pass position & colour data
-	glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, 0, hill_vertices_);
-	glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, 0, hill_tex_coords_);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, hill_vertices_);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORDS, 2, GL_FLOAT, GL_FALSE, 0, hill_tex_coords_);
 	// draw it...GL_TRIANGLE_STRIP style!
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, (GLsizei)num_hill_vertices_);
 #endif

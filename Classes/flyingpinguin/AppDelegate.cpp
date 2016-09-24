@@ -17,9 +17,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto pEGLView = pDirector->getOpenGLView();
 	if (!pEGLView) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-		pEGLView = GLViewImpl::createWithRect("Flying Pinguin", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f, true);
+		pEGLView = GLViewImpl::createWithRect("zzz", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f, true);
 #else
-		pEGLView = GLViewImpl::create("Flying Pinguin");
+		pEGLView = GLViewImpl::create("zzz");
 #endif
 		pDirector->setOpenGLView(pEGLView);
 	}

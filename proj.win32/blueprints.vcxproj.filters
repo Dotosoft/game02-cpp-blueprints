@@ -14,12 +14,15 @@
       <UniqueIdentifier>{a1880f91-0548-496b-acd1-8bdc45e74c98}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\flyingpinguin">
-      <UniqueIdentifier>{ae11d1c0-6f6a-4f42-8bca-602087320d12}</UniqueIdentifier>
+      <UniqueIdentifier>{510bb916-f76d-4c34-a028-0f6bf321184e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp">
+      <Filter>src\flyingpinguin</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp">
       <Filter>src\flyingpinguin</Filter>
@@ -45,9 +48,6 @@
     <ClCompile Include="..\Classes\flyingpinguin\AppDelegate.cpp">
       <Filter>src\flyingpinguin</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp">
-      <Filter>src\flyingpinguin</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -58,6 +58,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\flyingpinguin\AppMacros.h">
+      <Filter>src\flyingpinguin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h">
       <Filter>src\flyingpinguin</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h">
@@ -82,9 +85,6 @@
       <Filter>src\flyingpinguin</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\flyingpinguin\AppDelegate.h">
-      <Filter>src\flyingpinguin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h">
       <Filter>src\flyingpinguin</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,13 +12,15 @@ public:
 	virtual bool init(b2World* world, float start_x);
 
 	// virtual void draw();
-	CustomCommand _customCommand;
+	CustomCommand _customCommandSprite;
+	CustomCommand _customCommandTerrain;
 	virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags);
-	virtual void onDrawPrimitives(Renderer *renderer, const Mat4& transform, uint32_t flags);
+	virtual void onDrawPrimitives();
 
 	void Update(CCPoint penguin_position);
 	void Reset();
 	
+	void onDrawSpriteCommand(EStripeType stripe_type, int num_stripes);
 	CCSprite* GenerateStripedSprite(EStripeType stripe_type, int num_stripes);
 	void RenderStripes(EStripeType stripe_type, int num_sprites);
 	void RenderGradient();
