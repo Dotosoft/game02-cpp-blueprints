@@ -118,12 +118,13 @@ void Penguin::UpdateLeap()
 void Penguin::UpdateNode()
 {
 	// set node position based on body
-	CCPoint previous_position = getPosition();
+	Point previous_position = getPosition();
 	setPositionX(WORLD_TO_SCREEN(body_->GetPosition().x));
 	setPositionY(WORLD_TO_SCREEN(body_->GetPosition().y));
 	
 	// set rotation based on body
-	float angle = CC_RADIANS_TO_DEGREES(-1 * ccpToAngle(ccpSub(getPosition(), previous_position)));
+	Point subPos = getPosition() - previous_position;
+	float angle = CC_RADIANS_TO_DEGREES(-1 * subPos.getAngle());
 	setRotation(angle);
 
 	// fetch list of contacts
@@ -243,13 +244,13 @@ void Penguin::StartFever()
 
 	// fever mode means having a nice and colourful trail
 	is_feverish_ = true;
-	trail_ = CCParticleSystemQuad::create("explosion.plist");
-	trail_->setStartColor(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
-	trail_->setEndColor(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
-	trail_->setStartColorVar(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
-	trail_->setEndColorVar(ccc4f(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	trail_ = ParticleSystemQuad::create("explosion.plist");
+	trail_->setStartColor(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	trail_->setEndColor(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	trail_->setStartColorVar(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
+	trail_->setEndColorVar(Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1.0f));
 	trail_->setDuration(-1);
-	trail_->setPositionType(kCCPositionTypeRelative);
+	trail_->setPositionType(ParticleSystem::PositionType::RELATIVE);
 	
 	getParent()->addChild(trail_);
 }

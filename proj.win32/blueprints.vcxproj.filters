@@ -57,9 +57,6 @@
     <ClInclude Include="..\Classes\GameResources.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\AppMacros.h">
-      <Filter>src\flyingpinguin</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h">
       <Filter>src\flyingpinguin</Filter>
     </ClInclude>

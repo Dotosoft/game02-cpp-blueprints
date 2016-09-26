@@ -5,7 +5,7 @@
 
 class GameWorld;
 
-class Penguin : public CCSprite
+class Penguin : public Sprite
 {
 public:
 	Penguin();
@@ -44,7 +44,7 @@ public:
 protected:
 	GameWorld* game_world_;
 	b2Body* body_;
-	CCParticleSystemQuad* trail_;
+	ParticleSystemQuad* trail_;
 
 	bool is_awake_;
 	bool is_diving_;

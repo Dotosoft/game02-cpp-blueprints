@@ -16,7 +16,7 @@ using namespace std;
 
 // Helper macros
 #define SCREEN_SIZE GameGlobals::screen_size_
-#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::sharedEngine()
+#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::getInstance()
 
 #define PTM_RATIO 128
 #define SCREEN_TO_WORLD(value) (float)(value)/PTM_RATIO
@@ -67,8 +67,8 @@ public:
 	// load initial/all game data here
 	static void LoadData();
 
-	static CCSize screen_size_;
-	static ccColor4F GetRandomColor();
+	static Size screen_size_;
+	static Color4F GetRandomColor();
 };
 
 #endif // GAME_GLOBALS_H_

@@ -12,13 +12,13 @@ class Sky;
 class CustomTerrain;
 class Penguin;
 
-class GameWorld : public CCLayer, public b2ContactListener
+class GameWorld : public Layer, public b2ContactListener
 {
 public:
 	GameWorld();
 	virtual ~GameWorld();
 
-    static CCScene* scene();
+    static Scene* scene();
     CREATE_FUNC(GameWorld);
 
     virtual bool init();
@@ -44,7 +44,7 @@ public:
 	void onTouchEnded(const std::vector<Touch*>& touches, Event* evt);
 	void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
 
-	void OnPauseClicked(CCObject* sender);
+	void OnPauseClicked(Ref* sender);
 	void ResumeGame();
 	void GameOver();
 
@@ -61,10 +61,10 @@ private:
 	Penguin* penguin_;
 	
 	int distance_travelled_;
-	CCLabelBMFont* distance_label_;
+	Label* distance_label_;
 	int time_left_;
-	CCLabelBMFont* time_label_;
-	CCLabelBMFont* message_label_;
+	Label* time_label_;
+	Label* message_label_;
 
 	bool has_game_begun_;
 	bool has_game_ended_;

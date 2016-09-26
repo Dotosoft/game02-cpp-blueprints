@@ -3,19 +3,19 @@
 
 #include "GameGlobals.h"
 
-class Sky : public CCNode
+class Sky : public Node
 {
 public:
 	static Sky* create();
 	virtual bool init();
 	~Sky();
 
-	CCSprite* GenerateSkySprite();
-	void Update(CCPoint penguin_position, float terrain_offset_x, float terrain_scale);
+	Sprite* GenerateSkySprite();
+	void Update(Point penguin_position, float terrain_offset_x, float terrain_scale);
 
 private:
-	CCSprite* sprite_;
-	CCSprite* clouds_;
+	Sprite* sprite_;
+	Sprite* clouds_;
 	float offset_x_;
 };
 

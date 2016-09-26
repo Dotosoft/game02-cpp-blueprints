@@ -32,9 +32,9 @@ GameWorld::~GameWorld()
 	DestroyWorld();
 }
 
-CCScene* GameWorld::scene()
+Scene* GameWorld::scene()
 {
-    CCScene *scene = CCScene::create();
+    Scene *scene = Scene::create();
     GameWorld *layer = GameWorld::create();
     scene->addChild(layer);
     return scene;
@@ -42,7 +42,7 @@ CCScene* GameWorld::scene()
 
 bool GameWorld::init()
 {
-    if ( !CCLayer::init() )
+    if ( !Layer::init() )
     {
         return false;
     }
@@ -100,7 +100,7 @@ void GameWorld::CreateGame()
 	CreateHUD();
 
 	// enable touch and schedule two selectors; the seconds ticker and the update
-	setTouchEnabled(true);
+	// setTouchEnabled(true);
 
 	this->touchListener = EventListenerTouchAllAtOnce::create();
 	this->touchListener->onTouchesBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
@@ -116,26 +116,26 @@ void GameWorld::CreateHUD()
 	// create & add the distance label
 	char buf[16] = {0};
 	sprintf(buf, "%dm", distance_travelled_);
-	distance_label_ = CCLabelBMFont::create(buf, "wal_font.fnt");
-	distance_label_->setPosition(ccp(SCREEN_SIZE.width*0.1f, SCREEN_SIZE.height*0.925f));
-	distance_label_->setAnchorPoint(ccp(0, 0.5f));
+	distance_label_ = Label::createWithBMFont("wal_font.fnt", buf);
+	distance_label_->setPosition(Vec2(SCREEN_SIZE.width*0.1f, SCREEN_SIZE.height*0.925f));
+	distance_label_->setAnchorPoint(Vec2(0, 0.5f));
 	addChild(distance_label_, E_LAYER_HUD);
 
 	// create & add the time left label
 	sprintf(buf, "%ds", time_left_);
-	time_label_ = CCLabelBMFont::create(buf, "wal_font.fnt");
-	time_label_->setPosition(ccp(SCREEN_SIZE.width*0.5f, SCREEN_SIZE.height*0.925f));
+	time_label_ = Label::createWithBMFont("wal_font.fnt", buf);
+	time_label_->setPosition(Vec2(SCREEN_SIZE.width*0.5f, SCREEN_SIZE.height*0.925f));
 	addChild(time_label_, E_LAYER_HUD);
 
 	// create and add a general message label
-	message_label_ = CCLabelBMFont::create("", "wal_font.fnt");
+	message_label_ = Label::createWithBMFont("wal_font.fnt", "");
 	message_label_->setVisible(false);
 	addChild(message_label_, E_LAYER_HUD);
 
 	// create & add the pause menu containing pause button
-	CCMenuItemSprite* pause_button = CCMenuItemSprite::create(CCSprite::create("pause.png"), CCSprite::create("pause.png"), this, menu_selector(GameWorld::OnPauseClicked));
-	pause_button->setPosition(ccp(SCREEN_SIZE.width*0.95f, SCREEN_SIZE.height*0.925f));
-	CCMenu* menu = CCMenu::create(pause_button, NULL);
+	MenuItemSprite* pause_button = MenuItemSprite::create(Sprite::create("pause.png"), Sprite::create("pause.png"), this, menu_selector(GameWorld::OnPauseClicked));
+	pause_button->setPosition(Vec2(SCREEN_SIZE.width*0.95f, SCREEN_SIZE.height*0.925f));
+	auto menu = Menu::create(pause_button, NULL);
 	menu->setAnchorPoint(Point::ZERO);
 	menu->setPosition(Point::ZERO);
 	addChild(menu, E_LAYER_HUD);
@@ -225,9 +225,7 @@ void GameWorld::update(float dt)
 	int new_distance_travelled = penguin_->getPositionX();
 	if(new_distance_travelled > distance_travelled_)
 	{
-		char buf[16] = {0};
-		sprintf(buf, "%dm", (int)(new_distance_travelled / 2));
-		distance_label_->setString(buf);
+		distance_label_->setString(__String::createWithFormat("%dm", (int)(new_distance_travelled / 2))->getCString());
 		distance_travelled_ = new_distance_travelled;
 	}
 }
@@ -242,9 +240,7 @@ void GameWorld::Tick(float dt)
 	-- time_left_;
 
 	// update the label
-	char buf[16] = {0};
-	sprintf(buf, "%ds", time_left_);
-	time_label_->setString(buf);
+	time_label_->setString(__String::createWithFormat("%ds", time_left_)->getCString());
 
 	// no more time...game over
 	if(time_left_ <= 0)
@@ -255,14 +251,14 @@ void GameWorld::Tick(float dt)
 	// when there 5 seconds or less, start animating the label & playing a sound
 	if(time_left_ <= 5)
 	{
-		if(time_label_->numberOfRunningActions() <= 0)
+		if(time_label_->getNumberOfRunningActions() <= 0)
 		{
-			CCActionInterval* scale_up_down = CCSequence::createWithTwoActions(CCScaleTo::create(0.2f, 1.2f), CCScaleTo::create(0.2f, 1.0f));
-			time_label_->runAction(CCRepeatForever::create(scale_up_down));
+			ActionInterval* scale_up_down = Sequence::createWithTwoActions(ScaleTo::create(0.2f, 1.2f), ScaleTo::create(0.2f, 1.0f));
+			time_label_->runAction(RepeatForever::create(scale_up_down));
 
-			CCActionInterval* shake = CCSequence::createWithTwoActions(CCRotateBy::create(0.05f, 20.0f), CCRotateBy::create(0.05f, -20.0f));
+			ActionInterval* shake = Sequence::createWithTwoActions(RotateBy::create(0.05f, 20.0f), RotateBy::create(0.05f, -20.0f));
 			time_label_->setRotation(-10.0f);
-			time_label_->runAction(CCRepeatForever::create(shake));
+			time_label_->runAction(RepeatForever::create(shake));
 		}
 	}
 }
@@ -270,9 +266,7 @@ void GameWorld::Tick(float dt)
 void GameWorld::AddTime(int value)
 {
 	time_left_ += value;
-	char buf[16] = {0};
-	sprintf(buf, "%ds", time_left_);
-	time_label_->setString(buf);
+	time_label_->setString(__String::createWithFormat("%ds", time_left_)->getCString());
 	
 	// stop any actions that may been running
 	time_label_->stopAllActions();
@@ -280,7 +274,7 @@ void GameWorld::AddTime(int value)
 	time_label_->setScale(1.0f);
 	time_label_->setRotation(0.0f);
 
-	CCActionInterval* scale_up_down = CCSequence::createWithTwoActions(CCEaseSineIn::create(CCScaleTo::create(0.2f, 1.2f)), CCEaseSineOut::create(CCScaleTo::create(0.2f, 1.0f)));
+	ActionInterval* scale_up_down = Sequence::createWithTwoActions(EaseSineIn::create(ScaleTo::create(0.2f, 1.2f)), EaseSineOut::create(ScaleTo::create(0.2f, 1.0f)));
 	time_label_->runAction(scale_up_down);
 }
 
@@ -288,29 +282,29 @@ void GameWorld::ShowMessage(const char* message)
 {
 	// message will be hidden initially so show it
 	message_label_->setVisible(true);
-	message_label_->setPosition(ccp(SCREEN_SIZE.width * 0.5f, SCREEN_SIZE.height * 1.2f));
+	message_label_->setPosition(Vec2(SCREEN_SIZE.width * 0.5f, SCREEN_SIZE.height * 1.2f));
 	message_label_->setOpacity(255);
 	message_label_->setString(message);
 
 	// animate entry & exit
-	CCActionInterval* sequence = CCSequence::create(CCEaseBackOut::create(CCMoveTo::create(0.2f, ccp(SCREEN_SIZE.width * 0.5f, SCREEN_SIZE.height * 0.8f))),
-		CCDelayTime::create(1.0f), 
-		CCFadeOut::create(0.1f), 
-		CCHide::create(), NULL);
+	ActionInterval* sequence = Sequence::create(EaseBackOut::create(MoveTo::create(0.2f, Vec2(SCREEN_SIZE.width * 0.5f, SCREEN_SIZE.height * 0.8f))),
+		DelayTime::create(1.0f), 
+		FadeOut::create(0.1f), 
+		Hide::create(), NULL);
 	message_label_->runAction(sequence);
 }
 
-void GameWorld::OnPauseClicked(CCObject* sender)
+void GameWorld::OnPauseClicked(Ref* sender)
 {
 	// this prevents multiple pause popups
 	if(is_popup_active_)
 		return;
 
-	pauseSchedulerAndActions();
+	pause();
 	
 	// pause game elements here
 	penguin_->Pause();
-	time_label_->pauseSchedulerAndActions();
+	time_label_->pause();
 
 	// create & add the pause popup
 	PausePopup* pause_popup = PausePopup::create(this);
@@ -322,11 +316,11 @@ void GameWorld::ResumeGame()
 	is_popup_active_ = false;
 
 	// resume GameWorld update & Tick functions
-	resumeSchedulerAndActions();
+	resume();
 
 	// resume game elements here
 	penguin_->Resume();
-	time_label_->resumeSchedulerAndActions();
+	time_label_->resume();
 }
 
 void GameWorld::GameOver()
@@ -334,11 +328,11 @@ void GameWorld::GameOver()
 	has_game_ended_ = true;
 
 	// stop everything
-	time_label_->pauseSchedulerAndActions();
+	time_label_->pause();
 	time_label_->setScale(1.0f);
 	time_label_->setRotation(0.0f);
-	unscheduleAllSelectors();
-	setTouchEnabled(false);
+	unscheduleAllCallbacks();
+	// setTouchEnabled(false);
 	_eventDispatcher->removeEventListener(this->touchListener);
 
 	// create & add the game over popup

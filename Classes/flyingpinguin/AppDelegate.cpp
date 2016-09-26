@@ -36,7 +36,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	GameGlobals::Init();
 
     // create a scene. it's an autorelease object
-    CCScene *pScene = MainMenu::scene();
+    Scene *pScene = MainMenu::scene();
 
     // run
     pDirector->runWithScene(pScene);
@@ -46,7 +46,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    CCDirector::sharedDirector()->stopAnimation();
+    CCDirector::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
@@ -54,7 +54,7 @@ void AppDelegate::applicationDidEnterBackground() {
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
-    CCDirector::sharedDirector()->startAnimation();
+    CCDirector::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();

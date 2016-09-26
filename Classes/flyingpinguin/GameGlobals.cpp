@@ -1,21 +1,21 @@
 #include "GameGlobals.h"
 
-CCSize GameGlobals::screen_size_ = Size::ZERO;
+Size GameGlobals::screen_size_ = Size::ZERO;
 
 void GameGlobals::Init()
 {
 	srand(time(0));
-	screen_size_ = CCDirector::sharedDirector()->getWinSize();
+	screen_size_ = Director::getInstance()->getWinSize();
 	LoadData();
 }
 
 void GameGlobals::LoadData()
 {
 	// add Resources folder to search path. This is necessary when releasing for win32
-	CCFileUtils::sharedFileUtils()->addSearchPath("Resources");
+	FileUtils::getInstance()->addSearchPath("Resources");
 }
 
-ccColor4F GameGlobals::GetRandomColor()
+Color4F GameGlobals::GetRandomColor()
 {
-	return ccc4f(0.3f + CCRANDOM_0_1() * 0.7f, 0.3f + CCRANDOM_0_1() * 0.7f, 0.3f + CCRANDOM_0_1() * 0.7f, 1.0f);
+	return Color4F(0.3f + CCRANDOM_0_1() * 0.7f, 0.3f + CCRANDOM_0_1() * 0.7f, 0.3f + CCRANDOM_0_1() * 0.7f, 1.0f);
 }
