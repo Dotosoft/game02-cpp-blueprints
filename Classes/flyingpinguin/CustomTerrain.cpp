@@ -24,7 +24,7 @@ CustomTerrain::~CustomTerrain()
 CustomTerrain* CustomTerrain::create(b2World* world, float start_x)
 {
 	CustomTerrain* terrain = new CustomTerrain();
-	if(terrain && terrain->init(world, start_x))
+	if (terrain && terrain->init(world, start_x))
 	{
 		terrain->autorelease();
 		return terrain;
@@ -35,13 +35,13 @@ CustomTerrain* CustomTerrain::create(b2World* world, float start_x)
 
 bool CustomTerrain::init(b2World* world, float start_x)
 {
-	if(!Node::init())
+	if (!Node::init())
 		return false;
 
 	// save instance of the world
 	world_ = world;
 
-	if(sprite_ == NULL) {
+	if (sprite_ == NULL) {
 		// select between a type of stripe
 		EStripeType stripe_type = (EStripeType)((int)(CCRANDOM_0_1() * (E_STRIPE_SLOPE_DOWN + 1)));
 		// generate the stiped sprite
@@ -62,11 +62,10 @@ bool CustomTerrain::init(b2World* world, float start_x)
 	GenerateHillKeyPoints(start_x);
 	GenerateBorderVertices();
 	// generate a body & a fixture for the hill
-	if(world_)
+	if (world_)
 		CreateBody();
 
 	// load the shader for position & texture
-	// setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture));
 	setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE));
 	return true;
 }
@@ -77,7 +76,7 @@ void CustomTerrain::Update(Point penguin_position)
 	float height = penguin_position.y;
 	const float min_height = SCREEN_SIZE.height * 0.6f;
 	height = (height < min_height) ? min_height : height;
-	
+
 	// scale only if penguin is above SCREEN_SIZE.height * 0.6f
 	float scale = min_height / height;
 	setScale(scale * 1.25f);
@@ -85,7 +84,7 @@ void CustomTerrain::Update(Point penguin_position)
 	SetOffsetX(penguin_position.x);
 
 	// check if terrain has left screen
-	if(from_key_point_ >= MAX_HILL_KEY_POINTS - 1 && to_key_point_ >= MAX_HILL_KEY_POINTS - 1)
+	if (from_key_point_ >= MAX_HILL_KEY_POINTS - 1 && to_key_point_ >= MAX_HILL_KEY_POINTS - 1)
 	{
 		// reset the old data
 		Reset();
@@ -132,7 +131,7 @@ Sprite* CustomTerrain::GenerateStripedSprite(EStripeType stripe_type, int num_st
 	RenderTexture* render_texture = RenderTexture::create(STRIPE_TEXTURE_SIZE, STRIPE_TEXTURE_SIZE);
 	// begin with pure black
 	render_texture->beginWithClear(0.0f, 0.0f, 0.0f, 0.0f);
-	
+
 	_customCommandSprite.init(render_texture->getGlobalZOrder());
 	_customCommandSprite.func = CC_CALLBACK_0(CustomTerrain::onDrawSpriteCommand, this, stripe_type, num_stripes);
 	auto renderer = Director::getInstance()->getRenderer();
@@ -167,35 +166,35 @@ void CustomTerrain::RenderStripes(EStripeType stripe_type, int num_stripes)
 	Color4F color2 = GameGlobals::GetRandomColor();
 	Color4F c;
 
-	if(stripe_type == E_STRIPE_HORIZONTAL)
+	if (stripe_type == E_STRIPE_HORIZONTAL)
 	{
 		// initialise variables for the horizontal stripe
 		dx = 0;
 		dy = (float)STRIPE_TEXTURE_SIZE / (float)num_stripes;
-		
+
 		x1 = 0;
 		y1 = 0;
-		
+
 		x2 = STRIPE_TEXTURE_SIZE;
 		y2 = 0;
-		
+
 		// generate position & colour for each vertex of the stripe
-		for (int i = 0; i < num_stripes; ++ i)
+		for (int i = 0; i < num_stripes; ++i)
 		{
-			c = two_colors ? (i%2 ? color1 : color2) : GameGlobals::GetRandomColor();
+			c = two_colors ? (i % 2 ? color1 : color2) : GameGlobals::GetRandomColor();
 
 			colors[num_vertices] = c;
-			vertices[num_vertices ++] = Vec2(x1, y1);
+			vertices[num_vertices++] = Vec2(x1, y1);
 			colors[num_vertices] = c;
-			vertices[num_vertices ++] = Vec2(x2, y2);
+			vertices[num_vertices++] = Vec2(x2, y2);
 			colors[num_vertices] = c;
-			vertices[num_vertices ++] = Vec2(x1, y1 + dy);
+			vertices[num_vertices++] = Vec2(x1, y1 + dy);
 			colors[num_vertices] = c;
-			vertices[num_vertices ++] = vertices[num_vertices - 2];
+			vertices[num_vertices++] = vertices[num_vertices - 2];
 			colors[num_vertices] = c;
-			vertices[num_vertices ++] = vertices[num_vertices - 2];
+			vertices[num_vertices++] = vertices[num_vertices - 2];
 			colors[num_vertices] = c;
-			vertices[num_vertices ++] = Vec2(x2, y2 + dy);
+			vertices[num_vertices++] = Vec2(x2, y2 + dy);
 
 			y1 += dy;
 			y2 += dy;
@@ -206,32 +205,32 @@ void CustomTerrain::RenderStripes(EStripeType stripe_type, int num_stripes)
 		// initialise variables based on type of stripe
 		dx = (float)STRIPE_TEXTURE_SIZE * 2 / (float)num_stripes;
 		dy = 0;
-		
+
 		x1 = -STRIPE_TEXTURE_SIZE;
 		y1 = (stripe_type == E_STRIPE_SLOPE_DOWN) ? 0 : STRIPE_TEXTURE_SIZE;
-		
+
 		x2 = 0;
 		y2 = (stripe_type == E_STRIPE_SLOPE_DOWN) ? STRIPE_TEXTURE_SIZE : 0;
-		
-		// generate position & colours for two stripes at a time
-		for (int i = 0; i < num_stripes / 2; ++ i)
-		{
-			c = two_colors ? (i%2 ? color1 : color2) : GameGlobals::GetRandomColor();
 
-			for(int j = 0; j < 2; ++ j)
+		// generate position & colours for two stripes at a time
+		for (int i = 0; i < num_stripes / 2; ++i)
+		{
+			c = two_colors ? (i % 2 ? color1 : color2) : GameGlobals::GetRandomColor();
+
+			for (int j = 0; j < 2; ++j)
 			{
 				colors[num_vertices] = c;
-				vertices[num_vertices ++] = Vec2(x1 + j * STRIPE_TEXTURE_SIZE, y1);
+				vertices[num_vertices++] = Vec2(x1 + j * STRIPE_TEXTURE_SIZE, y1);
 				colors[num_vertices] = c;
-				vertices[num_vertices ++] = Vec2(x1 + j * STRIPE_TEXTURE_SIZE + dx, y1);
+				vertices[num_vertices++] = Vec2(x1 + j * STRIPE_TEXTURE_SIZE + dx, y1);
 				colors[num_vertices] = c;
-				vertices[num_vertices ++] = Vec2(x2 + j * STRIPE_TEXTURE_SIZE, y2);
+				vertices[num_vertices++] = Vec2(x2 + j * STRIPE_TEXTURE_SIZE, y2);
 				colors[num_vertices] = c;
-				vertices[num_vertices ++] = vertices[num_vertices - 2];
+				vertices[num_vertices++] = vertices[num_vertices - 2];
 				colors[num_vertices] = c;
-				vertices[num_vertices ++] = vertices[num_vertices - 2];
+				vertices[num_vertices++] = vertices[num_vertices - 2];
 				colors[num_vertices] = c;
-				vertices[num_vertices ++] = Vec2(x2 + j * STRIPE_TEXTURE_SIZE + dx, y2);
+				vertices[num_vertices++] = Vec2(x2 + j * STRIPE_TEXTURE_SIZE + dx, y2);
 			}
 
 			x1 += dx;
@@ -240,15 +239,15 @@ void CustomTerrain::RenderStripes(EStripeType stripe_type, int num_stripes)
 	}
 
 	// we're dealing with position & colour data here
-	// setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionColor));
 	setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR));
 	CC_NODE_DRAW_SETUP();
 
 	// enable position & colour attributes
 	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 	// pass position & colour data
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_COLOR, 4, GL_FLOAT, GL_TRUE, 0, colors);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_TRUE, 0, colors);
+
 	// set the blend function
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	// draw it...GL_TRIANGLES style!
@@ -282,8 +281,8 @@ void CustomTerrain::RenderGradient()
 	// enable position & colour attributes
 	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 	// pass position & colour data
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_COLOR, 4, GL_FLOAT, GL_FALSE, 0, colors);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, colors);
 	// draw it...GL_TRIANGLE_STRIP style!
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
@@ -297,23 +296,22 @@ void CustomTerrain::RenderHighlight()
 	// highlight will be yellowish on top & nothing at the bottom
 	vertices[0] = Vec2(0, 0);
 	vertices[1] = Vec2(STRIPE_TEXTURE_SIZE, 0);
-	vertices[2] = Vec2(0, STRIPE_TEXTURE_SIZE/3);
-	vertices[3] = Vec2(STRIPE_TEXTURE_SIZE, STRIPE_TEXTURE_SIZE/3);
+	vertices[2] = Vec2(0, STRIPE_TEXTURE_SIZE / 3);
+	vertices[3] = Vec2(STRIPE_TEXTURE_SIZE, STRIPE_TEXTURE_SIZE / 3);
 	colors[0] = Color4F(1.0f, 1.0f, 0.5f, 0.4f);
 	colors[1] = Color4F(1.0f, 1.0f, 0.5f, 0.4f);
 	colors[2] = Color4F(1.0f, 1.0f, 0.5f, 0.0f);
 	colors[3] = Color4F(1.0f, 1.0f, 0.5f, 0.0f);
 
 	// we're dealing with position & colour data here
-	// setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionColor));
-	setGLProgram(ShaderCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR));
+	setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR));
 	CC_NODE_DRAW_SETUP();
 
 	// enable position & colour attributes
 	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 	// pass position & colour data
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_COLOR, 4, GL_FLOAT, GL_FALSE, 0, colors);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, colors);
 	// set the blend function
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// draw it...GL_TRIANGLE_STRIP style!
@@ -337,15 +335,14 @@ void CustomTerrain::RenderTopBorder()
 	colors[3] = Color4F(0.3255f, 0.3255f, 0.3255f, 0.75f);
 
 	// we're dealing with position & colour data here
-	// setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionColor));
-	setGLProgram(ShaderCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR));
+	setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR));
 	CC_NODE_DRAW_SETUP();
 
 	// enable position & colour attributes
 	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 	// pass position & colour data
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(GL::VERTEX_ATTRIB_FLAG_COLOR, 4, GL_FLOAT, GL_FALSE, 0, colors);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, colors);
 	// set the blend function
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	// draw it...GL_TRIANGLE_STRIP style!
@@ -362,7 +359,7 @@ void CustomTerrain::RenderNoise()
 	blend_func.dst = GL_ZERO;
 	noise->setBlendFunc(blend_func);
 	// position the sprite at the centre of the texture
-	noise->setPosition(Vec2(STRIPE_TEXTURE_SIZE/2, STRIPE_TEXTURE_SIZE/2));
+	noise->setPosition(Vec2(STRIPE_TEXTURE_SIZE / 2, STRIPE_TEXTURE_SIZE / 2));
 	// call visit to render the sprite...twice gives added contrast
 	noise->visit();
 	noise->visit();
@@ -378,18 +375,18 @@ void CustomTerrain::GenerateHillKeyPoints(float start_x)
 	// first hill key point will be a bit outside the left edge of the screen
 	x = start_x - SCREEN_SIZE.width * 0.25f;
 	y = 0;
-	hill_key_points_[num_hill_key_points_ ++] = Vec2(x, y);
+	hill_key_points_[num_hill_key_points_++] = Vec2(x, y);
 
 	// the first peak
 	x = start_x;
 	y = SCREEN_SIZE.height * 0.4f;
-	hill_key_points_[num_hill_key_points_ ++] = Vec2(x, y);
+	hill_key_points_[num_hill_key_points_++] = Vec2(x, y);
 
 	// set the minimum & range quantities
 	int min_dx = 160, range_dx = 80;
-	int min_dy = 60,  range_dy = 60;
+	int min_dy = 60, range_dy = 60;
 	// +1 - going up, -1 - going  down
-	float sign = -1; 
+	float sign = -1;
 	// set the limits
 	float max_height = SCREEN_SIZE.height * 0.5f;
 	float min_height = SCREEN_SIZE.height * 0.25f;
@@ -401,8 +398,8 @@ void CustomTerrain::GenerateHillKeyPoints(float start_x)
 		x += dx;
 		dy = CCRANDOM_0_1() * range_dy + min_dy;
 		ny = y + dy * sign;
-		if(ny > max_height) ny = max_height;
-		if(ny < min_height) ny = min_height;
+		if (ny > max_height) ny = max_height;
+		if (ny < min_height) ny = min_height;
 		y = ny;
 		sign *= -1;
 		hill_key_points_[num_hill_key_points_++] = Vec2(x, y);
@@ -415,8 +412,8 @@ void CustomTerrain::GenerateHillKeyPoints(float start_x)
 		dx = CCRANDOM_0_1() * range_dx + min_dx;
 		x += dx;
 		dy = CCRANDOM_0_1() * range_dy + min_dy;
-		ny = ( (y + dy * sign) < hill_key_points_[num_hill_key_points_ - 2].y ) ? (y + dy * sign) : (y + dy * sign * 0.5f);
-		if(ny < min_height) ny = min_height;
+		ny = ((y + dy * sign) < hill_key_points_[num_hill_key_points_ - 2].y) ? (y + dy * sign) : (y + dy * sign * 0.5f);
+		if (ny < min_height) ny = min_height;
 		y = ny;
 		sign *= -1;
 		hill_key_points_[num_hill_key_points_++] = Vec2(x, y);
@@ -445,7 +442,7 @@ void CustomTerrain::GenerateBorderVertices()
 	Vec2 p0, p1, pt0, pt1;
 	p0 = hill_key_points_[0];
 
-	for (int i = 1; i < num_hill_key_points_; ++ i)
+	for (int i = 1; i < num_hill_key_points_; ++i)
 	{
 		p1 = hill_key_points_[i];
 
@@ -462,13 +459,13 @@ void CustomTerrain::GenerateBorderVertices()
 		border_vertices_[num_border_vertices_++] = pt0;
 
 		// for each segment, calculate x & y coordinate
-		for (int j = 1; j < h_segments + 1; ++ j)
+		for (int j = 1; j < h_segments + 1; ++j)
 		{
 			// x coordinate is last coordinate plus delta
 			pt1.x = p0.x + j * dx;
 			// y coordinate taken from the cosine wave
 			pt1.y = ymid + ampl * cosf(da * j);
-			border_vertices_[num_border_vertices_ ++] = pt1;
+			border_vertices_[num_border_vertices_++] = pt1;
 			pt0 = pt1;
 		}
 
@@ -479,26 +476,26 @@ void CustomTerrain::GenerateBorderVertices()
 void CustomTerrain::CreateBody()
 {
 	// create a body only the first time...after that only create fixture
-	if(body_ == NULL)
+	if (body_ == NULL)
 	{
 		b2BodyDef bd;
 		bd.position.Set(0, 0);
 		body_ = world_->CreateBody(&bd);
 	}
-	
+
 	// create array for the vertices
 	b2Vec2 vertices[MAX_BORDER_VERTICES];
 	int num_vertices = 0;
 	// loop through border_vertices_, convert screen coordinates to physics coordinates
-	for (int i = 0; i < num_border_vertices_; ++ i)
+	for (int i = 0; i < num_border_vertices_; ++i)
 	{
-		vertices[num_vertices ++].Set(SCREEN_TO_WORLD(border_vertices_[i].x), SCREEN_TO_WORLD(border_vertices_[i].y));
+		vertices[num_vertices++].Set(SCREEN_TO_WORLD(border_vertices_[i].x), SCREEN_TO_WORLD(border_vertices_[i].y));
 	}
 
 	// finish up the last two vertices to form a loop
-	vertices[num_vertices ++].Set(SCREEN_TO_WORLD(border_vertices_[num_border_vertices_ - 1].x), 0);
-	vertices[num_vertices ++].Set(SCREEN_TO_WORLD(border_vertices_[0].x), 0);
-	
+	vertices[num_vertices++].Set(SCREEN_TO_WORLD(border_vertices_[num_border_vertices_ - 1].x), 0);
+	vertices[num_vertices++].Set(SCREEN_TO_WORLD(border_vertices_[0].x), 0);
+
 	// create the chain fixture with above vertices
 	b2ChainShape shape;
 	shape.CreateChain(vertices, num_vertices);
@@ -510,11 +507,11 @@ void CustomTerrain::ResetVertices()
 	// calculate the area of the hill that is currently visible plus a buffer of 0.125 * screen width
 	float left_side = offset_x_ - SCREEN_SIZE.width * 0.125f / getScaleX();
 	float right_side = offset_x_ + SCREEN_SIZE.width * 1.125f / getScaleX();
-	
+
 	// loop to calculate the left most key point
 	while (hill_key_points_[from_key_point_ + 1].x < left_side)
 	{
-		from_key_point_ ++;
+		from_key_point_++;
 		if (from_key_point_ > num_hill_key_points_ - 1) {
 			from_key_point_ = num_hill_key_points_ - 1;
 			break;
@@ -524,7 +521,7 @@ void CustomTerrain::ResetVertices()
 	// loop to calculate the right most key point
 	while (hill_key_points_[to_key_point_].x < right_side)
 	{
-		to_key_point_ ++;
+		to_key_point_++;
 		if (to_key_point_ > num_hill_key_points_ - 1) {
 			to_key_point_ = num_hill_key_points_ - 1;
 			break;
@@ -540,7 +537,7 @@ void CustomTerrain::ResetVertices()
 		p0 = hill_key_points_[from_key_point_];
 
 		// calculate curve vertices from left most to right most key point
-		for(int i = from_key_point_ + 1; i < to_key_point_ + 1; ++ i)
+		for (int i = from_key_point_ + 1; i < to_key_point_ + 1; ++i)
 		{
 			p1 = hill_key_points_[i];
 
@@ -557,13 +554,13 @@ void CustomTerrain::ResetVertices()
 			pt0 = p0;
 
 			// calculate vertices for each segment
-			for(int j = 1; j < h_segments + 1; ++ j)
+			for (int j = 1; j < h_segments + 1; ++j)
 			{
 				pt1.x = p0.x + j * dx;
 				pt1.y = ymid + ampl * cosf(da * j);
 
 				// calculate vertices for two triangles...cuz we render using GL_TRIANGLE_STRIP
-				for(int k = 0; k < v_segments + 1; ++ k)
+				for (int k = 0; k < v_segments + 1; ++k)
 				{
 					hill_vertices_[num_hill_vertices_] = Vec2(pt0.x, pt0.y - (float)STRIPE_TEXTURE_SIZE / v_segments * k);
 					hill_tex_coords_[num_hill_vertices_++] = Vec2(pt0.x / (float)STRIPE_TEXTURE_SIZE, (float)k / v_segments);
@@ -585,7 +582,7 @@ void CustomTerrain::ResetVertices()
 void CustomTerrain::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
 {
 	CCLOG("CustomTerrain::draw");
-	setGLProgram(ShaderCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE));
+	setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE));
 	_customCommandTerrain.init(_globalZOrder);
 	_customCommandTerrain.func = CC_CALLBACK_0(CustomTerrain::onDrawPrimitives, this);
 	renderer->addCommand(&_customCommandTerrain);
@@ -595,14 +592,14 @@ void CustomTerrain::onDrawPrimitives()
 {
 	CCLOG("CustomTerrain::onDrawPrimitives");
 #ifdef ENABLE_DEBUG_DRAW
-	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
+	ccGLEnableVertexAttribs(kCCVertexAttribFlag_Position);
 	kmGLPushMatrix();
 	world_->DrawDebugData();
 	kmGLPopMatrix();
 #else
 
 	// can't render without a sprite
-	if(sprite_ == NULL)
+	if (sprite_ == NULL)
 	{
 		return;
 	}
@@ -612,7 +609,7 @@ void CustomTerrain::onDrawPrimitives()
 	// bind the texture for this node
 	GL::bindTexture2D(sprite_->getTexture()->getName());
 
-	// sprite_->getTexture()->getGLProgram()->use();
+	sprite_->getTexture()->getGLProgram()->use();
 	// sprite_->getTexture()->getGLProgram()->setUniformsForBuiltins();
 
 	// enable position & colour attributes
