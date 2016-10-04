@@ -38,6 +38,8 @@ bool CustomTerrain::init(b2World* world, float start_x)
 	if (!Node::init())
 		return false;
 
+	CCLOG("CustomTerrain::init");
+
 	// save instance of the world
 	world_ = world;
 
@@ -58,15 +60,23 @@ bool CustomTerrain::init(b2World* world, float start_x)
 		sprite_->getTexture()->setTexParameters(&tex_params);
 	}
 
+	CCLOG("CustomTerrain::init A");
+
 	// generate the hill & its curve
 	GenerateHillKeyPoints(start_x);
+	CCLOG("CustomTerrain::init B");
 	GenerateBorderVertices();
+	CCLOG("CustomTerrain::init C");
 	// generate a body & a fixture for the hill
 	if (world_)
 		CreateBody();
 
+	CCLOG("CustomTerrain::init D");
+
 	// load the shader for position & texture
 	setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE));
+
+	CCLOG("CustomTerrain::init E");
 	return true;
 }
 
@@ -473,33 +483,71 @@ void CustomTerrain::GenerateBorderVertices()
 	}
 }
 
+//double CustomTerrain::pround(double x, int precision)
+//{
+//	if (x == 0.)
+//		return x;
+//	int ex = floor(log10(abs(x))) - precision + 1;
+//	double div = pow(10, ex);
+//	return floor(x / div + 0.5) * div;
+//}
+
 void CustomTerrain::CreateBody()
 {
+	CCLOG("CustomTerrain::CreateBody A");
 	// create a body only the first time...after that only create fixture
 	if (body_ == NULL)
 	{
+		CCLOG("CustomTerrain::CreateBody B");
 		b2BodyDef bd;
 		bd.position.Set(0, 0);
 		body_ = world_->CreateBody(&bd);
 	}
 
+	CCLOG("CustomTerrain::CreateBody C");
 	// create array for the vertices
 	b2Vec2 vertices[MAX_BORDER_VERTICES];
 	int num_vertices = 0;
 	// loop through border_vertices_, convert screen coordinates to physics coordinates
+	CCLOG("CustomTerrain::CreateBody D: %d", num_border_vertices_);
+	//double dx, dy;
 	for (int i = 0; i < num_border_vertices_; ++i)
 	{
-		vertices[num_vertices++].Set(SCREEN_TO_WORLD(border_vertices_[i].x), SCREEN_TO_WORLD(border_vertices_[i].y));
+		/*double dxTmp = pround(SCREEN_TO_WORLD(border_vertices_[i].x), 5);
+		double dyTmp = pround(SCREEN_TO_WORLD(border_vertices_[i].y), 5);
+		if (dx != dxTmp && dy != dyTmp) {
+			dx = dxTmp;
+			dy = dyTmp;
+		}
+		else {
+			dx = dxTmp + 0.5;
+			dy = dyTmp + 0.5;
+		}*/
+
+		/*double dx = SCREEN_TO_WORLD(border_vertices_[i].x);
+		double dy = SCREEN_TO_WORLD(border_vertices_[i].y);
+		CCLOG("vertices[%d]: %f, %f", num_vertices, dx, dy);
+		vertices[num_vertices++].Set(dx, dy);*/
+
+		double dx = SCREEN_TO_WORLD(border_vertices_[i].x);
+		double dy = SCREEN_TO_WORLD(border_vertices_[i].y);
+		CCLOG("vertices[%d]: %f, %f", num_vertices, dx, dy);
+		vertices[num_vertices++].Set(dx, dy);
 	}
 
+	CCLOG("CustomTerrain::CreateBody E");
 	// finish up the last two vertices to form a loop
 	vertices[num_vertices++].Set(SCREEN_TO_WORLD(border_vertices_[num_border_vertices_ - 1].x), 0);
 	vertices[num_vertices++].Set(SCREEN_TO_WORLD(border_vertices_[0].x), 0);
 
 	// create the chain fixture with above vertices
+	CCLOG("CustomTerrain::CreateBody F");
 	b2ChainShape shape;
+	CCLOG("CustomTerrain::CreateBody G");
 	shape.CreateChain(vertices, num_vertices);
+	CCLOG("CustomTerrain::CreateBody H");
 	body_->CreateFixture(&shape, 0);
+	CCLOG("CustomTerrain::CreateBody I");
 }
 
 void CustomTerrain::ResetVertices()
@@ -581,7 +629,7 @@ void CustomTerrain::ResetVertices()
 
 void CustomTerrain::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
 {
-	CCLOG("CustomTerrain::draw");
+	// CCLOG("CustomTerrain::draw");
 	setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE));
 	_customCommandTerrain.init(_globalZOrder);
 	_customCommandTerrain.func = CC_CALLBACK_0(CustomTerrain::onDrawPrimitives, this);
@@ -590,7 +638,7 @@ void CustomTerrain::draw(Renderer *renderer, const Mat4& transform, uint32_t fla
 
 void CustomTerrain::onDrawPrimitives()
 {
-	CCLOG("CustomTerrain::onDrawPrimitives");
+	// CCLOG("CustomTerrain::onDrawPrimitives");
 #ifdef ENABLE_DEBUG_DRAW
 	ccGLEnableVertexAttribs(kCCVertexAttribFlag_Position);
 	kmGLPushMatrix();

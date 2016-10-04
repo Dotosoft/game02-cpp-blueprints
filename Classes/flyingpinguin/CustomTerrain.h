@@ -58,6 +58,7 @@ private:
 	int num_hill_vertices_;
 	Vec2 hill_vertices_[MAX_HILL_VERTICES];
 	Vec2 hill_tex_coords_[MAX_HILL_VERTICES];
+	//double pround(double x, int precision);
 };
 
 #endif // _CUSTOM_TERRAIN_H_

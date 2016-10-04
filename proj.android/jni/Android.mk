@@ -13,13 +13,24 @@ LOCAL_MODULE_FILENAME := libMyGame
 #				   ../../Classes/colorsmasher\GameWorldScene.cpp \
 #                   ../../Classes/colorsmasher\MainMenuScene.cpp
 
+#LOCAL_SRC_FILES := hellocpp/main.cpp \
+#                   ../../Classes/dragondash\AppDelegate.cpp \
+#				   ../../Classes/dragondash\DragonManager.cpp \
+#                   ../../Classes/dragondash\FairyTaleManager.cpp \
+#                   ../../Classes/dragondash\GameWorldScene.cpp \
+#                   ../../Classes/dragondash\MainMenuScene.cpp \
+#                   ../../Classes/dragondash\TowerManager.cpp
+
 LOCAL_SRC_FILES := hellocpp/main.cpp \
-                   ../../Classes/dragondash\AppDelegate.cpp \
-				   ../../Classes/dragondash\DragonManager.cpp \
-                   ../../Classes/dragondash\FairyTaleManager.cpp \
-                   ../../Classes/dragondash\GameWorldScene.cpp \
-                   ../../Classes/dragondash\MainMenuScene.cpp \
-                   ../../Classes/dragondash\TowerManager.cpp
+                   ../../Classes/flyingpinguin\AppDelegate.cpp \
+				   ../../Classes/flyingpinguin\CustomTerrain.cpp \
+                   ../../Classes/flyingpinguin\GameGlobals.cpp \
+                   ../../Classes/flyingpinguin\GameWorld.cpp \
+                   ../../Classes/flyingpinguin\GLES-Render.cpp \
+                   ../../Classes/flyingpinguin\MainMenu.cpp \
+				   ../../Classes/flyingpinguin\Penguin.cpp \
+				   ../../Classes/flyingpinguin\Popups.cpp \
+				   ../../Classes/flyingpinguin\Sky.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

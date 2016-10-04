@@ -21,12 +21,6 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp">
-      <Filter>src\flyingpinguin</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp">
-      <Filter>src\flyingpinguin</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\flyingpinguin\GameWorld.cpp">
       <Filter>src\flyingpinguin</Filter>
     </ClCompile>
@@ -48,21 +42,18 @@
     <ClCompile Include="..\Classes\flyingpinguin\AppDelegate.cpp">
       <Filter>src\flyingpinguin</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp">
+      <Filter>src\flyingpinguin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp">
+      <Filter>src\flyingpinguin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="resource1.h" />
-    <ClInclude Include="..\Classes\GameResources.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h">
-      <Filter>src\flyingpinguin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h">
-      <Filter>src\flyingpinguin</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\flyingpinguin\GameWorld.h">
       <Filter>src\flyingpinguin</Filter>
     </ClInclude>
@@ -82,6 +73,12 @@
       <Filter>src\flyingpinguin</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\flyingpinguin\AppDelegate.h">
+      <Filter>src\flyingpinguin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h">
+      <Filter>src\flyingpinguin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h">
       <Filter>src\flyingpinguin</Filter>
     </ClInclude>
   </ItemGroup>
