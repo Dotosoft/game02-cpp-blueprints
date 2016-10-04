@@ -10,43 +10,40 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resource\flyingpinguin">
-      <UniqueIdentifier>{a1880f91-0548-496b-acd1-8bdc45e74c98}</UniqueIdentifier>
+    <Filter Include="resource\iceman">
+      <UniqueIdentifier>{9372ece6-c3a0-43a9-b307-b3c0dbab0ac1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\flyingpinguin">
-      <UniqueIdentifier>{510bb916-f76d-4c34-a028-0f6bf321184e}</UniqueIdentifier>
+    <Filter Include="src\iceman">
+      <UniqueIdentifier>{c596129d-4aae-4a00-9c30-9279c12504e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\GameWorld.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\AppDelegate.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\GLES-Render.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\Enemy.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\MainMenu.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\GameGlobals.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\Penguin.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\GameWorld.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\Popups.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\Hero.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\Sky.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\MainMenu.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\AppDelegate.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\Platform.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp">
-      <Filter>src\flyingpinguin</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp">
-      <Filter>src\flyingpinguin</Filter>
+    <ClCompile Include="..\Classes\iceman\Popups.cpp">
+      <Filter>src\iceman</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,87 +51,173 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="resource1.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\GameWorld.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\AppDelegate.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\GLES-Render.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\AppMacros.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\MainMenu.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\Enemy.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\Penguin.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\GameGlobals.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\Popups.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\GameObject.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\Sky.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\GameWorld.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\AppDelegate.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\Hero.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\MainMenu.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h">
-      <Filter>src\flyingpinguin</Filter>
+    <ClInclude Include="..\Classes\iceman\Platform.h">
+      <Filter>src\iceman</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\iceman\Popups.h">
+      <Filter>src\iceman</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\flyingpinguin\clouds.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Media Include="..\Resources\iceman\brick.wav">
+      <Filter>resource\iceman</Filter>
+    </Media>
+    <Media Include="..\Resources\iceman\enemy_death.wav">
+      <Filter>resource\iceman</Filter>
+    </Media>
+    <Media Include="..\Resources\iceman\game_over.wav">
+      <Filter>resource\iceman</Filter>
+    </Media>
+    <Media Include="..\Resources\iceman\hero_death.wav">
+      <Filter>resource\iceman</Filter>
+    </Media>
+    <Media Include="..\Resources\iceman\jump.wav">
+      <Filter>resource\iceman</Filter>
+    </Media>
+    <Media Include="..\Resources\iceman\level_complete.wav">
+      <Filter>resource\iceman</Filter>
+    </Media>
+    <Media Include="..\Resources\iceman\swing.wav">
+      <Filter>resource\iceman</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\iceman\btn cancel.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\noise1.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\dying0001.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\noise2.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\dying0002.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\pause.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\enemy dying0001.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\pause_button.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\enemy dying0002.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\penguin_1.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\enemy walking0001.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\penguin_2.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\enemy walking0002.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\penguin_3.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\enemyBuilding0001.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\play.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\enemyBuilding0002.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\play_button.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\font_01_0.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\popup.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\idle0001.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\texture.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\idle0002.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\title.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\jump.png">
+      <Filter>resource\iceman</Filter>
     </Image>
-    <Image Include="..\Resources\flyingpinguin\wal_font_0.png">
-      <Filter>resource\flyingpinguin</Filter>
+    <Image Include="..\Resources\iceman\jumping.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\left_arrow.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\lives.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\moving_platform.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\pause_button.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\play_button.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\popup.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\right_arrow.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\swing.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\swinging0001.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\swinging0002.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\tileset.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\title.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\walking0001.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\walking0002.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\win0001.png">
+      <Filter>resource\iceman</Filter>
+    </Image>
+    <Image Include="..\Resources\iceman\win0002.png">
+      <Filter>resource\iceman</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\flyingpinguin\explosion.plist">
-      <Filter>resource\flyingpinguin</Filter>
+    <None Include="..\Resources\iceman\font_01.fnt">
+      <Filter>resource\iceman</Filter>
     </None>
-    <None Include="..\Resources\flyingpinguin\wal_font.fnt">
-      <Filter>resource\flyingpinguin</Filter>
+    <None Include="..\Resources\iceman\level_01.tmx">
+      <Filter>resource\iceman</Filter>
+    </None>
+    <None Include="..\Resources\iceman\level_02.tmx">
+      <Filter>resource\iceman</Filter>
+    </None>
+    <None Include="..\Resources\iceman\level_03.tmx">
+      <Filter>resource\iceman</Filter>
+    </None>
+    <None Include="..\Resources\iceman\level_04.tmx">
+      <Filter>resource\iceman</Filter>
+    </None>
+    <None Include="..\Resources\iceman\level_05.tmx">
+      <Filter>resource\iceman</Filter>
     </None>
   </ItemGroup>
 </Project>

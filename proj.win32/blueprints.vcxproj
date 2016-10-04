@@ -146,27 +146,27 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\flyingpinguin\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\CustomTerrain.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\GameGlobals.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\GameWorld.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\GLES-Render.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\MainMenu.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\Penguin.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\Popups.cpp" />
-    <ClCompile Include="..\Classes\flyingpinguin\Sky.cpp" />
+    <ClCompile Include="..\Classes\iceman\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\iceman\Enemy.cpp" />
+    <ClCompile Include="..\Classes\iceman\GameGlobals.cpp" />
+    <ClCompile Include="..\Classes\iceman\GameWorld.cpp" />
+    <ClCompile Include="..\Classes\iceman\Hero.cpp" />
+    <ClCompile Include="..\Classes\iceman\MainMenu.cpp" />
+    <ClCompile Include="..\Classes\iceman\Platform.cpp" />
+    <ClCompile Include="..\Classes\iceman\Popups.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\flyingpinguin\AppDelegate.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\CustomTerrain.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\GameGlobals.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\GameWorld.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\GLES-Render.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\MainMenu.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\Penguin.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\Popups.h" />
-    <ClInclude Include="..\Classes\flyingpinguin\Sky.h" />
+    <ClInclude Include="..\Classes\iceman\AppDelegate.h" />
+    <ClInclude Include="..\Classes\iceman\AppMacros.h" />
+    <ClInclude Include="..\Classes\iceman\Enemy.h" />
+    <ClInclude Include="..\Classes\iceman\GameGlobals.h" />
+    <ClInclude Include="..\Classes\iceman\GameObject.h" />
+    <ClInclude Include="..\Classes\iceman\GameWorld.h" />
+    <ClInclude Include="..\Classes\iceman\Hero.h" />
+    <ClInclude Include="..\Classes\iceman\MainMenu.h" />
+    <ClInclude Include="..\Classes\iceman\Platform.h" />
+    <ClInclude Include="..\Classes\iceman\Popups.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource1.h" />
   </ItemGroup>
@@ -174,24 +174,53 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.12\prebuilt\win32\*.*" "$(OutDir)"
     <ResourceCompile Include="blueprints.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\flyingpinguin\clouds.png" />
-    <Image Include="..\Resources\flyingpinguin\noise1.png" />
-    <Image Include="..\Resources\flyingpinguin\noise2.png" />
-    <Image Include="..\Resources\flyingpinguin\pause.png" />
-    <Image Include="..\Resources\flyingpinguin\pause_button.png" />
-    <Image Include="..\Resources\flyingpinguin\penguin_1.png" />
-    <Image Include="..\Resources\flyingpinguin\penguin_2.png" />
-    <Image Include="..\Resources\flyingpinguin\penguin_3.png" />
-    <Image Include="..\Resources\flyingpinguin\play.png" />
-    <Image Include="..\Resources\flyingpinguin\play_button.png" />
-    <Image Include="..\Resources\flyingpinguin\popup.png" />
-    <Image Include="..\Resources\flyingpinguin\texture.png" />
-    <Image Include="..\Resources\flyingpinguin\title.png" />
-    <Image Include="..\Resources\flyingpinguin\wal_font_0.png" />
+    <Media Include="..\Resources\iceman\brick.wav" />
+    <Media Include="..\Resources\iceman\enemy_death.wav" />
+    <Media Include="..\Resources\iceman\game_over.wav" />
+    <Media Include="..\Resources\iceman\hero_death.wav" />
+    <Media Include="..\Resources\iceman\jump.wav" />
+    <Media Include="..\Resources\iceman\level_complete.wav" />
+    <Media Include="..\Resources\iceman\swing.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\flyingpinguin\explosion.plist" />
-    <None Include="..\Resources\flyingpinguin\wal_font.fnt" />
+    <Image Include="..\Resources\iceman\btn cancel.png" />
+    <Image Include="..\Resources\iceman\dying0001.png" />
+    <Image Include="..\Resources\iceman\dying0002.png" />
+    <Image Include="..\Resources\iceman\enemy dying0001.png" />
+    <Image Include="..\Resources\iceman\enemy dying0002.png" />
+    <Image Include="..\Resources\iceman\enemy walking0001.png" />
+    <Image Include="..\Resources\iceman\enemy walking0002.png" />
+    <Image Include="..\Resources\iceman\enemyBuilding0001.png" />
+    <Image Include="..\Resources\iceman\enemyBuilding0002.png" />
+    <Image Include="..\Resources\iceman\font_01_0.png" />
+    <Image Include="..\Resources\iceman\idle0001.png" />
+    <Image Include="..\Resources\iceman\idle0002.png" />
+    <Image Include="..\Resources\iceman\jump.png" />
+    <Image Include="..\Resources\iceman\jumping.png" />
+    <Image Include="..\Resources\iceman\left_arrow.png" />
+    <Image Include="..\Resources\iceman\lives.png" />
+    <Image Include="..\Resources\iceman\moving_platform.png" />
+    <Image Include="..\Resources\iceman\pause_button.png" />
+    <Image Include="..\Resources\iceman\play_button.png" />
+    <Image Include="..\Resources\iceman\popup.png" />
+    <Image Include="..\Resources\iceman\right_arrow.png" />
+    <Image Include="..\Resources\iceman\swing.png" />
+    <Image Include="..\Resources\iceman\swinging0001.png" />
+    <Image Include="..\Resources\iceman\swinging0002.png" />
+    <Image Include="..\Resources\iceman\tileset.png" />
+    <Image Include="..\Resources\iceman\title.png" />
+    <Image Include="..\Resources\iceman\walking0001.png" />
+    <Image Include="..\Resources\iceman\walking0002.png" />
+    <Image Include="..\Resources\iceman\win0001.png" />
+    <Image Include="..\Resources\iceman\win0002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\iceman\font_01.fnt" />
+    <None Include="..\Resources\iceman\level_01.tmx" />
+    <None Include="..\Resources\iceman\level_02.tmx" />
+    <None Include="..\Resources\iceman\level_03.tmx" />
+    <None Include="..\Resources\iceman\level_04.tmx" />
+    <None Include="..\Resources\iceman\level_05.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
