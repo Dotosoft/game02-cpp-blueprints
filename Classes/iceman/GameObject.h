@@ -13,13 +13,13 @@ class GameObject : public CCSprite
 public:
 	GameObject() : game_world_(NULL),
 		type_(E_GAME_OBJECT_NONE), 
-		aabb_(CCRectZero), 
+		aabb_(Rect::ZERO), 
 
 #ifdef ICEMAN_DEBUG_MODE
 		aabb_node_(NULL),
 #endif
 
-		speed_(CCPointZero) {}
+		speed_(Point::ZERO) {}
 
 	virtual ~GameObject()
 	{}
@@ -31,7 +31,7 @@ public:
 #ifdef ICEMAN_DEBUG_MODE
 		// draw the AABB in debug mode only
 		CCPoint vertices[4];
-		vertices[0] = CCPointZero;
+		vertices[0] = Point::ZERO;
 		vertices[1] = ccp(0, aabb_.size.height);
 		vertices[2] = ccp(aabb_.size.width, aabb_.size.height);
 		vertices[3] = ccp(aabb_.size.width, 0);

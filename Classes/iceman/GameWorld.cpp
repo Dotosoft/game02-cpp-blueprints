@@ -48,6 +48,8 @@ bool GameWorld::init()
         return false;
     }
 
+
+
     CreateGame();
     return true;
 }
@@ -61,7 +63,12 @@ void GameWorld::CreateGame()
 	CreateControls();
 	CreateHUD();
 	
-	setTouchEnabled(true);
+	// setTouchEnabled(true);
+	this->touchListener = EventListenerTouchAllAtOnce::create();
+	this->touchListener->onTouchesBegan = CC_CALLBACK_2(GameWorld::onTouchBegan, this);
+	this->touchListener->onTouchesEnded = CC_CALLBACK_2(GameWorld::onTouchEnded, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(this->touchListener, this);
+
 #ifdef ICEMAN_DEBUG_MODE
 	schedule(schedule_selector(GameWorld::update), 0.2f);
 #else
@@ -87,36 +94,36 @@ void GameWorld::CreateTiledMap()
 
 	// parse the list of objects
 	CCTMXObjectGroup* object_group = tiled_map_->objectGroupNamed("Objects");
-	CCArray* objects = object_group->getObjects();
-	int num_objects = objects->count();
+	auto objects = object_group->getObjects();
+	int num_objects = objects.size();
 	
 	for(int i = 0; i < num_objects; ++i)
 	{
-		CCDictionary* object = (CCDictionary*)(objects->objectAtIndex(i));
+		auto object = objects.at(i).asValueMap();
 
 		// create the Hero at this spawning point
-		if(strcmp(object->valueForKey("name")->getCString(), "HeroSpawnPoint") == 0)
+		if(strcmp(object.at("name").asString().c_str(), "HeroSpawnPoint") == 0)
 		{
-			CreateHero(ccp(object->valueForKey("x")->floatValue(), object->valueForKey("y")->floatValue()));
+			CreateHero(Vec2(object.at("x").asFloat(), object.at("y").asFloat()));
 		}
 		// create an Enemy at this spawning point
-		else if(strcmp(object->valueForKey("name")->getCString(), "EnemySpawnPoint") == 0)
+		else if(strcmp(object.at("name").asString().c_str(), "EnemySpawnPoint") == 0)
 		{
-			CCPoint position = ccp(object->valueForKey("x")->floatValue(), object->valueForKey("y")->floatValue());
-			CCPoint speed = ccp(object->valueForKey("speed_x")->floatValue(), object->valueForKey("speed_y")->floatValue());
+			CCPoint position = Vec2(object.at("x").asFloat(), object.at("y").asFloat());
+			CCPoint speed = Vec2(object.at("speed_x").asFloat(), object.at("speed_y").asFloat());
 			CreateEnemy(position, speed);
 		}
 		// create a Platform at this spawning point
-		else if(strcmp(object->valueForKey("name")->getCString(), "PlatformSpawnPoint") == 0)
+		else if(strcmp(object.at("name").asString().c_str(), "PlatformSpawnPoint") == 0)
 		{
-			CCPoint position = ccp(object->valueForKey("x")->floatValue(), object->valueForKey("y")->floatValue());
-			CCPoint speed = ccp(object->valueForKey("speed_x")->floatValue(), object->valueForKey("speed_y")->floatValue());
+			CCPoint position = Vec2(object.at("x").asFloat(), object.at("y").asFloat());
+			CCPoint speed = Vec2(object.at("speed_x").asFloat(), object.at("speed_y").asFloat());
 			CreatePlatform(position, speed);
 		}
 		// save the point where the level should complete
-		else if(strcmp(object->valueForKey("name")->getCString(), "LevelCompletePoint") == 0)
+		else if(strcmp(object.at("name").asString().c_str(), "LevelCompletePoint") == 0)
 		{
-			level_complete_height_ = object->valueForKey("y")->floatValue();
+			level_complete_height_ = object.at("y").asFloat();
 		}
 	}
 }
@@ -184,8 +191,8 @@ void GameWorld::CreateHUD()
 {
 	// create & add the pause button's menu
 	CCMenu* menu = CCMenu::create();
-	menu->setAnchorPoint(CCPointZero);
-	menu->setPosition(CCPointZero);
+	menu->setAnchorPoint(Point::ZERO);
+	menu->setPosition(Point::ZERO);
 	addChild(menu);
 
 	// create & add the pause button
@@ -567,27 +574,29 @@ void GameWorld::ReduceHeroLives()
 	life_sprite->runAction(CCSequence::createWithTwoActions(scale_down, remove_self));
 }
 
-void GameWorld::ccTouchesBegan(CCSet* set, CCEvent* event)
+bool GameWorld::onTouchBegan(const std::vector<Touch*>& touches, Event* evt)
 {
-	CCTouch* touch = (CCTouch*)(*set->begin());
+	CCTouch* touch = (CCTouch*) touches.at(0);
+	CCPoint touch_point = touch->getLocationInView();
+	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
+
+	HandleTouch(touch_point, true);
+
+	return true;
+}
+
+void GameWorld::onTouchMoved(const std::vector<Touch*>& touches, Event* evt)
+{
+	CCTouch* touch = (CCTouch*) touches.at(0);
 	CCPoint touch_point = touch->getLocationInView();
 	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
 
 	HandleTouch(touch_point, true);
 }
 
-void GameWorld::ccTouchesMoved(CCSet* set, CCEvent* event)
+void GameWorld::onTouchEnded(const std::vector<Touch*>& touches, Event* evt)
 {
-	CCTouch* touch = (CCTouch*)(*set->begin());
-	CCPoint touch_point = touch->getLocationInView();
-	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
-
-	HandleTouch(touch_point, true);
-}
-
-void GameWorld::ccTouchesEnded(CCSet* set, CCEvent* event)
-{
-	CCTouch* touch = (CCTouch*)(*set->begin());
+	CCTouch* touch = (CCTouch*) touches.at(0);
 	CCPoint touch_point = touch->getLocationInView();
 	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
 
@@ -610,7 +619,8 @@ void GameWorld::OnPauseClicked(CCObject* sender)
 
 	// pause GameWorld update
 	pauseSchedulerAndActions();
-	setTouchEnabled(false);
+	// setTouchEnabled(false);
+	_eventDispatcher->removeEventListener(this->touchListener);
 	
 	// pause game elements here
 	hero_->pauseSchedulerAndActions();
@@ -631,6 +641,7 @@ void GameWorld::ResumeGame()
 	// resume GameWorld update
 	resumeSchedulerAndActions();
 	setTouchEnabled(true);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(this->touchListener, this);
 
 	// resume game elements here
 	hero_->resumeSchedulerAndActions();
@@ -646,7 +657,8 @@ void GameWorld::LevelComplete()
 
 	// stop GameWorld update
 	unscheduleAllSelectors();
-	setTouchEnabled(false);
+	// setTouchEnabled(false);
+	_eventDispatcher->removeEventListener(this->touchListener);
 
 	// stop game elements here
 	hero_->stopAllActions();
@@ -666,7 +678,8 @@ void GameWorld::GameOver()
 
 	// stop GameWorld update
 	unscheduleAllSelectors();
-	setTouchEnabled(false);
+	// setTouchEnabled(false);
+	_eventDispatcher->removeEventListener(this->touchListener);
 
 	// stop game elements here
 	hero_->stopAllActions();

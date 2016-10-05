@@ -54,7 +54,7 @@ void Hero::Update(bool must_go_left, bool must_go_right, bool must_jump, bool mu
 	game_world_->CheckHeroEnemyCollisions();
 	game_world_->CheckHeroPlatformCollisions();
 
-	setPosition(ccp(aabb_.origin.x + aabb_.size.width * 0.5f, aabb_.origin.y + m_obContentSize.height * 0.5f));
+	setPosition(Vec2(aabb_.origin.x + aabb_.size.width * 0.5f, aabb_.origin.y + getContentSize().height * 0.5f));
 
 	// check if the hero should swing
 	if(must_swing)

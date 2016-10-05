@@ -26,8 +26,8 @@ CCMenu* Popup::AddMenu()
 
 	// create & add the menu_
 	menu_ = CCMenu::create();
-	menu_->setAnchorPoint(CCPointZero);
-	menu_->setPosition(CCPointZero);
+	menu_->setAnchorPoint(Point::ZERO);
+	menu_->setPosition(Point::ZERO);
 	addChild(menu_);
 	return menu_;
 }

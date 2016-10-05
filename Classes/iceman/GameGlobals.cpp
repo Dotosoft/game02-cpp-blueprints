@@ -1,6 +1,6 @@
 #include "GameGlobals.h"
 
-CCSize GameGlobals::screen_size_ = CCSizeZero;
+CCSize GameGlobals::screen_size_ = Size::ZERO;
 int GameGlobals::level_number_ = 0;
 int GameGlobals::hero_lives_left_ = 0;
 

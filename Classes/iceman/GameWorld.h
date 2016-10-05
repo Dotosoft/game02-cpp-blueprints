@@ -44,9 +44,9 @@ public:
 	void RemoveEnemies();
 	void ReduceHeroLives();
 
-	virtual void ccTouchesBegan(CCSet* set, CCEvent* event);
-	virtual void ccTouchesMoved(CCSet* set, CCEvent* event);
-	virtual void ccTouchesEnded(CCSet* set, CCEvent* event);
+	bool onTouchBegan(const std::vector<Touch*>& touches, Event* evt);
+	void onTouchMoved(const std::vector<Touch*>& touches, Event* evt);
+	void onTouchEnded(const std::vector<Touch*>& touches, Event* evt);
 	void HandleTouch(CCPoint touch_point, bool is_touching);
 
 	void OnPauseClicked(CCObject* sender);
@@ -84,6 +84,8 @@ private:
 	bool is_right_arrow_pressed_;
 	bool is_jump_pressed_;
 	bool is_swing_pressed_;
+
+	EventListenerTouchAllAtOnce *touchListener;
 
 public:
 	// variables accessed by class Popup

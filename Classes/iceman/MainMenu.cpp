@@ -32,8 +32,8 @@ bool MainMenu::init()
 
 	// create & add the play button's menu
 	CCMenu* menu = CCMenu::create();
-	menu->setAnchorPoint(CCPointZero);
-	menu->setPosition(CCPointZero);
+	menu->setAnchorPoint(Point::ZERO);
+	menu->setPosition(Point::ZERO);
 	addChild(menu);
 
 	// create & add the play button

@@ -13,33 +13,36 @@ AppDelegate::~AppDelegate()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
-    CCDirector* pDirector = CCDirector::sharedDirector();
-    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
-
-    pDirector->setOpenGLView(pEGLView);
-
-	pEGLView->setDesignResolutionSize(1280, 800, kResolutionShowAll);
-	
-    // turn on display FPS
-#ifdef ICEMAN_DEBUG_MODE
-    pDirector->setDisplayStats(true);
+	// initialize director
+	auto pDirector = Director::getInstance();
+	auto pEGLView = pDirector->getOpenGLView();
+	if (!pEGLView) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+		pEGLView = GLViewImpl::createWithRect("iceman", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f, true);
+#else
+		pEGLView = GLViewImpl::create("iceman");
 #endif
+		pDirector->setOpenGLView(pEGLView);
+	}
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    pDirector->setAnimationInterval(1.0 / 60);
+	FileUtils::getInstance()->addSearchPath("iceman");
+
+	// turn on display FPS
+	//    pDirector->setDisplayStats(true);
+
+	// set FPS. the default value is 1.0/60 if you don't call this
+	pDirector->setAnimationInterval(1.0 / 60);
 
 	// Initialize global data
 	GameGlobals::Init();
 
-    // create a scene. it's an autorelease object
-    CCScene *pScene = MainMenu::scene();
-	//CCScene* pScene = GameWorld::scene();
+	// create a scene. it's an autorelease object
+	Scene *pScene = MainMenu::scene();
 
-    // run
-    pDirector->runWithScene(pScene);
+	// run
+	pDirector->runWithScene(pScene);
 
-    return true;
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
