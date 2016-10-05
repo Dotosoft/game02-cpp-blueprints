@@ -8,22 +8,22 @@ class Hero;
 class Enemy;
 class Platform;
 
-class GameWorld : public CCLayer
+class GameWorld : public Layer
 {
 public:
 	GameWorld();
 	virtual ~GameWorld();
 
-    static CCScene* scene();    
+    static Scene* scene();    
     CREATE_FUNC(GameWorld);
 
     virtual bool init();
 
 	void CreateGame();
 	void CreateTiledMap();
-	void CreateHero(CCPoint position);
-	void CreateEnemy(CCPoint position, CCPoint speed);
-	void CreatePlatform(CCPoint position, CCPoint speed);
+	void CreateHero(Point position);
+	void CreateEnemy(Point position, Point speed);
+	void CreatePlatform(Point position, Point speed);
 	void CreateControls();
 	void CreateHUD();
 
@@ -47,21 +47,21 @@ public:
 	bool onTouchBegan(const std::vector<Touch*>& touches, Event* evt);
 	void onTouchMoved(const std::vector<Touch*>& touches, Event* evt);
 	void onTouchEnded(const std::vector<Touch*>& touches, Event* evt);
-	void HandleTouch(CCPoint touch_point, bool is_touching);
+	void HandleTouch(Point touch_point, bool is_touching);
 
-	void OnPauseClicked(CCObject* sender);
+	void OnPauseClicked(Ref* sender);
 	void ResumeGame();
 	void LevelComplete();
 	void GameOver();
 
-	inline CCTMXTiledMap* GetTiledMap() { return tiled_map_; }
-	inline CCTMXLayer* GetBricksLayer() { return bricks_layer_; }
+	inline TMXTiledMap* GetTiledMap() { return tiled_map_; }
+	inline TMXLayer* GetBricksLayer() { return bricks_layer_; }
 	inline int GetColumns() { return columns_; }
 	inline int GetRows() { return rows_; }
 
 private:
-	CCTMXTiledMap* tiled_map_;
-	CCTMXLayer* bricks_layer_;
+	TMXTiledMap* tiled_map_;
+	TMXLayer* bricks_layer_;
 	int columns_;
 	int rows_;
 
@@ -75,11 +75,11 @@ private:
 	
 	float level_complete_height_;
 
-	CCArray* life_sprites_;
-	CCSprite* left_arrow_btn_;
-	CCSprite* right_arrow_btn_;
-	CCSprite* jump_btn_;
-	CCSprite* swing_btn_;
+	__Array* life_sprites_;
+	Sprite* left_arrow_btn_;
+	Sprite* right_arrow_btn_;
+	Sprite* jump_btn_;
+	Sprite* swing_btn_;
 	bool is_left_arrow_pressed_;
 	bool is_right_arrow_pressed_;
 	bool is_jump_pressed_;

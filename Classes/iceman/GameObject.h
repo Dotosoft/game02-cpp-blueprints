@@ -8,7 +8,7 @@
 
 class GameWorld;
 
-class GameObject : public CCSprite
+class GameObject : public Sprite
 {
 public:
 	GameObject() : game_world_(NULL),
@@ -24,28 +24,28 @@ public:
 	virtual ~GameObject()
 	{}
 
-	virtual void SetAABB(CCRect aabb)
+	virtual void SetAABB(Rect aabb)
 	{
 		aabb_ = aabb;
 
 #ifdef ICEMAN_DEBUG_MODE
 		// draw the AABB in debug mode only
-		CCPoint vertices[4];
+		Point vertices[4];
 		vertices[0] = Point::ZERO;
-		vertices[1] = ccp(0, aabb_.size.height);
-		vertices[2] = ccp(aabb_.size.width, aabb_.size.height);
-		vertices[3] = ccp(aabb_.size.width, 0);
+		vertices[1] = Vec2(0, aabb_.size.height);
+		vertices[2] = Vec2(aabb_.size.width, aabb_.size.height);
+		vertices[3] = Vec2(aabb_.size.width, 0);
 		
-		aabb_node_ = CCDrawNode::create();
-		aabb_node_->drawPolygon(vertices, 4, ccc4f(0, 0, 0, 0), 1, ccc4f(1, 0, 0, 1));
+		aabb_node_ = DrawNode::create();
+		aabb_node_->drawPolygon(vertices, 4, Color4F(0, 0, 0, 0), 1, Color4F(1, 0, 0, 1));
 		aabb_node_->setPosition(aabb_.origin);
 		game_world_->addChild(aabb_node_);
 #endif
 	}
 
-	inline CCRect GetAABB() { return aabb_; }
-	virtual void SetSpeed(CCPoint speed) { speed_ = speed; }
-	inline CCPoint GetSpeed() { return speed_; }
+	inline Rect GetAABB() { return aabb_; }
+	virtual void SetSpeed(Point speed) { speed_ = speed; }
+	inline Point GetSpeed() { return speed_; }
 
 	virtual void Update()
 	{
@@ -61,12 +61,12 @@ public:
 protected:
 	GameWorld* game_world_;
 	EGameObjectType type_;
-	CCRect aabb_;
-	CCPoint speed_;
+	Rect aabb_;
+	Point speed_;
 
 #ifdef ICEMAN_DEBUG_MODE
 public:
-	CCDrawNode* aabb_node_;
+	DrawNode* aabb_node_;
 #endif
 };
 

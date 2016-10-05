@@ -100,13 +100,13 @@ void Hero::UpdateSpeed(bool must_go_left, bool must_go_right, bool must_jump)
 	{
 		speed_.x -= HERO_MOVEMENT_FORCE;
 		speed_.x = (speed_.x < -MAX_VELOCITY_X) ? -MAX_VELOCITY_X : speed_.x;
-		setFlipX(true);
+		setFlippedX(true);
 	}
 	if(must_go_right)
 	{
 		speed_.x += HERO_MOVEMENT_FORCE;
 		speed_.x = (speed_.x > MAX_VELOCITY_X) ? MAX_VELOCITY_X : speed_.x;
-		setFlipX(false);
+		setFlippedX(false);
 	}
 
 	// gradually come to a halt if no button is pressed
@@ -232,14 +232,14 @@ void Hero::SetIsOnGround(bool is_on_ground)
 void Hero::StartIdle()
 {
 	stopAllActions();
-	CCActionInterval* idle_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("HeroIdle"));
+	ActionInterval* idle_animation = Animate::create(AnimationCache::getInstance()->getAnimation("HeroIdle"));
 	runAction(idle_animation);
 }
 
 void Hero::StartWalking()
 {
 	stopAllActions();
-	CCActionInterval* walking_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("HeroWalking"));
+	ActionInterval* walking_animation = Animate::create(AnimationCache::getInstance()->getAnimation("HeroWalking"));
 	runAction(walking_animation);
 }
 
@@ -253,7 +253,7 @@ void Hero::StartJumping()
 void Hero::StartSwinging()
 {
 	stopAllActions();
-	CCActionInterval* swinging_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("HeroSwinging"));
+	ActionInterval* swinging_animation = Animate::create(AnimationCache::getInstance()->getAnimation("HeroSwinging"));
 	runAction(swinging_animation);
 	SOUND_ENGINE->playEffect("swing.wav");
 }
@@ -264,11 +264,11 @@ void Hero::StartDying()
 	speed_.y = 0;
 
 	stopAllActions();
-	CCActionInterval* dying_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("HeroDying"));
-	CCActionInstant* after_dying = CCCallFunc::create(this, callfunc_selector(Hero::FinishDying));
-	runAction(CCSequence::createWithTwoActions(dying_animation, after_dying));
+	ActionInterval* dying_animation = Animate::create(AnimationCache::getInstance()->getAnimation("HeroDying"));
+	ActionInstant* after_dying = CallFunc::create(this, callfunc_selector(Hero::FinishDying));
+	runAction(Sequence::createWithTwoActions(dying_animation, after_dying));
 
-	CCActionInterval* falling_animation = CCEaseBackIn::create(CCMoveBy::create(0.75f, ccp(0, SCREEN_SIZE.height * -0.4f)));
+	ActionInterval* falling_animation = EaseBackIn::create(MoveBy::create(0.75f, Vec2(0, SCREEN_SIZE.height * -0.4f)));
 	runAction(falling_animation);
 	SOUND_ENGINE->playEffect("hero_death.wav");
 }
@@ -283,7 +283,7 @@ void Hero::FinishDying()
 	// otherwise recreate the level
 	else
 	{
-		CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, GameWorld::scene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(0.5f, GameWorld::scene()));
 	}
 }
 
@@ -293,9 +293,9 @@ void Hero::StartWinning()
 	speed_.y = 0;
 
 	stopAllActions();
-	CCActionInterval* winning_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("HeroWinning"));
-	CCActionInstant* after_winning = CCCallFunc::create(this, callfunc_selector(Hero::FinishWinning));
-	runAction(CCSequence::createWithTwoActions(winning_animation, after_winning));
+	ActionInterval* winning_animation = Animate::create(AnimationCache::getInstance()->getAnimation("HeroWinning"));
+	ActionInstant* after_winning = CallFunc::create(this, callfunc_selector(Hero::FinishWinning));
+	runAction(Sequence::createWithTwoActions(winning_animation, after_winning));
 	SOUND_ENGINE->playEffect("level_complete.wav");
 }
 

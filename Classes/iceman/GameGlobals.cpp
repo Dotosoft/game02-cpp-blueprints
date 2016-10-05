@@ -1,19 +1,19 @@
 #include "GameGlobals.h"
 
-CCSize GameGlobals::screen_size_ = Size::ZERO;
+Size GameGlobals::screen_size_ = Size::ZERO;
 int GameGlobals::level_number_ = 0;
 int GameGlobals::hero_lives_left_ = 0;
 
 void GameGlobals::Init()
 {
-	screen_size_ = CCDirector::sharedDirector()->getWinSize();
+	screen_size_ = Director::getInstance()->getWinSize();
 	LoadData();
 }
 
 void GameGlobals::LoadData()
 {
 	// add Resources folder to search path. This is necessary when releasing for win32
-	CCFileUtils::sharedFileUtils()->addSearchPath("Resources");
+	FileUtils::getInstance()->addSearchPath("Resources");
 
 	// load sound effects & background music
 	SOUND_ENGINE->preloadEffect("brick.wav");
@@ -30,61 +30,61 @@ void GameGlobals::LoadData()
 
 void GameGlobals::LoadAnimations()
 {
-	CCAnimation* animation = NULL;
+	Animation* animation = NULL;
 
 	// Hero animations
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.25f);
 	animation->setLoops(-1);
-	animation->addSpriteFrame(CCSprite::create("idle0001.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("idle0002.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "HeroIdle");
+	animation->addSpriteFrame(Sprite::create("idle0001.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("idle0002.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "HeroIdle");
 	
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);
 	animation->setLoops(-1);
-	animation->addSpriteFrame(CCSprite::create("walking0001.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("walking0002.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "HeroWalking");
+	animation->addSpriteFrame(Sprite::create("walking0001.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("walking0002.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "HeroWalking");
 	
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.25f);
 	animation->setLoops(-1);
-	animation->addSpriteFrame(CCSprite::create("swinging0002.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("swinging0001.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "HeroSwinging");
+	animation->addSpriteFrame(Sprite::create("swinging0002.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("swinging0001.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "HeroSwinging");
 	
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.25f);
 	animation->setLoops(2);
-	animation->addSpriteFrame(CCSprite::create("dying0001.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("dying0002.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "HeroDying");
+	animation->addSpriteFrame(Sprite::create("dying0001.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("dying0002.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "HeroDying");
 	
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.25f);
 	animation->setLoops(3);
-	animation->addSpriteFrame(CCSprite::create("win0001.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("win0002.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "HeroWinning");
+	animation->addSpriteFrame(Sprite::create("win0001.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("win0002.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "HeroWinning");
 
 	// Enemy animations	
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.2f);
 	animation->setLoops(-1);
-	animation->addSpriteFrame(CCSprite::create("enemy walking0001.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("enemy walking0002.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "EnemyWalking");
+	animation->addSpriteFrame(Sprite::create("enemy walking0001.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("enemy walking0002.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "EnemyWalking");
 	
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.25f);
-	animation->addSpriteFrame(CCSprite::create("enemyBuilding0001.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("enemyBuilding0002.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "EnemyBuilding");
+	animation->addSpriteFrame(Sprite::create("enemyBuilding0001.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("enemyBuilding0002.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "EnemyBuilding");
 	
-	animation = CCAnimation::create();
+	animation = Animation::create();
 	animation->setDelayPerUnit(0.25f);
-	animation->addSpriteFrame(CCSprite::create("enemy dying0001.png")->displayFrame());
-	animation->addSpriteFrame(CCSprite::create("enemy dying0002.png")->displayFrame());
-	CCAnimationCache::sharedAnimationCache()->addAnimation(animation, "EnemyDying");
+	animation->addSpriteFrame(Sprite::create("enemy dying0001.png")->getSpriteFrame());
+	animation->addSpriteFrame(Sprite::create("enemy dying0002.png")->getSpriteFrame());
+	AnimationCache::getInstance()->addAnimation(animation, "EnemyDying");
 }

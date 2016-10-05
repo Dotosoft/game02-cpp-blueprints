@@ -11,7 +11,7 @@ using namespace std;
 
 // Helper macros
 #define SCREEN_SIZE GameGlobals::screen_size_
-#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::sharedEngine()
+#define SOUND_ENGINE CocosDenshion::SimpleAudioEngine::getInstance()
 
 #define TILE_SIZE 32
 #define GRAVITY -1
@@ -93,7 +93,7 @@ public:
 	static void LoadData();
 	static void LoadAnimations();
 
-	static CCSize screen_size_;
+	static Size screen_size_;
 	static int level_number_;
 	static int hero_lives_left_;
 };

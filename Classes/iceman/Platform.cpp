@@ -33,5 +33,5 @@ void Platform::Update()
 		speed_.x *= -1;
 	}
 
-	setPosition(ccp(aabb_.origin.x + aabb_.size.width * 0.5f, aabb_.origin.y + aabb_.size.height * 0.5f));
+	setPosition(Vec2(aabb_.origin.x + aabb_.size.width * 0.5f, aabb_.origin.y + aabb_.size.height * 0.5f));
 }

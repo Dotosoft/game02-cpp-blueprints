@@ -27,7 +27,7 @@ Enemy::Enemy()
 Enemy::~Enemy()
 {}
 
-void Enemy::SetSpeed(CCPoint speed)
+void Enemy::SetSpeed(Point speed)
 {
 	// update speed_
 	GameObject::SetSpeed(speed);
@@ -35,11 +35,11 @@ void Enemy::SetSpeed(CCPoint speed)
 	// flip the sprite based on direction of horizontal movement
 	if(speed_.x > 0)
 	{
-		setFlipX(true);
+		setFlippedX(true);
 	}
 	else
 	{
-		setFlipX(false);
+		setFlippedX(false);
 	}
 }
 
@@ -48,7 +48,7 @@ void Enemy::Update()
 	// reverse the direction of movement when this enemy reaches the left & right edge
 	if(aabb_.origin.x + speed_.x <= TILE_SIZE || aabb_.origin.x + aabb_.size.width >= SCREEN_SIZE.width - TILE_SIZE)
 	{
-		SetSpeed(ccp(speed_.x * -1, speed_.y));
+		SetSpeed(Vec2(speed_.x * -1, speed_.y));
 	}
 
 	// check for holes in the ground when not already building
@@ -64,7 +64,7 @@ void Enemy::Update()
 	}
 
 	// update position
-	setPosition(ccp(aabb_.origin.x + aabb_.size.width * 0.5f, aabb_.origin.y + aabb_.size.height * 0.5f));
+	setPosition(Vec2(aabb_.origin.x + aabb_.size.width * 0.5f, aabb_.origin.y + aabb_.size.height * 0.5f));
 }
 
 void Enemy::CheckForHoles()
@@ -74,7 +74,7 @@ void Enemy::CheckForHoles()
 	int tile_row = GET_ROW_FOR_Y(aabb_.origin.y, game_world_->GetRows()) + 1;
 
 	// get the tile's GID
-	int tile_GID = game_world_->GetBricksLayer()->tileGIDAt(ccp(tile_col, tile_row));
+	int tile_GID = game_world_->GetBricksLayer()->getTileGIDAt(Vec2(tile_col, tile_row));
 	// check if there is an empty tile
 	if(tile_GID == 0)
 	{
@@ -143,7 +143,7 @@ void Enemy::SetState(EEnemyState state)
 void Enemy::StartWalking()
 {
 	stopAllActions();
-	CCActionInterval* walking_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("EnemyWalking"));
+	ActionInterval* walking_animation = Animate::create(AnimationCache::getInstance()->getAnimation("EnemyWalking"));
 	runAction(walking_animation);
 }
 
@@ -152,10 +152,10 @@ void Enemy::StartDying()
 	speed_.x *= -0.5f;
 
 	stopAllActions();
-	CCActionInterval* dying_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("EnemyDying"));
-	CCActionInterval* blinking = CCBlink::create(0.75f, 5);
-	CCActionInstant* after_dying = CCCallFunc::create(this, callfunc_selector(Enemy::FinishDying));
-	runAction(CCSequence::create(dying_animation, blinking, after_dying, NULL));
+	ActionInterval* dying_animation = Animate::create(AnimationCache::getInstance()->getAnimation("EnemyDying"));
+	ActionInterval* blinking = Blink::create(0.75f, 5);
+	ActionInstant* after_dying = CallFunc::create(this, callfunc_selector(Enemy::FinishDying));
+	runAction(Sequence::create(dying_animation, blinking, after_dying, NULL));
 
 	SOUND_ENGINE->playEffect("enemy_death.wav");
 }
@@ -168,9 +168,9 @@ void Enemy::FinishDying()
 void Enemy::StartBuilding()
 {
 	stopAllActions();
-	CCActionInterval* building_animation = CCAnimate::create(CCAnimationCache::sharedAnimationCache()->animationByName("EnemyBuilding"));
-	CCActionInstant* after_building = CCCallFunc::create(this, callfunc_selector(Enemy::FinishBuilding));
-	runAction(CCSequence::createWithTwoActions(building_animation, after_building));
+	ActionInterval* building_animation = Animate::create(AnimationCache::getInstance()->getAnimation("EnemyBuilding"));
+	ActionInstant* after_building = CallFunc::create(this, callfunc_selector(Enemy::FinishBuilding));
+	runAction(Sequence::createWithTwoActions(building_animation, after_building));
 }
 
 void Enemy::FinishBuilding()

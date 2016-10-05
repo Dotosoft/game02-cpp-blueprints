@@ -14,7 +14,7 @@ public:
 	// returns and autorelease GameObject
 	static Enemy* create(GameWorld* game_world);
 
-	virtual void SetSpeed(CCPoint speed);
+	virtual void SetSpeed(Point speed);
 
 	void Update();
 	void CheckForHoles();

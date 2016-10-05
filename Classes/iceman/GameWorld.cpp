@@ -33,9 +33,9 @@ GameWorld::~GameWorld()
 	CC_SAFE_RELEASE_NULL(life_sprites_);
 }
 
-CCScene* GameWorld::scene()
+Scene* GameWorld::scene()
 {
-    CCScene *scene = CCScene::create();
+    Scene *scene = Scene::create();
     GameWorld *layer = GameWorld::create();
     scene->addChild(layer);
     return scene;
@@ -43,7 +43,7 @@ CCScene* GameWorld::scene()
 
 bool GameWorld::init()
 {
-    if ( !CCLayer::init() )
+    if ( !Layer::init() )
     {
         return false;
     }
@@ -56,7 +56,7 @@ bool GameWorld::init()
 
 void GameWorld::CreateGame()
 {
-	CCLayerColor* bg = CCLayerColor::create(ccc4(25, 49, 69, 255));
+	LayerColor* bg = LayerColor::create(Color4B(25, 49, 69, 255));
 	addChild(bg);
 
 	CreateTiledMap();
@@ -82,7 +82,7 @@ void GameWorld::CreateTiledMap()
 	char buf[128] = {0};
 	sprintf(buf, "level_%02d.tmx", GameGlobals::level_number_);
 	// create & add the tiled map
-	tiled_map_ = CCTMXTiledMap::create(buf);
+	tiled_map_ = TMXTiledMap::create(buf);
 	addChild(tiled_map_);
 
 	// get the size of the tiled map
@@ -90,10 +90,10 @@ void GameWorld::CreateTiledMap()
 	rows_ = (int)tiled_map_->getMapSize().height;
 
 	// save a reference to the layer containing all the bricks
-	bricks_layer_ = tiled_map_->layerNamed("Bricks");
+	bricks_layer_ = tiled_map_->getLayer("Bricks");
 
 	// parse the list of objects
-	CCTMXObjectGroup* object_group = tiled_map_->objectGroupNamed("Objects");
+	TMXObjectGroup* object_group = tiled_map_->getObjectGroup("Objects");
 	auto objects = object_group->getObjects();
 	int num_objects = objects.size();
 	
@@ -109,15 +109,15 @@ void GameWorld::CreateTiledMap()
 		// create an Enemy at this spawning point
 		else if(strcmp(object.at("name").asString().c_str(), "EnemySpawnPoint") == 0)
 		{
-			CCPoint position = Vec2(object.at("x").asFloat(), object.at("y").asFloat());
-			CCPoint speed = Vec2(object.at("speed_x").asFloat(), object.at("speed_y").asFloat());
+			Point position = Vec2(object.at("x").asFloat(), object.at("y").asFloat());
+			Point speed = Vec2(object.at("speed_x").asFloat(), object.at("speed_y").asFloat());
 			CreateEnemy(position, speed);
 		}
 		// create a Platform at this spawning point
 		else if(strcmp(object.at("name").asString().c_str(), "PlatformSpawnPoint") == 0)
 		{
-			CCPoint position = Vec2(object.at("x").asFloat(), object.at("y").asFloat());
-			CCPoint speed = Vec2(object.at("speed_x").asFloat(), object.at("speed_y").asFloat());
+			Point position = Vec2(object.at("x").asFloat(), object.at("y").asFloat());
+			Point speed = Vec2(object.at("speed_x").asFloat(), object.at("speed_y").asFloat());
 			CreatePlatform(position, speed);
 		}
 		// save the point where the level should complete
@@ -128,23 +128,23 @@ void GameWorld::CreateTiledMap()
 	}
 }
 
-void GameWorld::CreateHero(CCPoint position)
+void GameWorld::CreateHero(Point position)
 {
 	// create the Hero at the given position
 	hero_ = Hero::create(this);
-	hero_->setPosition(ccp(position.x + hero_->getContentSize().width * 0.5f, position.y + hero_->getContentSize().height * 0.5f));
+	hero_->setPosition(Vec2(position.x + hero_->getContentSize().width * 0.5f, position.y + hero_->getContentSize().height * 0.5f));
 	// set the AABB for the Hero
-	hero_->SetAABB(CCRectMake(position.x, position.y, HERO_AABB_WIDTH, HERO_AABB_HEIGHT));
+	hero_->SetAABB(Rect(position.x, position.y, HERO_AABB_WIDTH, HERO_AABB_HEIGHT));
 	tiled_map_->addChild(hero_, E_LAYER_HERO);
 }
 
-void GameWorld::CreateEnemy(CCPoint position, CCPoint speed)
+void GameWorld::CreateEnemy(Point position, Point speed)
 {
 	// create the Enemy at the given position
 	Enemy* enemy = Enemy::create(this);
-	enemy->setPosition(ccp(position.x + enemy->getContentSize().width * 0.5f, position.y + enemy->getContentSize().height * 0.5f));
+	enemy->setPosition(Vec2(position.x + enemy->getContentSize().width * 0.5f, position.y + enemy->getContentSize().height * 0.5f));
 	// set the AABB & speed for this Enemy
-	enemy->SetAABB(CCRectMake(position.x, position.y, ENEMY_AABB_WIDTH, ENEMY_AABB_HEIGHT));
+	enemy->SetAABB(Rect(position.x, position.y, ENEMY_AABB_WIDTH, ENEMY_AABB_HEIGHT));
 	enemy->SetSpeed(speed);
 	// push this Enemy into the vector
 	enemies_.push_back(enemy);
@@ -152,13 +152,13 @@ void GameWorld::CreateEnemy(CCPoint position, CCPoint speed)
 	tiled_map_->addChild(enemy, E_LAYER_ENEMIES);
 }
 
-void GameWorld::CreatePlatform(CCPoint position, CCPoint speed)
+void GameWorld::CreatePlatform(Point position, Point speed)
 {
 	// create the Platform at the given position
 	Platform* platform = Platform::create(this, "moving_platform.png");
-	platform->setPosition(ccp(position.x + platform->getContentSize().width * 0.5f, position.y + platform->getContentSize().height * 0.5f));
+	platform->setPosition(Vec2(position.x + platform->getContentSize().width * 0.5f, position.y + platform->getContentSize().height * 0.5f));
 	// set the AABB & speed for this Platform
-	platform->SetAABB(CCRectMake(position.x, position.y, platform->getContentSize().width, platform->getContentSize().height));
+	platform->SetAABB(Rect(position.x, position.y, platform->getContentSize().width, platform->getContentSize().height));
 	platform->SetSpeed(speed);
 	// push this Platform into the vector
 	platforms_.push_back(platform);
@@ -169,16 +169,16 @@ void GameWorld::CreatePlatform(CCPoint position, CCPoint speed)
 void GameWorld::CreateControls()
 {
 	// create the control sprites
-	left_arrow_btn_ = CCSprite::create("left_arrow.png");
-	right_arrow_btn_ = CCSprite::create("right_arrow.png");
-	jump_btn_ = CCSprite::create("jump.png");
-	swing_btn_ = CCSprite::create("swing.png");
+	left_arrow_btn_ = Sprite::create("left_arrow.png");
+	right_arrow_btn_ = Sprite::create("right_arrow.png");
+	jump_btn_ = Sprite::create("jump.png");
+	swing_btn_ = Sprite::create("swing.png");
 
 	// ergonomically place the controls
-	left_arrow_btn_->setPosition(CCPoint(100.0f, 150.0f));
-	right_arrow_btn_->setPosition(CCPoint(250.0f, 100.0f));
-	jump_btn_->setPosition(CCPoint(1180.0f, 150.0f));
-	swing_btn_->setPosition(CCPoint(1030.0f, 100.0f));
+	left_arrow_btn_->setPosition(Point(100.0f, 150.0f));
+	right_arrow_btn_->setPosition(Point(250.0f, 100.0f));
+	jump_btn_->setPosition(Point(1180.0f, 150.0f));
+	swing_btn_->setPosition(Point(1030.0f, 100.0f));
 
 	// add the controls
 	addChild(left_arrow_btn_);
@@ -190,26 +190,26 @@ void GameWorld::CreateControls()
 void GameWorld::CreateHUD()
 {
 	// create & add the pause button's menu
-	CCMenu* menu = CCMenu::create();
+	Menu* menu = Menu::create();
 	menu->setAnchorPoint(Point::ZERO);
 	menu->setPosition(Point::ZERO);
 	addChild(menu);
 
 	// create & add the pause button
-	CCMenuItemSprite* pause_button = CCMenuItemSprite::create(CCSprite::create("pause_button.png"), CCSprite::create("pause_button.png"), this, menu_selector(GameWorld::OnPauseClicked));
-	pause_button->setPosition(ccp(SCREEN_SIZE.width * 0.95f, SCREEN_SIZE.height * 0.9f));
+	MenuItemSprite* pause_button = MenuItemSprite::create(Sprite::create("pause_button.png"), Sprite::create("pause_button.png"), this, menu_selector(GameWorld::OnPauseClicked));
+	pause_button->setPosition(Vec2(SCREEN_SIZE.width * 0.95f, SCREEN_SIZE.height * 0.9f));
 	menu->addChild(pause_button);
 
 	// save size of the life sprite
-	CCSize icon_size = CCSprite::create("lives.png")->displayFrame()->getOriginalSize();
+	Size icon_size = Sprite::create("lives.png")->getSpriteFrame()->getOriginalSize();
 	// create an array to hold the life sprites
-	life_sprites_ = CCArray::createWithCapacity(GameGlobals::hero_lives_left_);
+	life_sprites_ = Array::createWithCapacity(GameGlobals::hero_lives_left_);
 	life_sprites_->retain();
 
 	for(int i = 0; i < GameGlobals::hero_lives_left_; ++i)
 	{
-		CCSprite* icon_sprite = CCSprite::create("lives.png");
-		icon_sprite->setPosition(ccp(icon_size.width * (i + 1), SCREEN_SIZE.height - icon_size.height));
+		Sprite* icon_sprite = Sprite::create("lives.png");
+		icon_sprite->setPosition(Vec2(icon_size.width * (i + 1), SCREEN_SIZE.height - icon_size.height));
 
 		// add the life sprite to game world & array
 		addChild(icon_sprite, E_LAYER_HUD);
@@ -273,8 +273,8 @@ bool GameWorld::CheckVerticalCollisions(GameObject* game_object)
 	int visible_rows = (int)tiled_map_->getMapSize().height;
 	int visible_cols = (int)tiled_map_->getMapSize().width;
 
-	CCRect aabb = game_object->GetAABB();
-	CCPoint speed = game_object->GetSpeed();
+	Rect aabb = game_object->GetAABB();
+	Point speed = game_object->GetSpeed();
 
 	// since we're checking vertically, save the row occupied by the aabb
 	int aabb_row = GET_ROW_FOR_Y(aabb.origin.y, visible_rows);
@@ -304,7 +304,7 @@ bool GameWorld::CheckVerticalCollisions(GameObject* game_object)
 		for(current_col = aabb_start_col; current_col <= aabb_end_col; ++current_col)
 		{
 			// check if a brick exists at the given row & column
-			if(bricks_layer_->tileGIDAt(ccp(current_col, current_row)))
+			if(bricks_layer_->getTileGIDAt(Vec2(current_col, current_row)))
 			{
 				found_collidable = true;
 				break;
@@ -319,7 +319,7 @@ bool GameWorld::CheckVerticalCollisions(GameObject* game_object)
 		else
 		{
 #ifdef ICEMAN_DEBUG_MODE
-			//bricks_layer_->tileAt(ccp(current_col, current_row))->runAction(CCSequence::createWithTwoActions(CCTintTo::create(0.1f, 255, 0, 0), CCTintTo::create(0.1f, 255, 255, 255)));
+			//bricks_layer_->tileAt(Vec2(current_col, current_row))->runAction(Sequence::createWithTwoActions(TintTo::create(0.1f, 255, 0, 0), TintTo::create(0.1f, 255, 255, 255)));
 #endif
 			break;
 		}
@@ -367,8 +367,8 @@ bool GameWorld::CheckHorizontalCollisions(GameObject* game_object)
 	int visible_rows = (int)tiled_map_->getMapSize().height;
 	int visible_cols = (int)tiled_map_->getMapSize().width;
 
-	CCRect aabb = game_object->GetAABB();
-	CCPoint speed = game_object->GetSpeed();
+	Rect aabb = game_object->GetAABB();
+	Point speed = game_object->GetSpeed();
 
 	// since we're checking horizontally, save the column occupied by the right edge of aabb
 	int aabb_col = GET_COL_FOR_X(aabb.origin.x + aabb.size.width);
@@ -399,7 +399,7 @@ bool GameWorld::CheckHorizontalCollisions(GameObject* game_object)
 		for(current_row = aabb_start_row; current_row <= aabb_end_row; ++current_row)
 		{
 			// check if a brick exists at the given row & column
-			if(bricks_layer_->tileGIDAt(ccp(current_col, current_row)))
+			if(bricks_layer_->getTileGIDAt(Vec2(current_col, current_row)))
 			{
 				found_collidable = true;
 				break;
@@ -414,7 +414,7 @@ bool GameWorld::CheckHorizontalCollisions(GameObject* game_object)
 		else
 		{
 #ifdef ICEMAN_DEBUG_MODE
-			//bricks_layer_->tileAt(ccp(current_col, current_row))->runAction(CCSequence::createWithTwoActions(CCTintTo::create(0.1f, 255, 0, 0), CCTintTo::create(0.1f, 255, 255, 255)));
+			//bricks_layer_->tileAt(Vec2(current_col, current_row))->runAction(Sequence::createWithTwoActions(TintTo::create(0.1f, 255, 0, 0), TintTo::create(0.1f, 255, 255, 255)));
 #endif
 			break;
 		}
@@ -458,7 +458,7 @@ bool GameWorld::CheckHorizontalCollisions(GameObject* game_object)
 
 void GameWorld::CheckHeroEnemyCollisions()
 {
-	CCRect hero_aabb = hero_->GetAABB();
+	Rect hero_aabb = hero_->GetAABB();
 
 	// loop through the list of enemies
 	for(int i = 0; i < num_enemies_; ++i)
@@ -484,12 +484,12 @@ void GameWorld::CheckHeroEnemyCollisions()
 
 void GameWorld::CheckHeroPlatformCollisions()
 {
-	CCRect hero_aabb = hero_->GetAABB();
+	Rect hero_aabb = hero_->GetAABB();
 
 	// loop through the list of platforms
 	for(int i = 0; i < num_platforms_; ++i)
 	{
-		CCRect platform_aabb = platforms_[i]->GetAABB();
+		Rect platform_aabb = platforms_[i]->GetAABB();
 		// check for collisions between the hero & platform aabbs
 		if(hero_aabb.intersectsRect(platform_aabb))
 		{
@@ -500,7 +500,7 @@ void GameWorld::CheckHeroPlatformCollisions()
 				hero_aabb.origin.y = platform_aabb.origin.y - hero_aabb.size.height - 1;
 				hero_->SetAABB(hero_aabb);
 				// hero should start falling down
-				hero_->SetSpeed(ccp(hero_->GetSpeed().x, GRAVITY));
+				hero_->SetSpeed(Vec2(hero_->GetSpeed().x, GRAVITY));
 			}
 			else
 			{
@@ -522,16 +522,16 @@ void GameWorld::AddBrick(int tile_col, int tile_row)
 		return;
 
 	// check if a brick already exists there
-	if(bricks_layer_->tileAt(ccp(tile_col, tile_row)))
+	if(bricks_layer_->getTileAt(Vec2(tile_col, tile_row)))
 		return;
 
 	// add a brick at the given column & row
-	bricks_layer_->setTileGID(1, ccp(tile_col, tile_row));
+	bricks_layer_->setTileGID(1, Vec2(tile_col, tile_row));
 }
 
 void GameWorld::RemoveBrick(int tile_col, int tile_row)
 {
-	bricks_layer_->removeTileAt(ccp(tile_col, tile_row));
+	bricks_layer_->removeTileAt(Vec2(tile_col, tile_row));
 	SOUND_ENGINE->playEffect("brick.wav");
 }
 
@@ -565,20 +565,20 @@ void GameWorld::ReduceHeroLives()
 	}
 
 	// remove the last life sprite from array
-	CCSprite* life_sprite = (CCSprite*)life_sprites_->lastObject();
+	Sprite* life_sprite = (Sprite*)life_sprites_->getLastObject();
 	life_sprites_->removeObject(life_sprite);
 
 	// animate exit of life sprite
-	CCActionInterval* scale_down = CCEaseBackIn::create(CCScaleTo::create(0.25f, 0.0f));
-	CCActionInstant* remove_self = CCRemoveSelf::create(true);
-	life_sprite->runAction(CCSequence::createWithTwoActions(scale_down, remove_self));
+	ActionInterval* scale_down = EaseBackIn::create(ScaleTo::create(0.25f, 0.0f));
+	ActionInstant* remove_self = RemoveSelf::create(true);
+	life_sprite->runAction(Sequence::createWithTwoActions(scale_down, remove_self));
 }
 
 bool GameWorld::onTouchBegan(const std::vector<Touch*>& touches, Event* evt)
 {
-	CCTouch* touch = (CCTouch*) touches.at(0);
-	CCPoint touch_point = touch->getLocationInView();
-	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*) touches.at(0);
+	Point touch_point = touch->getLocationInView();
+	touch_point = Director::getInstance()->convertToGL(touch_point);
 
 	HandleTouch(touch_point, true);
 
@@ -587,46 +587,46 @@ bool GameWorld::onTouchBegan(const std::vector<Touch*>& touches, Event* evt)
 
 void GameWorld::onTouchMoved(const std::vector<Touch*>& touches, Event* evt)
 {
-	CCTouch* touch = (CCTouch*) touches.at(0);
-	CCPoint touch_point = touch->getLocationInView();
-	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*) touches.at(0);
+	Point touch_point = touch->getLocationInView();
+	touch_point = Director::getInstance()->convertToGL(touch_point);
 
 	HandleTouch(touch_point, true);
 }
 
 void GameWorld::onTouchEnded(const std::vector<Touch*>& touches, Event* evt)
 {
-	CCTouch* touch = (CCTouch*) touches.at(0);
-	CCPoint touch_point = touch->getLocationInView();
-	touch_point = CCDirector::sharedDirector()->convertToGL(touch_point);
+	Touch* touch = (Touch*) touches.at(0);
+	Point touch_point = touch->getLocationInView();
+	touch_point = Director::getInstance()->convertToGL(touch_point);
 
 	HandleTouch(touch_point, false);
 }
 
-void GameWorld::HandleTouch(CCPoint touch_point, bool is_touching)
+void GameWorld::HandleTouch(Point touch_point, bool is_touching)
 {
-	is_left_arrow_pressed_ = left_arrow_btn_->boundingBox().containsPoint(touch_point) & is_touching;
-	is_right_arrow_pressed_ = right_arrow_btn_->boundingBox().containsPoint(touch_point) & is_touching;
-	is_jump_pressed_ = jump_btn_->boundingBox().containsPoint(touch_point) & is_touching;
-	is_swing_pressed_ = swing_btn_->boundingBox().containsPoint(touch_point) & is_touching;
+	is_left_arrow_pressed_ = left_arrow_btn_->getBoundingBox().containsPoint(touch_point) & is_touching;
+	is_right_arrow_pressed_ = right_arrow_btn_->getBoundingBox().containsPoint(touch_point) & is_touching;
+	is_jump_pressed_ = jump_btn_->getBoundingBox().containsPoint(touch_point) & is_touching;
+	is_swing_pressed_ = swing_btn_->getBoundingBox().containsPoint(touch_point) & is_touching;
 }
 
-void GameWorld::OnPauseClicked(CCObject* sender)
+void GameWorld::OnPauseClicked(Ref* sender)
 {
 	// this prevents multiple pause popups
 	if(is_popup_active_)
 		return;
 
 	// pause GameWorld update
-	pauseSchedulerAndActions();
+	pause();
 	// setTouchEnabled(false);
 	_eventDispatcher->removeEventListener(this->touchListener);
 	
 	// pause game elements here
-	hero_->pauseSchedulerAndActions();
+	hero_->pause();
 	for(int i = 0; i < num_enemies_; ++i)
 	{
-		enemies_[i]->pauseSchedulerAndActions();
+		enemies_[i]->pause();
 	}
 
 	// create & add the pause popup
@@ -639,15 +639,15 @@ void GameWorld::ResumeGame()
 	is_popup_active_ = false;
 
 	// resume GameWorld update
-	resumeSchedulerAndActions();
-	setTouchEnabled(true);
+	resume();
+	// setTouchEnabled(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(this->touchListener, this);
 
 	// resume game elements here
-	hero_->resumeSchedulerAndActions();
+	hero_->resume();
 	for(int i = 0; i < num_enemies_; ++i)
 	{
-		enemies_[i]->resumeSchedulerAndActions();
+		enemies_[i]->resume();
 	}
 }
 
@@ -656,7 +656,7 @@ void GameWorld::LevelComplete()
 	is_popup_active_ = true;
 
 	// stop GameWorld update
-	unscheduleAllSelectors();
+	unscheduleAllCallbacks();
 	// setTouchEnabled(false);
 	_eventDispatcher->removeEventListener(this->touchListener);
 
@@ -677,7 +677,7 @@ void GameWorld::GameOver()
 	is_popup_active_ = true;
 
 	// stop GameWorld update
-	unscheduleAllSelectors();
+	unscheduleAllCallbacks();
 	// setTouchEnabled(false);
 	_eventDispatcher->removeEventListener(this->touchListener);
 
