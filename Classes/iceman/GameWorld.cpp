@@ -56,6 +56,7 @@ bool GameWorld::init()
 
 void GameWorld::CreateGame()
 {
+	log("GameWorld::CreateGame");
 	LayerColor* bg = LayerColor::create(Color4B(25, 49, 69, 255));
 	addChild(bg);
 
@@ -78,11 +79,12 @@ void GameWorld::CreateGame()
 
 void GameWorld::CreateTiledMap()
 {
+	log("GameWorld::CreateTiledMap");
 	// generate level filename
-	char buf[128] = {0};
-	sprintf(buf, "level_%02d.tmx", GameGlobals::level_number_);
+	auto buf = String::createWithFormat("level_%02d.tmx", GameGlobals::level_number_);
+
 	// create & add the tiled map
-	tiled_map_ = TMXTiledMap::create(buf);
+	tiled_map_ = TMXTiledMap::create(buf->getCString());
 	addChild(tiled_map_);
 
 	// get the size of the tiled map
@@ -130,6 +132,7 @@ void GameWorld::CreateTiledMap()
 
 void GameWorld::CreateHero(Point position)
 {
+	log("GameWorld::CreateHero");
 	// create the Hero at the given position
 	hero_ = Hero::create(this);
 	hero_->setPosition(Vec2(position.x + hero_->getContentSize().width * 0.5f, position.y + hero_->getContentSize().height * 0.5f));
@@ -140,6 +143,7 @@ void GameWorld::CreateHero(Point position)
 
 void GameWorld::CreateEnemy(Point position, Point speed)
 {
+	log("GameWorld::CreateEnemy");
 	// create the Enemy at the given position
 	Enemy* enemy = Enemy::create(this);
 	enemy->setPosition(Vec2(position.x + enemy->getContentSize().width * 0.5f, position.y + enemy->getContentSize().height * 0.5f));
@@ -154,6 +158,7 @@ void GameWorld::CreateEnemy(Point position, Point speed)
 
 void GameWorld::CreatePlatform(Point position, Point speed)
 {
+	log("GameWorld::CreatePlatform");
 	// create the Platform at the given position
 	Platform* platform = Platform::create(this, "moving_platform.png");
 	platform->setPosition(Vec2(position.x + platform->getContentSize().width * 0.5f, position.y + platform->getContentSize().height * 0.5f));
@@ -168,6 +173,7 @@ void GameWorld::CreatePlatform(Point position, Point speed)
 
 void GameWorld::CreateControls()
 {
+	log("GameWorld::CreateControls");
 	// create the control sprites
 	left_arrow_btn_ = Sprite::create("left_arrow.png");
 	right_arrow_btn_ = Sprite::create("right_arrow.png");
@@ -189,6 +195,7 @@ void GameWorld::CreateControls()
 
 void GameWorld::CreateHUD()
 {
+	log("GameWorld::CreateHUD");
 	// create & add the pause button's menu
 	Menu* menu = Menu::create();
 	menu->setAnchorPoint(Point::ZERO);

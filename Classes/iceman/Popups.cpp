@@ -64,7 +64,9 @@ MenuItemSprite* Popup::AddSpriteButton(const char* frame_name, Point position, S
 
 void Popup::ResumeGame(Ref* sender)
 {
+	log("Popup::ResumeGame A");
 	game_world_->ResumeGame();
+	log("Popup::ResumeGame B");
 	runAction(Sequence::createWithTwoActions(EaseBackIn::create(ScaleTo::create(0.25f, 0.0f)), RemoveSelf::create(true)));
 }
 

@@ -19,7 +19,7 @@ bool MainMenu::init()
 	LayerColor* bg = LayerColor::create(Color4B(25, 49, 69, 255));
 	addChild(bg);
 
-	TMXTiledMap* tiled_map = TMXTiledMap::create("level_01.tmx");
+	TMXTiledMap* tiled_map = TMXTiledMap::create("level_02.tmx");
 	addChild(tiled_map);
 
 	Sprite* title = Sprite::create("title.png");
